@@ -12,7 +12,7 @@ module.exports = {
          */
 
         /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-        '../templates/**/*.html',
+        '../templates/**/*.{html,js}',
 
         /*
          * Main templates directory of the project (BASE_DIR/templates).
@@ -40,9 +40,17 @@ module.exports = {
          * and make sure the pattern below matches your project structure.
          */
         // '../../**/*.py'
+
+        './node_modules/flowbite/**/*.js'
+
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                primaryBlue: '#242565',
+                secondaryOrange: '#FF7F3E',
+              },
+        },
     },
     plugins: [
         /**
@@ -53,5 +61,8 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
+
+        require('flowbite/plugin'),
+
     ],
 }
