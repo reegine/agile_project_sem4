@@ -1319,6 +1319,10 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 0.5rem;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .mt-24 {
   margin-top: 6rem;
 }
@@ -1857,6 +1861,10 @@ input[type="range"]::-ms-fill-lower {
 
 .bg-opacity-65 {
   --tw-bg-opacity: 0.65;
+}
+
+.bg-\[url\(\'\/static\/background\/bg_aboutus\.png\'\)\] {
+  background-image: url('/static/background/bg_aboutus.png');
 }
 
 .bg-\[url\(\'\/static\/background\/bg_contactus2\.png\'\)\] {
