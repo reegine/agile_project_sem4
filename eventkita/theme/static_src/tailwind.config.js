@@ -49,7 +49,18 @@ module.exports = {
             colors: {
                 primaryBlue: '#242565',
                 secondaryOrange: '#FF7F3E',
+                creamBg: '#fef6e9',
               },
+            lineHeight: {
+            '0.1': '0.1',
+            '0.2': '0.3',
+            '0.3': '0.3',
+            '0.4': '0.4',
+            '0.5': '0.5',
+            '0.6': '0.6',
+            '0.7': '0.7',
+            '0.8': '0.8',
+            },
         },
     },
     plugins: [

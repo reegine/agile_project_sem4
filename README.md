@@ -10,3 +10,7 @@ EventKita merupakan website untuk melihat event di daerah BSD. Pembuatan website
 - kita code di dlm folder app/templates 
 - yang folder theme biarin aja
 - kita pake tailwind yaaa
+
+# Adding Flowbite
+- coba run "npx tailwindcss --version" kalo error / not foun, run "npm install tailwindcss"
+- kalo udh, run "npm install flowbite"
