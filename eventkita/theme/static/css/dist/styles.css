@@ -1434,6 +1434,10 @@ input[type="range"]::-ms-fill-lower {
   margin-inline-start: 0.75rem;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .block {
   display: block;
 }
@@ -1947,6 +1951,10 @@ input[type="range"]::-ms-fill-lower {
   background-image: url('/static/background/bg_contactus2.png');
 }
 
+.bg-\[url\(\'\/static\/background\/bg_aboutus\.png\'\)\] {
+  background-image: url('/static/background/bg_aboutus.png');
+}
+
 .bg-cover {
   background-size: cover;
 }
@@ -2077,6 +2085,10 @@ input[type="range"]::-ms-fill-lower {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pt-3 {
+  padding-top: 0.75rem;
 }
 
 .text-center {
