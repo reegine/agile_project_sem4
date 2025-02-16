@@ -55,8 +55,10 @@
             </div>
           </li>
           <li>
-            <!-- <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button> -->
-            <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
+            <div class="card" style="cursor: pointer;" data-href="{% url 'login' %}">
+                <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+            </div>
+            <!-- <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
                 <div class="flex flex-col">
                     <span class="text-xs font-semibold text-gray-100">Username</span>
                     <span class="text-xs text-gray-400">Set up profile...</span>
@@ -64,7 +66,7 @@
                 <div class="w-7 h-7">
                     <img src="{% static 'default_images/profile.png' %}" alt="User  Profile" class="w-full h-full rounded-full object-cover">
                 </div>
-            </button>
+            </button> -->
           </li>
     
         </ul>
