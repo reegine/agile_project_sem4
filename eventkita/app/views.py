@@ -23,3 +23,9 @@ def detail_page(request):
 
 def detail_page_free(request):
     return render(request, 'detail_page_free.html')
+
+def register_view(request):
+    return render(request, 'register.html')
+
+def finishsignup_view(request):
+    return render(request, 'finishsignup.html')
