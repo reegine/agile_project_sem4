@@ -72,16 +72,43 @@
     </section>
 
 
-    <section class="bg-center bg-cover h-[40rem] bg-no-repeat bg-[url('/static/background/bg_aboutus.png')] bg-primaryBlue">
+    <section class="bg-center bg-cover h-[10rem] md:h-[20rem] lg:h-[40rem] bg-no-repeat bg-[url('/static/background/bg_aboutus.png')] bg-primaryBlue">
 
     </section>
 
 
-    <section class="bg-primaryBlue text-center items-center">
+    <section class="bg-primaryBlue flex flex-col items-center justify-center text-center pb-10 md:pb-24 lg:pb-36">
         <div class="mx-auto max-w-screen-xl p-5">
-            <h1 class="mt-20 mb-4 text-1xl font-extrabold leading-none tracking-tight text-white md:text-2xl lg:text-3xl dark:text-white">Tentang Kami</h1>
-            <img src="{% static 'background/bg_aboutus2.png'%}" alt="">
+            <h1 class="mt-10 md:mt-10 lg:mt-20 mb-4 text-2xl font-extrabold leading-none tracking-tight text-white md:text-4xl lg:text-5xl dark:text-white">Tentang Kami</h1>
+            <img class="w-36 md:w-48 lg:w-96" src="{% static 'background/bg_aboutus2.png' %}" alt="">
+        </div>
+        <div class="mx-auto p-10 max-w-screen-xl grid grid-cols-1 md:grid-cols-2 items-center">
+            <div class="flex flex-col">
+                <img class="md:mt-5 lg:mt-2 w-36" src="{% static 'logo/Logo_large.png' %}" alt="">
+                <p class="mt-2 text-white text-lg text-start">
+                    Platform terbaik untuk menemukan event favoritmu! Kami hadir untuk memudahkan kamu mengakses berbagai acara menarik, mulai dari expo, bazar, workshop, konferensi, hingga konser musik. Dengan sistem pemesanan yang cepat, aman, dan praktis, kami memastikan pengalaman terbaik dalam mendapatkan tiket event impianmu.
+                </p>
+            </div>
+            
+            <div class="flex justify-center">
+                <img class="md:mt-5 lg:mt-2 w-48 lg:w-96" src="{% static 'default_images/about_us/aboutus1.png' %}" alt="">
+            </div>
 
+            <div class="mt-16 md:mt-20 flex justify-center hidden md:block">
+                <img class="w-48 lg:w-96" src="{% static 'default_images/about_us/aboutus2.png' %}" alt="">
+            </div>
+
+            <div class="mt-16 md:mt-20 flex flex-col">
+                <h1 class="text-4xl text-white text-end">Apa Misi Kami</h1>
+                <p class="mt-2 text-white text-lg text-end">
+                    Memudahkan akses ke berbagai event dengan menyediakan platform yang praktis dan aman untuk pembelian tiket. Kami berkomitmen untuk menghubungkan pengguna dengan pengalaman terbaik, mendukung penyelenggara event dalam menjangkau lebih banyak audiens, serta meningkatkan kenyamanan pengguna dengan layanan yang cepat, transparan, dan tanpa ribet. Dengan EventKita, setiap event impian kini hanya dalam satu genggaman!
+                </p>
+            </div>
+
+            <div class="mt-16 md:mt-20 flex justify-center md:hidden">
+                <img class="w-48 lg:w-96" src="{% static 'default_images/about_us/aboutus2.png' %}" alt="">
+            </div>
+            
         </div>
     </section>
 
