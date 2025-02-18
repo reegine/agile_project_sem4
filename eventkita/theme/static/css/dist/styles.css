@@ -1231,14 +1231,6 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 0px;
 }
 
-.-mb-px {
-  margin-bottom: -1px;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1365,26 +1357,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
-.-mb-px {
-  margin-bottom: -1px;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mt-0 {
-  margin-top: 0px;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
 }
 
 .block {
