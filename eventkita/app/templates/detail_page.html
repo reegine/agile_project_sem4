@@ -191,7 +191,9 @@
         <!-- Price and Button Row -->
         <div class="flex justify-between items-center px-4 pt-2">
             <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            </div>
         </div>
 
         <div class="ps-4 pb-4">
@@ -227,7 +229,9 @@
         <!-- Price and Button Row -->
         <div class="flex justify-between items-center px-4 pt-2">
             <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            </div>
         </div>
 
         <div class="ps-4 pb-4">
@@ -263,7 +267,9 @@
         <!-- Price and Button Row -->
         <div class="flex justify-between items-center px-4 pt-2">
             <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
+            </div>
         </div>
 
         <div class="ps-4 pb-4">
@@ -290,5 +296,15 @@
             icon.classList.add('fa-regular');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.payment');
+        cards.forEach(function(card) { 
+            card.addEventListener('click', function() {
+                const href = card.getAttribute('data-href');
+                window.location.href = href; 
+            });
+        });
+    });
 </script>
 {% endblock %}

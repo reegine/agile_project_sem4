@@ -1327,12 +1327,12 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 3.5rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
+.mt-16 {
+  margin-top: 4rem;
 }
 
-.mt-20 {
-  margin-top: 5rem;
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-24 {
@@ -1357,10 +1357,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
 }
 
 .block {
@@ -1435,6 +1431,10 @@ input[type="range"]::-ms-fill-lower {
   height: 24rem;
 }
 
+.h-\[10rem\] {
+  height: 10rem;
+}
+
 .h-\[40rem\] {
   height: 40rem;
 }
@@ -1449,10 +1449,6 @@ input[type="range"]::-ms-fill-lower {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[10rem\] {
-  height: 10rem;
 }
 
 .min-h-screen {
@@ -1483,12 +1479,20 @@ input[type="range"]::-ms-fill-lower {
   width: 0.75rem;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
 .w-4 {
   width: 1rem;
 }
 
 .w-44 {
   width: 11rem;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .w-5 {
@@ -1517,26 +1521,6 @@ input[type="range"]::-ms-fill-lower {
 
 .w-full {
   width: 100%;
-}
-
-.w-40 {
-  width: 10rem;
-}
-
-.w-52 {
-  width: 13rem;
-}
-
-.w-72 {
-  width: 18rem;
-}
-
-.w-36 {
-  width: 9rem;
-}
-
-.w-48 {
-  width: 12rem;
 }
 
 .max-w-6xl {
@@ -1629,10 +1613,6 @@ input[type="range"]::-ms-fill-lower {
 
 .justify-start {
   justify-content: flex-start;
-}
-
-.justify-end {
-  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1954,6 +1934,10 @@ input[type="range"]::-ms-fill-lower {
      object-fit: cover;
 }
 
+.p-10 {
+  padding: 2.5rem;
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -1980,10 +1964,6 @@ input[type="range"]::-ms-fill-lower {
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-10 {
-  padding: 2.5rem;
 }
 
 .px-10 {
@@ -2040,6 +2020,10 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 0.25rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -2058,26 +2042,6 @@ input[type="range"]::-ms-fill-lower {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pb-20 {
-  padding-bottom: 5rem;
-}
-
-.pb-24 {
-  padding-bottom: 6rem;
-}
-
-.pb-44 {
-  padding-bottom: 11rem;
-}
-
-.pb-36 {
-  padding-bottom: 9rem;
-}
-
-.pb-10 {
-  padding-bottom: 2.5rem;
 }
 
 .text-left {
@@ -2490,10 +2454,6 @@ input[type="range"]::-ms-fill-lower {
     margin-inline-start: 1rem;
   }
 
-  .sm\:hidden {
-    display: none;
-  }
-
   .sm\:w-10 {
     width: 2.5rem;
   }
@@ -2656,16 +2616,12 @@ input[type="range"]::-ms-fill-lower {
     height: 20rem;
   }
 
-  .md\:w-auto {
-    width: auto;
-  }
-
   .md\:w-48 {
     width: 12rem;
   }
 
-  .md\:w-20 {
-    width: 5rem;
+  .md\:w-auto {
+    width: auto;
   }
 
   .md\:grid-cols-2 {
@@ -2720,12 +2676,12 @@ input[type="range"]::-ms-fill-lower {
     padding: 0px;
   }
 
-  .md\:pt-\[10\] {
-    padding-top: 10;
-  }
-
   .md\:pb-24 {
     padding-bottom: 6rem;
+  }
+
+  .md\:pt-\[10\] {
+    padding-top: 10;
   }
 
   .md\:text-left {
@@ -2741,19 +2697,14 @@ input[type="range"]::-ms-fill-lower {
     line-height: 2rem;
   }
 
-  .md\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
+  }
+
+  .md\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
   }
 
   .md\:text-white {
@@ -2780,12 +2731,12 @@ input[type="range"]::-ms-fill-lower {
     margin-top: 0.5rem;
   }
 
-  .lg\:mt-5 {
-    margin-top: 1.25rem;
-  }
-
   .lg\:mt-20 {
     margin-top: 5rem;
+  }
+
+  .lg\:mt-5 {
+    margin-top: 1.25rem;
   }
 
   .lg\:h-\[40rem\] {
@@ -2794,14 +2745,6 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:w-96 {
     width: 24rem;
-  }
-
-  .lg\:w-36 {
-    width: 9rem;
-  }
-
-  .lg\:w-64 {
-    width: 16rem;
   }
 
   .lg\:py-32 {
@@ -2818,6 +2761,11 @@ input[type="range"]::-ms-fill-lower {
     line-height: 2.25rem;
   }
 
+  .lg\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
@@ -2825,16 +2773,6 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:text-xl {
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .lg\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 }

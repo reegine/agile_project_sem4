@@ -12,5 +12,6 @@ urlpatterns = [
     path('detailpagefree/', views.detail_page_free, name='detail_page_free'), 
     path('register/', views.register_view, name='register'), 
     path('finishsignup/', views.finishsignup_view, name='finishsignup'), 
+    path('payment1/', views.payment_1, name='payment_1'), 
 
 ]
