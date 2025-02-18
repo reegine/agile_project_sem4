@@ -99,78 +99,135 @@
 
     <section class="mx-auto max-w-screen-xl px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="col-span-2">
-        <div class="shadow-xl p-4">
-          <p class="text-lg font-bold">Info Penting & Highlight</p>
-          <ul class="mt-3 ms-5 list-disc list-inside">
-            <li id="infoText" class="max-h-24 overflow-hidden transition-all duration-300">
-              Tonton langsung band terkenal asal Irlandia, The Script lewat tur mereka, THE SCRIPT SATELLITES WORLD TOUR - JAKARTA! 
-              <span id="moreText" class="hidden"> 
-                <ul class="list-disc list-inside">
-                  <li>
-                    Test Isi satu
-                  </li>
-                  <li>
-                    Test Isi satu
-                  </li>
-                </ul>
-              </span>
-            </li>
-          </ul>
-          <button id="readMoreBtn" class="mt-2 text-blue-500 hover:underline focus:outline-none">
-            Read More
-          </button>
-        </div>
-
-        <div class="mt-10">
-          <h1 class="text-lg font-semibold leading-none tracking-tight text-primaryBlue md:text-1xl lg:text-2xl dark:text-white">Jumlah Pesanan</h1>
-          <div class="bg-primaryBlue rounded-lg p-6 mt-5">
-            <div class="border-2 border-white rounded-xl p-2 grid grid-cols-5 md:grid-cols-4 gap-4">
-              <div class="ms-3 col-span-2 md:col-span-2 flex items-center text-white">
-                <h2 class="text-xl font-bold">Pax</h2>
-              </div>
-              
-              <div class="col-span-2 md:col-span-1 flex justify-end items-center">
-                <span class="text-secondaryOrange text-lg font-semibold">IDR 660.000 / pax</span>
-              </div>
         
-              <div class="col-span-1 flex justify-end items-center">
-                <button id="decrementBtn" class="border-2 border-white rounded-lg w-10 h-10 flex items-center justify-center mr-2" style="display: none;">
-                  <span class="text-white text-lg font-extrabold">-</span>
-                </button>
-                <span id="quantity" class=" text-white px-4 py-2 font-semibold">1</span>
-                <button id="incrementBtn" class="border-2 border-white rounded-lg w-10 h-10 flex items-center justify-center ml-2">
-                  <span class="text-white text-lg font-extrabold">+</span>
-                </button>
+        <div class="grid grid-cols-3">
+          <!-- First Column (2/3 width) -->
+          <div class="col-span-2 p-4 text-primaryBlue justify-start">
+            <h1 class="text-3xl font-bold">Checkout</h1>
+          </div>
+        
+          <!-- Second Column (1/3 width) -->
+          <div class="col-span-1 p-4 items-center justify-center text-center">
+            <h2 class="text-lg font-bold text-secondaryOrange">Bayar Sebelum</h2>
+            <div class="border-4 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block">
+              <div class="grid grid-cols-3">
+                <div class="text-center">
+                  <span id="minutes" class="text-3xl font-bold text-secondaryOrange">10</span>
+                  <p class="text-sm text-secondaryOrange">Menit</p>
+                </div>  
+                <div class="text-center">
+                  <span class="text-3xl font-bold text-secondaryOrange">:</span>
+                </div>
+                <div class="text-center">
+                  <span id="seconds" class="text-3xl font-bold text-secondaryOrange">00</span>
+                  <p class="text-sm text-secondaryOrange">Detik</p>
+                </div>
               </div>
-
             </div>
+        
           </div>
+
+      
         </div>
 
-        <div class="mt-10">
-          <h1 class="text-lg font-semibold leading-none tracking-tight text-primaryBlue md:text-1xl lg:text-2xl dark:text-white">Detail Pemesan</h1>
-          <p class="mt-3 text-gray-700 text-base">Isi formulir dengan benar karena e-tiket akan dikirim melalui email</p>
-          <div class="mt-5 bg-primaryBlue px-4 py-7 rounded-lg">
-            <div class="flex flex-col space-y-4">
-              <input id="namaLengkap" type="text" placeholder="Nama Lengkap" class="bg-transparent border border-white rounded-lg p-3 text-white" required />
-              <input id="nomorPonsel" type="text" placeholder="Nomor Ponsel : +62..." class="bg-transparent border border-white rounded-lg p-3 text-white" required />
-              <input id="nomorKTP" type="text" placeholder="Nomor KTP" class="bg-transparent border border-white rounded-lg p-3 text-white" required />
-              <input id="emailPribadi" type="email" placeholder="Email Pribadi" class="bg-transparent border border-white rounded-lg p-3 text-white" required />
+        <div class="mt-4 px-7 py-6 rounded-lg border-2 border-primaryBlue">
+          <!-- First Row -->
+          <div class="grid grid-cols-3">
+            <div class="col-span-2">
+              <h2 class="text-xl font-bold text-primaryBlue">Informasi Transaksi</h2>
             </div>
-          </div>
-        </div>
-
-        <div class="mt-10 bg-primaryBlue rounded-lg p-6">
-          <div class="flex justify-between items-center">
-            <div class="text-white text-lg font-bold">Total Pembayaran</div>
-            <div id="totalPrice" class="text-white text-lg font-bold text-right">IDR 660.000</div>
-          </div>
-          <hr class="my-4 border-white" />
-          <div class="flex justify-end">
-            <a href="{% url 'payment_2' %}" class="bg-orange-500 text-white rounded-lg px-4 py-2 inline-block text-center">
-              Lakukan Pembayaran
+            <a href="{% url 'payment_1' %}" class="col-span-1 flex items-center justify-center border-2 border-primaryBlue rounded-lg bg-white hover:bg-red-600 hover:text-red transition">
+              <div class="p-2 flex items-center">
+                <i class="fa-solid fa-xmark mr-3"></i> <!-- Use 'mr-3' for margin-right -->
+                <span class="">Gagalkan Transaksi</span>
+              </div>
             </a>
           </div>
+        
+          <!-- Second Row -->
+          <div class="grid grid-cols-1 md:grid-cols-3 mt-7 text-start justify-items-stretch gap-6">
+            <div class="flex flex-col h-full border-r-4 border-gray-500">
+              <h3 class="text-lg font-semibold text-primaryBlue">Nama Lengkap</h3>
+              <p class="text-sm text-secondaryOrange font-bold">John Doe</p>
+            </div>
+            <div class="flex flex-col h-full border-r-4 border-gray-500 ">
+              <h3 class="text-lg font-semibold text-primaryBlue">Email</h3>
+              <p class="text-sm text-secondaryOrange font-bold">example123@gmail.com</p>
+            </div>
+            <div class="flex flex-col h-full">
+              <h3 class="text-lg font-semibold text-primaryBlue">Nomor Telepon</h3>
+              <p class="text-sm text-secondaryOrange font-bold">0812-3456-789</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 px-7 py-6 rounded-lg border-2 border-primaryBlue">
+
+          <!-- First Row -->
+          <div class="">
+            <div class="flex flex-col">
+              <h2 class="text-xl font-bold text-primaryBlue">Payment Detail</h2>
+            </div>
+          </div>
+
+          <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <!-- First Column (col-span-2) -->
+            <div class="col-span-1 flex items-center">
+                <div class="flex items-center">
+                  <img src="https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-BCA-PNG.png" alt="BCA Logo" class="ml-2 w-10 me-3">
+                    <span class="text-base font-semibold">Virtual Account</span>
+                </div>
+            </div>
+    
+            <!-- Second Column (col-span-3) -->
+            <div class="col-span-3 flex items-center">
+                <div class="border-2 border-primaryBlue rounded-lg p-2 flex items-center justify-between w-full">
+                    <span class="w-2/3 text-lg font-bold">780 1234 5678 9999</span>
+                    <!-- <img src="https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-BCA-PNG.png" alt="BCA Logo" class="ml-2 w-16"> -->
+                    <button id="copyButton" class="bg-primaryBlue text-white rounded px-2 py-1 ml-2 w-1/3">
+                        Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+          
+        </div>
+
+        <h2 class="mt-10 text-2xl font-bold text-primaryBlue">Cara Membayar</h2>
+
+        <div class="mt-8 px-7 py-6 rounded-lg border-2 border-primaryBlue">
+          <h2 class="text-xl font-bold text-primaryBlue">Transfer Melalui Virtual Account</h2>
+          <p>Membayar melalui langkah langkah berikut:</p>
+            <ol class="ps-5 mt-1 space-y-1 list-decimal list-inside">
+              <li>
+                Input kartu ATM dan PIN anda
+              </li>
+              <li>
+                Pilih Menu Transaksi Lainnya
+              </li>
+              <li>
+                Pilih Transfer
+              </li>
+              <li>
+                Pilih Ke rekening BCA Virtual Account
+              </li>
+              <li>
+                Input Nomor Virtual Account, yaitu 7080 1234 5678 9999
+              </li>
+              <li>
+                Pilih Benar 
+              </li>
+              <li>
+                Pilih Ya
+              </li>
+              <li>
+                Ambil  bukti bayar anda
+              </li>
+              <li>
+                Selesai
+              </li>
+            </ol>
         </div>
 
       </div>
@@ -216,9 +273,18 @@
           </div>
         </div>
         
-        <img class="h-auto max-w-full mt-8" src="{% static 'default_images/payment/payment1.png' %}" alt="image description">
-
+        <img class="h-auto max-w-full mt-8" src="{% static 'default_images/payment/payment2.png' %}" alt="image description">
         
+        <div class="mt-5 max-w-md mx-auto">
+          <div class="border-b border-gray-300 mb-4"></div>
+  
+          <h2 class="text-xl font-bold text-start mb-4">Status Pembayaran</h2>
+  
+          <a href="{% url 'payment_3' %}" class="flex items-center justify-center bg-primaryBlue text-white rounded-lg px-4 py-4 hover:bg-blue-700 transition w-full">
+            <i class="fa-solid fa-lock mr-2"></i>
+            <span>Cek Status Pembayaran</span>
+          </a>
+      </div>
 
       </div>
 
@@ -234,74 +300,39 @@
     
     {% block javascript %}
     <script>
-      const readMoreBtn = document.getElementById('readMoreBtn');
-      const infoText = document.getElementById('infoText');
-      const moreText = document.getElementById('moreText');
-    
-      readMoreBtn.addEventListener('click', () => {
-        if (moreText.classList.contains('hidden')) {
-          moreText.classList.remove('hidden');
-          infoText.classList.remove('max-h-24');
-          readMoreBtn.textContent = 'Read Less';
-        } else {
-          moreText.classList.add('hidden');
-          infoText.classList.add('max-h-24');
-          readMoreBtn.textContent = 'Read More';
+        // Set the countdown time in seconds (10 minutes)
+        let countdownTime = 10 * 60; // 10 minutes in seconds
+
+      // Update the countdown every second
+      const countdownInterval = setInterval(() => {
+        // Calculate minutes and seconds
+        const minutes = Math.floor(countdownTime / 60);
+        const seconds = countdownTime % 60;
+
+        // Update the HTML elements
+        document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+
+        // Decrease the countdown time
+        countdownTime--;
+
+        // Stop the countdown when it reaches zero
+        if (countdownTime < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          alert("Waktu habis!"); // Optional: Alert when time is up
         }
-      });
+      }, 1000);
 
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const incrementBtn = document.getElementById('incrementBtn');
-        const decrementBtn = document.getElementById('decrementBtn');
-        const quantityDisplay = document.getElementById('quantity');
-        const totalPriceDisplay = document.getElementById('totalPrice'); 
-        const totalPriceDisplay2 = document.getElementById('totalPrice2');
-        const paymentButton = document.querySelector('.bg-orange-500');
-
-        const pricePerPax = 660000; // Price per pax
-        let quantity = 1;
-
-        function updateTotalPrice() {
-          const totalPrice = pricePerPax * quantity;
-          totalPriceDisplay.textContent = `IDR ${totalPrice.toLocaleString()}`;
-          totalPriceDisplay2.textContent = `IDR ${totalPrice.toLocaleString()}`; 
-        }
-
-        incrementBtn.addEventListener('click', () => {
-          quantity++;
-          quantityDisplay.textContent = quantity;
-          decrementBtn.style.display = 'inline-block'; 
-          updateTotalPrice(); 
+      document.getElementById('copyButton').addEventListener('click', function() {
+            const textToCopy = "780 1234 5678 9999";
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Copied to clipboard: " + textToCopy);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         });
-
-        decrementBtn.addEventListener('click', () => {
-          if (quantity > 1) {
-            quantity--;
-            quantityDisplay.textContent = quantity;
-            updateTotalPrice(); 
-          }
-          if (quantity === 1) {
-            decrementBtn.style.display = 'none'; 
-          }
-        });
-
-        paymentButton.addEventListener('click', (event) => {
-          const namaLengkap = document.getElementById('namaLengkap').value;
-          const nomorPonsel = document.getElementById('nomorPonsel').value;
-          const nomorKTP = document.getElementById('nomorKTP').value;
-          const emailPribadi = document.getElementById('emailPribadi').value;
-
-          if (!namaLengkap || !nomorPonsel || !nomorKTP || !emailPribadi) {
-            event.preventDefault(); 
-            alert('Please fill in all fields before proceeding to payment.');
-          } else {
-            console.log('All fields are filled. Proceeding to payment...');
-          }
-        });
-
-        updateTotalPrice();
-      });
 
     </script>
     {% endblock %}
