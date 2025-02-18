@@ -32,3 +32,9 @@ def finishsignup_view(request):
 
 def payment_1(request):
     return render(request, 'payment_1.html')
+
+def profile_view(request):
+    return render(request, 'profile.html')
+
+def editprofile_view(request):
+    return render(request, 'editprofile.html')
