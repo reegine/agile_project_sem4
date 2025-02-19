@@ -3,6 +3,10 @@
 
 {% block title %}EventKita | Detail Acara{% endblock %}
 
+{% block head %} 
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/qrious.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 
@@ -102,12 +106,38 @@
         
         <h1 class="text-3xl font-bold">Informasi Tiket</h1>
         
+        <div class="bg-primaryBlue p-10 justify-items-start rounded-lg mt-6">
+          <div class="flex items-center mb-4">
+            <img src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="Event Image" class="rounded-lg w-56 mr-3" />
+            <h2 class="text-white text-2xl font-bold">The Script Satellites World Tour - Jakarta</h2>
+          </div>
+          <div class="grid grid-cols-3">
+
+            <div class="col-span-2">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Lokasi</h2>
+              <p class="text-lg text-white font-semibold">
+                Indonesia Convention Exhibition (ICE) BSD
+              </p>
+            </div>
+
+            <div class="col-span-1">
+
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <canvas id="qrcode"></canvas>
+              </div>
+
+            </div>
+
+          </div>
+          
+        </div>
       </div>
 
 
       <div class="col-span-1 justify-items-center">
         
         <img class="h-auto max-w-full mt-8" src="{% static 'default_images/payment/payment3.png' %}" alt="image description">
+        
         
       </div>
 
@@ -157,5 +187,15 @@
             });
         });
 
+        document.addEventListener("DOMContentLoaded", function() {
+            var qrValue = "{{ qr_data|default:'https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg' }}";  
+            var qr = new QRious({
+                element: document.getElementById('qrcode'),
+                value: qrValue,
+                size: 200
+            });
+        });
+
     </script>
+
     {% endblock %}
