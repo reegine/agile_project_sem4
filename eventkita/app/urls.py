@@ -19,5 +19,7 @@ urlpatterns = [
     path('detailpage/payment1/payment2/payment3/', views.payment_3, name='payment_3'), 
     path('saved/', views.saved_view, name='saved'), 
     path('notifikasi/', views.notifikasi, name='notifikasi'), 
+    path('calendar/', views.calendar, name='calendar'), 
+
 
 ]

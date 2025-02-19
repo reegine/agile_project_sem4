@@ -50,6 +50,7 @@ module.exports = {
                 primaryBlue: '#242565',
                 secondaryOrange: '#FF7F3E',
                 creamBg: '#fef6e9',
+                lightOrange:'#FFF5F0',
               },
             lineHeight: {
             '0.1': '0.1',

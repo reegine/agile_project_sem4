@@ -9,7 +9,6 @@
 
 {% block content %}
 
-
     <!-- Navigation Bar -->
     <nav class="bg-primaryBlue border-gray-200 dark:bg-gray-900 dark:border-gray-700">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -28,7 +27,7 @@
             <a href="{% url 'home' %}" class="block py-2 px-3 text-white rounded-sm bg-primaryBlue md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">Beranda</a>
           </li>
           <li  class="md:pt-[10]">
-            <a href="#" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kalender</a>
+            <a href="{% url 'calendar' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kalender</a>
           </li>
           <li class="md:pt-[10]">
             <a href="{% url 'about_us' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tentang Kita</a>
@@ -76,10 +75,55 @@
     </div>
     </nav>
 
-    <section class="bg-primaryBlue py-10">
+    <section class="bg-white py-10">
       <div class="mx-auto max-w-screen-xl justify-center px-10">           
+        <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Notifikasi</h1>
         
+        <div class="bg-white rounded-md shadow-md p-4">
 
+            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
+                <div class="col-span-1 justify-items-center">
+                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
+                </div>
+                <div class="col-span-4">
+                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
+                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
+                </div>
+            </div>
+    
+            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
+                <div class="col-span-1 justify-items-center">
+                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
+                </div>
+                <div class="col-span-4">
+                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
+                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
+                </div>
+            </div>
+    
+            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
+                <div class="col-span-1 justify-items-center">
+                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
+                </div>
+                <div class="col-span-4">
+                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
+                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
+                </div>
+            </div>
+    
+            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
+                <div class="col-span-1 justify-items-center">
+                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
+                </div>
+                <div class="col-span-4">
+                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
+                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
+                </div>
+            </div>
+    
+
+        </div>
+        
       </div>
     </section>
 

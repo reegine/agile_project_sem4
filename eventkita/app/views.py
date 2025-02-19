@@ -50,3 +50,6 @@ def saved_view(request):
 
 def notifikasi(request):
     return render(request, 'notifikasi.html')
+
+def calendar(request):
+    return render(request, 'calendar.html')
