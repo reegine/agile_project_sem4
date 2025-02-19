@@ -47,3 +47,6 @@ def editprofile_view(request):
 
 def saved_view(request):
     return render(request, 'saved.html')
+
+def notifikasi(request):
+    return render(request, 'notifikasi.html')
