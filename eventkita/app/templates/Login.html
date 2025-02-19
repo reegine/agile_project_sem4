@@ -71,54 +71,54 @@
     </nav>
     
 
-    <main class="flex-1 flex flex-col md:flex-row justify-center items-center px-10">
-        <!-- Left Side Illustration -->
-        <div class="hidden md:flex flex-col items-center space-y-5 mr-56 ml-24">
-            <img src="{% static 'default_images/Photos - Login.png' %}" alt="Event Illustration" class="w-96">
-        </div>
-    
-       <!-- Login Form -->
-        <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg w-full max-w-xl sm:w-11/12 mx-auto">
-            <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Get Started</h2>
-            <p class="text-sm sm:text-md text-[#242565] mb-4 opacity-55">
-                Register for events and book tickets for events you plan to attend!
-            </p>
-
-            <form method="POST" action="{% url 'login' %}" class="space-y-4">
-                {% csrf_token %}
-                <input type="email" name="email" placeholder="Your email here..." 
-                    class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-
-                <input type="password" name="password" placeholder="Password" 
-                    class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-                
-                <p class="text-xs sm:text-sm text-gray-500">
-                    By logging in, you agree to our <a href="#" class="text-[#242565] underline hover:text-blue-700">Terms & Conditions</a>.
-                </p>
-
-                <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
-                    <!-- Log in Button -->
-                    <button type="submit" 
-                        class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition">
-                        <span class="mr-4">Log in</span>
-                        <span>→</span>
-                    </button>
-
-                    <!-- Forgot Password Button (Outlined) -->
-                    <a href="{% url 'forgotpassword' %}" 
-                        class="px-4 py-2 sm:px-6 sm:py-3 border border-[#0A075F] text-[#0A075F] rounded-md font-semibold hover:bg-[#2F2F72] hover:text-white transition text-center">
-                        Forgot Password
-                    </a>
-                </div>
-
-                <div class="flex text-xs sm:text-sm mt-2 justify-center sm:justify-start">
-                    <p class="mr-2 text-gray-500">Don’t have an account yet?</p>
-                    <a href="{% url 'register' %}" class="text-[#242565] underline hover:text-blue-700">Create Account...</a>
-                </div>
-            </form>
-        </div>
-
-    </main>
+    <main class="flex-1 flex flex-col lg:flex-row justify-center items-center px-10">
+      <!-- Left Side Illustration (Only Visible on Large Screens) -->
+      <div class="hidden lg:flex flex-col items-center space-y-5 mr-56 ml-24">
+          <img src="{% static 'default_images/Photos - Login.png' %}" alt="Event Illustration" class="w-96">
+      </div>
+  
+      <!-- Login Form -->
+      <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg w-full max-w-xl sm:w-11/12 md:w-2/3 md:max-w-md lg:max-w-xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Get Started</h2>
+          <p class="text-sm sm:text-md text-[#242565] mb-4 opacity-55">
+              Register for events and book tickets for events you plan to attend!
+          </p>
+  
+          <form method="POST" action="{% url 'login' %}" class="space-y-4">
+              {% csrf_token %}
+              <input type="email" name="email" placeholder="Your email here..." 
+                  class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+  
+              <input type="password" name="password" placeholder="Password" 
+                  class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+              
+              <p class="text-xs sm:text-sm text-gray-500">
+                  By logging in, you agree to our <a href="#" class="text-[#242565] underline hover:text-blue-700">Terms & Conditions</a>.
+              </p>
+  
+              <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
+                  <!-- Log in Button -->
+                  <button type="submit" 
+                      class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition">
+                      <span class="mr-4">Log in</span>
+                      <span>→</span>
+                  </button>
+  
+                  <!-- Forgot Password Button (Outlined) -->
+                  <a href="{% url 'forgotpassword' %}" 
+                      class="px-4 py-2 sm:px-6 sm:py-3 border border-[#0A075F] text-[#0A075F] rounded-md font-semibold hover:bg-[#2F2F72] hover:text-white transition text-center">
+                      Forgot Password
+                  </a>
+              </div>
+  
+              <div class="flex text-xs sm:text-sm mt-2 justify-center sm:justify-start">
+                  <p class="mr-2 text-gray-500">Don’t have an account yet?</p>
+                  <a href="{% url 'register' %}" class="text-[#242565] underline hover:text-blue-700">Create Account...</a>
+              </div>
+          </form>
+      </div>
+  </main>
+  
     
 </div>
 
