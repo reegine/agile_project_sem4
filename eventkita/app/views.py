@@ -44,3 +44,6 @@ def profile_view(request):
 
 def editprofile_view(request):
     return render(request, 'editprofile.html')
+
+def saved_view(request):
+    return render(request, 'saved.html')
