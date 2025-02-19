@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}EventKita | Notifikasi{% endblock %}
+{% block title %}EventKita | Kalendar{% endblock %}
 
 {% block head %} 
 <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/qrious.min.js"></script>
@@ -75,17 +75,38 @@
     </div>
     </nav>
 
-    <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-5">Select a Date</h1>
-        <div class="grid grid-cols-7 gap-4">
-            <!-- Calendar Header -->
-            <div class="font-bold text-center" v-for="day in days" :key="day">{{ day }}</div>
-            <!-- Calendar Days -->
-            <div v-for="date in dates" :key="date" class="border p-4 text-center cursor-pointer hover:bg-blue-200" @click="selectDate(date)">
-                {{ date }}
+    <div class="max-w-4xl mx-auto">
+        <h1 class="mt-20 text-3xl font-bold text-orange-500 text-start">
+            BSD <span class=" text-primaryBlue">Kalender Event</span>
+        </h1>
+    
+        <div class="bg-white p-14 rounded-2xl shadow-lg mt-10">
+            <!-- Month Navigation -->
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="prevMonth()" class="text-lg font-bold px-3 py-2 bg-transparent hover:bg-gray-300 rounded-full">
+                    <
+                </button>
+                <h2 id="monthYear" class="text-xl font-semibold text-primaryBlue"></h2>
+                <button onclick="nextMonth()" class="text-lg font-bold px-3 py-2 bg-transparent hover:bg-gray-300 rounded-full">
+                    >
+                </button>
             </div>
+    
+            <!-- Week Days -->
+            <div class="grid grid-cols-7 gap-14 text-center font-semibold bg-transparent p-2 rounded-md">
+                <span class="py-2">Sun</span><span class="py-2">Mon</span><span class="py-2">Tue</span>
+                <span class="py-2">Wed</span><span class="py-2">Thu</span><span class="py-2">Fri</span><span class="py-2">Sat</span>
+            </div>
+    
+            <!-- Calendar Dates -->
+            <div id="calendar" class="grid grid-cols-7 gap-8 text-center mt-2 justify-items-center"></div>
         </div>
+    
+        <!-- Event List -->
+        <h2 class="text-xl font-bold mt-14 text-start text-primaryBlue">Event Bulan Ini</h2>
+        <div id="eventList" class="mt-4 space-y-4"></div>
     </div>
+    
 
 
 {% include 'footer.html' %}
@@ -95,5 +116,128 @@
 
 {% block javascript %}
 
+<script>
+
+    function formatDate(dateString) {
+        const months = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${day} ${month} ${year}`;
+    }
+
+    const eventDates = {
+        "2025-02-14": {
+            title: "THE SCRIPT SATELLITES WORLD TOUR - JAKARTA",
+            description: "We'll get you directly seated...",
+            img: "https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg",
+            time: "8 jam 30 menit",
+            formattedDate: formatDate("2025-02-14")
+        },
+        "2025-02-16": {
+            title: "Local Treasure: Bazar UMKM & Produk Lokal",
+            description: "Ajang bagi pelaku UMKM memperkenalkan produk lokal.",
+            img: "https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg",
+            time: "1 Hari 19 Jam",
+            formattedDate: formatDate("2025-02-16")
+        },
+        "2025-02-16": {
+            title: "Innofair 2025",
+            description: "Ajang bagi pelaku UMKM memperkenalkan produk lokal.",
+            img: "https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg",
+            time: "1 Hari 19 Jam",
+            formattedDate: formatDate("2025-02-16")
+        },
+        "2025-02-16": {
+            title: "Innofair 2025",
+            description: "Ajang bagi pelaku UMKM memperkenalkan produk lokal.",
+            img: "https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg",
+            time: "1 Hari 19 Jam",
+            formattedDate: formatDate("2025-02-16")
+        }
+    };
+
+
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    
+
+    function generateCalendar() {
+        const monthYear = document.getElementById("monthYear");
+        const calendar = document.getElementById("calendar");
+        calendar.innerHTML = "";
+
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+        monthYear.textContent = `${new Intl.DateTimeFormat('id-ID', { month: 'long' }).format(new Date(currentYear, currentMonth))} ${currentYear}`;
+
+        for (let i = 0; i < firstDay; i++) {
+            calendar.innerHTML += `<div></div>`;
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const isEvent = eventDates[dateStr];
+
+            calendar.innerHTML += `
+                <button 
+                    onclick="showEvent('${dateStr}')" 
+                    class="w-10 h-10 rounded-full ${isEvent ? 'bg-orange-400 text-white font-bold' : 'bg-gray-200'}"
+                >
+                    ${day}
+                </button>
+            `;
+        }
+    }
+
+    function showEvent(date) {
+        const eventContainer = document.getElementById("eventList");
+        eventContainer.innerHTML = "";
+
+        if (eventDates[date]) {
+            const event = eventDates[date];
+
+            eventContainer.innerHTML = `
+                <div class="bg-white rounded-lg shadow-lg flex">
+                    <img src="${event.img}" class="rounded-md w-60 h-full" alt="Event">
+                    <div class="ml-4 p-4">
+                        <p class="text-sm text-orange-500">${formatDate(date)}</p>
+                        <h3 class="font-bold">${event.title}</h3>
+                        <p class="text-sm">${event.description}</p>
+                    </div>
+                    <button class="ml-auto bg-blue-500 text-white px-4 py-2 rounded">Pesan</button>
+                </div>
+            `;
+        }
+    }
+
+    function prevMonth() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar();
+    }
+
+    function nextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar();
+    }
+
+    generateCalendar();
+</script>
 
 {% endblock %}

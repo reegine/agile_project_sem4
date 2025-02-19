@@ -21,5 +21,4 @@ urlpatterns = [
     path('notifikasi/', views.notifikasi, name='notifikasi'), 
     path('calendar/', views.calendar, name='calendar'), 
 
-
 ]
