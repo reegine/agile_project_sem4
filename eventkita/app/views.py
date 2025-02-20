@@ -44,3 +44,12 @@ def profile_view(request):
 
 def editprofile_view(request):
     return render(request, 'editprofile.html')
+
+def saved_view(request):
+    return render(request, 'saved.html')
+
+def notifikasi(request):
+    return render(request, 'notifikasi.html')
+
+def calendar(request):
+    return render(request, 'calendar.html')

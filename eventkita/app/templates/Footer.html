@@ -5,66 +5,70 @@
 
 {% block content %}
 
-    <!-- Footer Section -->
-    <footer class="bg-[#0A075F] text-white py-10">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            
-            <!-- About Section -->
-            <div class="flex flex-col items-center md:items-start ml-0 md:ml-[-100px] md:mr-40 ms: text-xs">
-                <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
+<!-- Footer Section -->
+<footer class="bg-[#0A075F] text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 text-center md:text-left">
+        
+        <!-- About Section -->
+        <div class="flex flex-col items-center md:items-start text-xs">
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
+            </a>
+            <p class="text-xs mt-2">
+                Event organizer berbasis di BSD yang berfokus pada memberikan informasi terbaru seputar berbagai event di BSD, mulai dari festival, konser, pameran, hingga seminar. Kami hadir untuk memastikan Anda tidak ketinggalan acara seru dan menarik di sekitar BSD! 🎉✨
+            </p>
+            <!-- Social Media Links -->
+            <div class="flex space-x-4 mt-4">
+                <a href="https://facebook.com" target="_blank">
+                    <img src="https://www.freeiconspng.com/uploads/facebook-png-icon-follow-us-facebook-1.png" alt="Facebook" class="h-10 w-10">
                 </a>
-                <p class="text-xs mt-2">
-                    Event organizer berbasis di BSD yang berfokus pada memberikan informasi terbaru seputar berbagai event di BSD, mulai dari festival, konser, pameran, hingga seminar. Kami hadir untuk memastikan Anda tidak ketinggalan acara seru dan menarik di sekitar BSD! 🎉✨
-                </p>
-                <!-- Social Media Links -->
-                <div class="flex space-x-4 mt-4">
-                    <a href="https://facebook.com" target="_blank">
-                        <img src="https://www.freeiconspng.com/uploads/facebook-png-icon-follow-us-facebook-1.png" alt="Facebook" class="h-10 w-10">
-                    </a>
-                    
-                    <a href="https://twitter.com" target="_blank">
-                        <img src="https://imagepng.org/wp-content/uploads/2018/08/twitter-icone.png" alt="Twitter" class="h-10 w-10">
-                    </a>
-                    <a href="https://instagram.com" target="_blank">
-                        <img src="https://static.vecteezy.com/system/resources/previews/017/743/717/large_2x/instagram-icon-logo-free-png.png" alt="Instagram" class="h-10 w-10">
-                    </a>
-                </div>
+                <a href="https://twitter.com" target="_blank">
+                    <img src="https://imagepng.org/wp-content/uploads/2018/08/twitter-icone.png" alt="Twitter" class="h-10 w-10">
+                </a>
+                <a href="https://instagram.com" target="_blank">
+                    <img src="https://static.vecteezy.com/system/resources/previews/017/743/717/large_2x/instagram-icon-logo-free-png.png" alt="Instagram" class="h-10 w-10">
+                </a>
             </div>
+        </div>
 
-            <!-- Quick Links -->
-            <div class="flex flex-col items-center md:items-start ml-0 md:ml-20">
-                <h2 class="text-lg font-bold">EventKita</h2>
-                <ul class="mt-2 space-y-2 text-sm">
-                    <li><a href="#" class="hover:underline">Tentang Kita</a></li>
-                    <li><a href="#" class="hover:underline">Hubungi Kami</a></li>
-                    <li><a href="#" class="hover:underline">Pusat Bantuan</a></li>
-                    <li><a href="#" class="hover:underline">Kebijakan & Ketentuan</a></li>
-                </ul>
-            </div>
+        <!-- Quick Links - Centered on Medium & Large Screens -->
+        <div class="flex flex-col items-center md:items-center md:text-center md:mx-auto lg:items-center lg:text-center lg:mx-auto">
+            <h2 class="text-lg font-bold">EventKita</h2>
+            <ul class="mt-2 space-y-2 text-sm">
+                <li><a href="#" class="hover:underline">Tentang Kita</a></li>
+                <li><a href="#" class="hover:underline">Hubungi Kami</a></li>
+                <li><a href="#" class="hover:underline">Pusat Bantuan</a></li>
+                <li><a href="#" class="hover:underline">Kebijakan & Ketentuan</a></li>
+            </ul>
+        </div>
 
-            <!-- Newsletter Subscription -->
-            <div class="flex flex-col items-center md:items-start ml-0 md:ml-20 md:mr-[-100px]">
-                <h2 class="text-lg font-bold">Bergabung dengan Kami</h2>
-                <p class="text-sm mt-2">
-                    Berlangganan dengan broadcast email kami untuk terus mengikuti perkembangan event terbaru.
-                </p>
-                <div class="flex flex-wrap items-center bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3">
-                    <input type="email" placeholder="Masukkan Alamat Email..." 
-                        class="flex-grow px-2 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0">
-                    
-                    <button class="bg-pink-500 text-white text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all shrink-0">
-                        Join Sekarang
-                    </button>
-                </div>
+        <!-- Newsletter Subscription -->
+        <div class="flex flex-col md:items-start items-center">
+            <h2 class="text-lg font-bold text-center md:text-left">Bergabung dengan Kami</h2>
+            <p class="text-sm mt-2 text-center md:text-left">
+                Berlangganan dengan broadcast email kami untuk terus mengikuti perkembangan event terbaru.
+            </p>
+            <div class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
+                <input type="email" placeholder="Masukkan Alamat Email..." 
+                    class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0">
                 
+                <button class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all 
+                    md:absolute md:right-1 md:top-1 md:bottom-1 md:h-auto">
+                    Join Sekarang
+                </button>
             </div>
         </div>
+        
+        
+        
+        
+        
+    </div>
 
-        <!-- Copyright Section -->
-        <div class="text-center text-sm mt-8 border-t border-gray-600 pt-4">
-            &copy; 2022 EventKita. All rights reserved.
-        </div>
-    </footer>
+    <!-- Copyright Section -->
+    <div class="text-center text-sm mt-8 border-t border-gray-600 pt-4">
+        &copy; 2022 EventKita. All rights reserved.
+    </div>
+</footer>
 
 {% endblock %}
