@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import  get_user_model, authenticate, login, logout
 from django.contrib import messages
+from django.utils import timezone
+from .models import *
 
 User = get_user_model()
 
@@ -88,5 +90,25 @@ def saved_view(request):
 def notifikasi(request):
     return render(request, 'notifikasi.html')
 
+def get_upcoming_events():
+    # Get the current date and time
+    now = timezone.now()
+    # Fetch all events starting from now
+    events = Event.objects.filter(tanggal_kegiatan__gte=now).order_by('tanggal_kegiatan')
+    return events
+
 def calendar(request):
-    return render(request, 'calendar.html')
+    events = get_upcoming_events()  # Fetch upcoming events
+    return render(request, 'calendar.html', {'events': events})
+
+def get_events_for_date(date):
+    # Convert the date string to a date object
+    # Assuming date is in 'YYYY-MM-DD' format
+    date_obj = timezone.datetime.strptime(date, '%Y-%m-%d').date()
+    # Query the database for events on the given date
+    events = Event.objects.filter(tanggal_kegiatan__date=date_obj)  # Use __date to filter by date
+    return events
+
+def calendar_detail(request, date):
+    events = get_events_for_date(date)  # Fetch events for the specific date
+    return render(request, 'calendar_detail.html', {'events': events, 'date': date})

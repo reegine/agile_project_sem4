@@ -1516,6 +1516,10 @@ input[type="range"]::-ms-fill-lower {
   height: 100vh;
 }
 
+.h-40 {
+  height: 10rem;
+}
+
 .max-h-24 {
   max-height: 6rem;
 }
@@ -1620,6 +1624,10 @@ input[type="range"]::-ms-fill-lower {
   width: 100%;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -1654,6 +1662,18 @@ input[type="range"]::-ms-fill-lower {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-9 {
+  max-width: 2.25rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-7xl {
+  max-width: 80rem;
 }
 
 .flex-1 {
@@ -1704,6 +1724,10 @@ input[type="range"]::-ms-fill-lower {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1714,6 +1738,10 @@ input[type="range"]::-ms-fill-lower {
 
 .content-center {
   align-content: center;
+}
+
+.content-end {
+  align-content: flex-end;
 }
 
 .items-start {
@@ -1746,6 +1774,10 @@ input[type="range"]::-ms-fill-lower {
 
 .justify-items-start {
   justify-items: start;
+}
+
+.justify-items-end {
+  justify-items: end;
 }
 
 .justify-items-center {
@@ -2300,6 +2332,10 @@ input[type="range"]::-ms-fill-lower {
   padding-top: 1rem;
 }
 
+.pe-5 {
+  padding-inline-end: 1.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2501,6 +2537,11 @@ input[type="range"]::-ms-fill-lower {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-emerald-50 {
+  --tw-text-opacity: 1;
+  color: rgb(236 253 245 / var(--tw-text-opacity, 1));
 }
 
 .text-opacity-100 {
@@ -2896,6 +2937,14 @@ input[type="range"]::-ms-fill-lower {
     grid-column: span 2 / span 2;
   }
 
+  .md\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .md\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
   .md\:mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -2967,6 +3016,34 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:max-w-md {
     max-width: 28rem;
+  }
+
+  .md\:max-w-7xl {
+    max-width: 80rem;
+  }
+
+  .md\:max-w-3xl {
+    max-width: 48rem;
+  }
+
+  .md\:max-w-4xl {
+    max-width: 56rem;
+  }
+
+  .md\:max-w-2xl {
+    max-width: 42rem;
+  }
+
+  .md\:max-w-5 {
+    max-width: 1.25rem;
+  }
+
+  .md\:max-w-5xl {
+    max-width: 64rem;
+  }
+
+  .md\:max-w-4 {
+    max-width: 1rem;
   }
 
   .md\:grid-cols-2 {
@@ -3131,6 +3208,10 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:max-w-xl {
     max-width: 36rem;
+  }
+
+  .lg\:max-w-7xl {
+    max-width: 80rem;
   }
 
   .lg\:flex-row {
