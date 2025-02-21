@@ -3,10 +3,14 @@ from django.db import models
 import uuid
 
 class CustomUser(AbstractUser):
-    username = None 
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
+    provinsi = models.CharField(max_length=100, blank=True, null=True)
+    kota_kabupaten = models.CharField(max_length=100, blank=True, null=True)
+    kode_pos = models.CharField(max_length=10, blank=True, null=True)
+    alamat_lengkap = models.TextField(blank=True, null=True)
 
     groups = models.ManyToManyField(
         "auth.Group",
@@ -27,8 +31,8 @@ class CustomUser(AbstractUser):
     
 class Event(models.Model):
     CATEGORY_CHOICES = [
-        ('concert', 'Konser Musik'),
-        ('conference', 'Conference'),
+        ('konser', 'Konser Musik'),
+        ('konferensi', 'Konferensi'),
         ('bazaar', 'Bazaar'),
         ('workshop', 'Workshop'),
     ]
@@ -39,20 +43,20 @@ class Event(models.Model):
     kategori = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     tanggal_kegiatan = models.DateTimeField()
     lokasi = models.CharField(max_length=255)
-    rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
+    rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0, blank=True, null=True)
 
 class Tiket(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     judul = models.CharField(max_length=255)
     deskripsi = models.TextField(blank=True, null=True)
     harga = models.DecimalField(max_digits=20, decimal_places=2)
-    event_terkait = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='tickets')
+    event_terkait = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='tiket')
 
 class EventPurchase(models.Model):
     STATUS_PEMBELIAN = [
         ('pending', 'Pending'),
-        ('completed', 'Completed'),
-        ('failed', 'Failed'),
+        ('berhasil', 'Berhasil'),
+        ('gagal', 'Gagal'),
     ]
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -61,11 +65,11 @@ class EventPurchase(models.Model):
     status_pembelian = models.CharField(max_length=10, choices=STATUS_PEMBELIAN)
     created_at = models.DateTimeField(auto_now_add=True)
 
-# class SavedEvents(models.Model):
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='saved_events')
-#     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='saved_by_users')
-#     saved_at = models.DateTimeField(auto_now_add=True)
+class SavedEvents(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='saved_events')
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='saved_by_users')
+    saved_at = models.DateTimeField(auto_now_add=True)
 
 # class Review(models.Model):
 #     RATING = [
