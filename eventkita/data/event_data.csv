@@ -1,0 +1,15 @@
+id,judul,deskripsi,kategori,tanggal_kegiatan,lokasi,foto_event,rating
+1e8fef3a-9b7e-4c1e-8b1f-123456789abc,Konser Jazz Malam,Konser jazz di tepi pantai BSD.,konser,2025-03-15 19:00:00,BSD City,ahay.jpg,4.5
+2f7aef3a-8c6d-4a2f-9c2f-234567890bcd,Konferensi Teknologi,Konferensi teknologi terbaru di BSD.,konferensi,2025-04-10 09:00:00,Gedung Serbaguna BSD,ahay.jpg,4.8
+3c9be4fa-7d5b-4f3a-8e3a-345678901cde,Bazaar Kuliner,Bazaar kuliner dengan ragam makanan unik.,bazaar,2025-05-05 11:00:00,Lapangan BSD,ahay.jpg,4.2
+4d0ce5fb-6e4a-4b3b-7d2b-456789012def,Workshop Fotografi,Workshop teknik fotografi untuk pemula.,workshop,2025-06-20 13:00:00,Studio Kreatif BSD,ahay.jpg,4.0
+5a1bcde2-1234-4f56-8abc-7890abcdef12,Konser Rock Enerjik,Pertunjukan rock dengan band-band ternama.,konser,2025-07-10 20:00:00,Arena BSD,ahay.jpg,4.7
+6b2cdef3-2345-5a67-9bcd-8901bcdef234,Seminar Digital Marketing,Seminar mengenai strategi pemasaran digital terkini.,konferensi,2025-08-05 10:00:00,Hotel Grand BSD,ahay.jpg,4.3
+7c3def40-3456-6a78-acea-9012cdef3456,Festival Kuliner Malam,Festival kuliner malam dengan berbagai stand makanan.,bazaar,2025-09-12 18:30:00,Pusat Kota BSD,ahay.jpg,4.6
+8d4efab5-4567-7a89-bcde-0123def45678,Workshop Seni Rupa,Workshop seni rupa untuk meningkatkan kreativitas.,workshop,2025-10-08 14:00:00,Galeri Seni BSD,ahay.jpg,4.1
+9e5fabc6-5678-8a90-cdef-1234ef567890,Konser Pop Terbaru,Konser pop dengan penampilan artis papan atas.,konser,2025-11-20 19:30:00,Stadion BSD,ahay.jpg,4.9
+a6fabcj7-6789-9a01-def0-2345fabc67890,Konferensi Startup,Konferensi untuk para startup dan investor muda.,konferensi,2025-12-05 09:30:00,Convention Center BSD,ahay.jpg,4.4
+b7abcjk8-7890-0a12-ef01-3456abc789012,Bazaar Fashion,Bazaar yang menampilkan produk fashion lokal.,bazaar,2026-01-15 12:00:00,Mall BSD,ahay.jpg,4.2
+c8abcdlm9-8901-1a23-f012-4567abcd9012,Workshop Menulis Kreatif,Workshop menulis untuk penggemar sastra dan penulis.,workshop,2026-02-10 15:00:00,Perpustakaan Umum BSD,ahay.jpg,4.0
+d9abcklm0-9012-2a34-0123-5678abcd0123,Konser Akustik Santai,Konser akustik dengan suasana santai di alam terbuka.,konser,2026-03-05 17:00:00,Taman Kota BSD,ahay.jpg,4.3
+e0abcjmn1-0123-3a45-1234-6789abc12345,Konferensi Inovasi Bisnis,Diskusi inovasi bisnis oleh para pemimpin industri.,konferensi,2026-04-20 10:00:00,Gedung Pertemuan BSD,ahay.jpg,4.7
