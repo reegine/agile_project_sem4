@@ -70,8 +70,8 @@
     </div>
     </nav>
 
-<div class="mt-8 max-w-2xl md:max-w-4xl lg:max-w-7xl mx-auto flex mb-10">
-    <div class="w-1/2 p-4">
+<div class="mt-8 max-w-lg md:max-w-2xl lg:max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 mb-10">
+    <div class="col-span-1 p-4">
         <h1 class="text-2xl font-bold text-orange-500 text-start py-4">
             BSD <span class="text-primaryBlue">Kalender Event</span>
         </h1>
@@ -95,36 +95,36 @@
         </div>
     </div>
 
-    <div class="w-1/2 p-4 mb-8">
-        <h2 class="mt-10 text-xl font-bold">{{ date }}</h2>
+    <div class="col-span-1 p-4 mb-8">
+        <h2 class="mt-10 text-xl font-bold text-secondaryOrange">{{ date }}</h2>
         <div id="eventList" class="mt-4 space-y-4">
             {% for event in events %}
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <h3 class="font-bold">{{ event.title }}</h3>
-                <p>{{ event.description }}</p>
-                <p class="text-sm text-gray-500">{{ event.time }}</p>
-            </div>
-
-
-            <div class="bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3">
-                <img src="${event.img}" class="rounded-md w-60 h-full col-span-1" alt="Event">
-                    <div class="ml-4 p-4 col-span-3 md:col-span-4">
-                        <p class="text-sm text-orange-500">${formatDate(date)}</p>
-                        <h3 class="font-bold">${event.title}</h3>
-                        <p class="text-sm">${event.description}</p>
-                    </div>
-                    <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
-                        <div class="border-2 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block text-center w-1/2">
-                            <span id="minutes" class="text-sm font-bold text-secondaryOrange">${event.time}</span>
-                        </div>
-                        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-1/2">Pesan</button>
-                    </div>
+            
+            <div class="bg-white rounded-lg shadow-lg grid grid-cols-4 mb-3">
+                <img src="${event.img}" class="rounded-md w-full h-36 col-span-2 object-cover" alt="Event">
+                <div class="p-4 col-span-2 md:col-span-2">
+                    <h3 class="font-extrabold text-primaryBlue">${event.title}</h3>
+                    <p class="text-sm text-secondaryOrange mt-3">Harga Mulai Dari:</p>
+                    <p class="text-lg text-secondaryOrange font-bold">IDR ${event.price}</p>
+                </div>
             </div>
 
             {% empty %}
             <p>No events found for this date.</p>
             {% endfor %}
         </div>
+
+        <!-- ini cuman untuk nunjukkin desain cardnya gmn yaa, monggo delet aja -->
+        <div class="bg-white rounded-lg shadow-lg grid grid-cols-4 mb-3">
+            <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" class="rounded-md w-full h-36 col-span-2 object-cover" alt="Event">
+            <div class="p-4 col-span-2 md:col-span-2">
+                <h3 class="font-extrabold text-primaryBlue">THE SCRIPT SATELLITES WORLD TOUR - JAKARTA</h3>
+                <p class="text-sm text-secondaryOrange mt-3">Harga Mulai Dari:</p>
+                <p class="text-lg text-secondaryOrange font-bold">IDR 660.000</p>
+            </div>
+        </div>
+    
+
     </div>
 </div>
 

@@ -350,11 +350,11 @@ def get_events_for_date(date):
     # Assuming date is in 'YYYY-MM-DD' format
     date_obj = timezone.datetime.strptime(date, '%Y-%m-%d').date()
     # Query the database for events on the given date
-    events = Event.objects.filter(tanggal_kegiatan__date=date_obj)  # Use __date to filter by date
+    events = Event.objects.filter(tanggal_kegiatan__date=date_obj) 
     return events
 
 def calendar_detail(request, date):
-    events = get_events_for_date(date)  # Fetch events for the specific date
+    events = get_events_for_date(date) 
     return render(request, 'calendar_detail.html', {'events': events, 'date': date})
 
 # ini yg dari home page, masuk ke selengkapnya
