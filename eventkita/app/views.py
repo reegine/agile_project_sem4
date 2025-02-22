@@ -360,3 +360,6 @@ def calendar_detail(request, date):
 # ini yg dari home page, masuk ke selengkapnya
 def selengkapnya(request):
     return render(request, 'selengkapnya.html')
+
+def riwayattransaksi(request):
+    return render(request, 'transactionHistory.html')
