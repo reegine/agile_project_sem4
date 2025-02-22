@@ -356,3 +356,7 @@ def get_events_for_date(date):
 def calendar_detail(request, date):
     events = get_events_for_date(date)  # Fetch events for the specific date
     return render(request, 'calendar_detail.html', {'events': events, 'date': date})
+
+# ini yg dari home page, masuk ke selengkapnya
+def selengkapnya(request):
+    return render(request, 'selengkapnya.html')

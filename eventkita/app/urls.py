@@ -23,4 +23,6 @@ urlpatterns = [
     path('notifikasi/', views.notifikasi, name='notifikasi'), 
     path('calendar/', views.calendar, name='calendar'), 
     path('calendar/detail/<str:date>/', views.calendar_detail, name='calendar_detail'),
+    path('selengkapnya/', views.selengkapnya, name='selengkapnya'), 
+
 ]

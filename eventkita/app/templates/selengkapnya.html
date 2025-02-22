@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}EventKita | Detail Acara{% endblock %}
+
+{% block content %}
+
+    <!-- Navigation Bar -->
+    <section class="bg-primaryBlue">
+        <nav class="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+            <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
+            </a>
+            <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="{% static 'default_images/profile.png' %}" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li  class="md:pt-[10]">
+                    <a href="{% url 'home' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Beranda</a>
+                </li>
+                <li class="md:pt-[10]">
+                    <a href="{% url 'calendar' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kalendar</a>
+                </li>
+                <li  class="md:pt-[10]">
+                    <a href="{% url 'about_us' %}" class="block py-2 px-3 text-white rounded-sm bg-primaryBlue md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">Tentang Kita</a>
+                </li>
+                
+                <li class="md:pt-[10]">
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Selengkapnya <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                        <li>
+                            <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        </li> -->
+                        </ul>
+                        <!-- <div class="py-1">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                        </div> -->
+                    </div>
+                </li>
+                <li>
+                    <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+                    <!-- <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-semibold text-gray-100">Username</span>
+                            <span class="text-xs text-gray-400">Set up profile...</span>
+                        </div>
+                        <div class="w-7 h-7">
+                            <img src="{% static 'default_images/profile.png' %}" alt="User  Profile" class="w-full h-full rounded-full object-cover">
+                        </div>
+                    </button> -->
+                </li>
+            
+                </ul>
+            </div>
+            </div>
+            </nav>
+    </section>
+
+
+    <!-- Cards Container -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
+            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="grid grid-cols-5 gap-1">
+                        <div class="col-span-1 text-center">
+                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
+                            <p class="text-2xl font-bold">01</p>
+                            <p class="text-2xl font-bold leading-0.4">-</p>
+                            <p class="text-2xl font-bold">01</p>
+                        </div>
+                        <div class="col-span-4 pl-4">
+                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
+                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
+            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="grid grid-cols-5 gap-1">
+                        <div class="col-span-1 text-center">
+                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
+                            <p class="text-2xl font-bold">01</p>
+                            <p class="text-2xl font-bold leading-0.4">-</p>
+                            <p class="text-2xl font-bold">01</p>
+                        </div>
+                        <div class="col-span-4 pl-4">
+                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
+                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
+            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="grid grid-cols-5 gap-1">
+                        <div class="col-span-1 text-center">
+                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
+                            <p class="text-2xl font-bold">01</p>
+                            <p class="text-2xl font-bold leading-0.4">-</p>
+                            <p class="text-2xl font-bold">01</p>
+                        </div>
+                        <div class="col-span-4 pl-4">
+                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
+                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
+            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="grid grid-cols-5 gap-1">
+                        <div class="col-span-1 text-center">
+                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
+                            <p class="text-2xl font-bold">01</p>
+                            <p class="text-2xl font-bold leading-0.4">-</p>
+                            <p class="text-2xl font-bold">01</p>
+                        </div>
+                        <div class="col-span-4 pl-4">
+                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
+                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% include 'footer.html' %}
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}
