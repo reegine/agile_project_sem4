@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 import uuid
+from django.utils import timezone
+from datetime import timedelta
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -35,6 +38,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    
 
     provinsi = models.CharField(max_length=100, blank=True, null=True)
     kota_kabupaten = models.CharField(max_length=100, blank=True, null=True)
@@ -117,3 +121,17 @@ class Footer(models.Model):
     def __str__(self):
         return self.email
     
+class PasswordResetOTP(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    otp_code = models.CharField(max_length=4)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+
+    def is_expired(self):
+        """
+        Misalnya, OTP dianggap kadaluarsa setelah 5 menit.
+        """
+        return self.created_at + timedelta(minutes=5) < timezone.now()
+
+    def __str__(self):
+        return f"OTP for {self.user.email} - {self.otp_code}"

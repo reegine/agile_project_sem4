@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import  get_user_model, authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,7 @@ from django.conf import settings
 from django.utils import timezone
 from datetime import datetime
 from .models import *
-
+from typing import cast
 
 User = get_user_model()
 
@@ -46,10 +47,41 @@ def register_view(request):
         user = User.objects.create_user(email=email, password=password)
         user.save()
 
+        request.session['temp_email'] = email
+
         messages.success(request, "Akun berhasil dibuat! Silakan login.")
-        return redirect('login')
+        return redirect('finishsignup')
 
     return render(request, 'register.html')
+
+def finishsignup_view(request):
+    email = request.session.get('temp_email', None)
+    if not email:
+        messages.error(request, "Anda belum mendaftar atau sesi sudah berakhir.")
+        return redirect('register')
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phone_number = request.POST.get('phone_number')
+
+        try:
+            user = cast(CustomUser, User.objects.get(email=email))
+        except User.DoesNotExist:
+            messages.error(request, "User tidak ditemukan.")
+            return redirect('register')
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.phone_number = phone_number
+        user.save()
+
+        request.session.pop('temp_email', None)
+
+        messages.success(request, "Data tambahan berhasil disimpan! Silakan login.")
+        return redirect('login')
+
+    return render(request, 'finishsignup.html')
 
 def home(request):
     today = datetime.now()  
@@ -84,19 +116,93 @@ def detail_page_free(request, id):
     return render(request, 'detail_page_free.html', context)
 
 def forgotpassword_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        User = get_user_model()
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "Email tidak terdaftar.")
+            return redirect('forgot_password')  
+
+        otp_code = ''.join(str(random.randint(0, 9)) for _ in range(4))
+
+        PasswordResetOTP.objects.create(user=user, otp_code=otp_code)
+
+        subject = "Kode Reset Password Anda"
+        message = f"Kode OTP Anda adalah: {otp_code}. Kode ini berlaku selama 5 menit."
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], fail_silently=False)
+
+        request.session['reset_email'] = email
+        messages.success(request, "Kode OTP telah dikirim ke email Anda.")
+        return redirect('verify') 
+
     return render(request, 'forgotpassword.html')
 
+
 def verify_view(request):
+    email = request.session.get('reset_email')
+    if not email:
+        return redirect('forgot_password')
+
+    if request.method == 'POST':
+        otp_input = request.POST.get('otp_code')
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "User tidak ditemukan.")
+            return redirect('forgot_password')
+
+        otp_record = PasswordResetOTP.objects.filter(user=user, is_used=False).order_by('-created_at').first()
+
+        if otp_record:
+            if otp_record.otp_code == otp_input:
+                if not otp_record.is_expired():
+                    otp_record.is_used = True
+                    otp_record.save()
+                    return redirect('reset_password')
+                else:
+                    messages.error(request, "Kode OTP sudah kadaluarsa.")
+            else:
+                messages.error(request, "Kode OTP salah.")
+        else:
+            messages.error(request, "Tidak ada kode OTP yang valid untuk user ini.")
+
     return render(request, 'verify.html')
 
+
 def reset_view(request):
+    email = request.session.get('reset_email')
+    if not email:
+        return redirect('forgot_password')
+
+    if request.method == 'POST':
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2:
+            messages.error(request, "Password dan konfirmasi tidak sama.")
+            return redirect('reset_password')
+
+        User = get_user_model()
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "User tidak ditemukan.")
+            return redirect('forgot_password')
+
+        user.set_password(password1)
+        user.save()
+
+        request.session['reset_email'] = None
+        messages.success(request, "Password berhasil direset. Silakan login.")
+        return redirect('login') 
+
     return render(request, 'reset.html')
 
 def about_us(request):
     return render(request, 'about_us.html')
-
-def finishsignup_view(request):
-    return render(request, 'finishsignup.html')
 
 def payment_1(request):
     return render(request, 'payment_1.html')
