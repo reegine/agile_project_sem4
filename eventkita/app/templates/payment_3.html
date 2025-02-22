@@ -4,11 +4,12 @@
 {% block title %}EventKita | Detail Acara{% endblock %}
 
 {% block head %} 
-<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/qrious.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 {% endblock %}
 
 {% block content %}
-
 
 <!-- Navigation Bar -->
 <nav class="bg-primaryBlue border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -101,49 +102,155 @@
       </div>
     </section>
 
-    <section class="mx-auto max-w-screen-xl px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Ticket Content -->
+    <section id="ticket-info" class="mx-auto max-w-screen-xl px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
       <div class="col-span-2">
-        
         <h1 class="text-3xl font-bold">Informasi Tiket</h1>
-        
-        <div class="bg-primaryBlue p-10 justify-items-start rounded-lg mt-6">
+
+        <!-- Ticket Details -->
+        <div class="bg-primaryBlue pt-10 px-10 justify-items-start rounded-t-lg mt-6">
           <div class="flex items-center mb-4">
             <img src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="Event Image" class="rounded-lg w-56 mr-3" />
             <h2 class="text-white text-2xl font-bold">The Script Satellites World Tour - Jakarta</h2>
           </div>
-          <div class="grid grid-cols-3">
-
-            <div class="col-span-2">
+          <div class="grid grid-cols-4 items-center w-full">
+            <div class="col-span-3">
               <h2 class="mt-10 text-xl font-semibold text-gray-300">Lokasi</h2>
               <p class="text-lg text-white font-semibold">
                 Indonesia Convention Exhibition (ICE) BSD
               </p>
             </div>
-
             <div class="col-span-1">
-
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <canvas id="qrcode"></canvas>
-              </div>
-
+              <div class="bg-white p-6 rounded-lg shadow-md" id="qrcode"></div>
             </div>
-
           </div>
-          
+          <div class="grid grid-cols-3 w-full">
+            <div class="col-span-1">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Date</h2>
+              <p class="text-lg text-white font-semibold">
+                14 February 2025
+              </p>
+            </div>
+            <div class="col-span-1 justify-items-center"></div>
+            <div class="col-span-1 text-start ps-10">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Time</h2>
+              <p class="text-lg text-white font-semibold">
+                08.00
+              </p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 w-full">
+            <div class="col-span-1">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Section</h2>
+              <p class="text-lg text-white font-semibold">
+                Festival B
+              </p>
+            </div>
+            <div class="col-span-1 ps-10">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Seat</h2>
+              <p class="text-lg text-white font-semibold">
+                Standing
+              </p>
+            </div>
+            <div class="col-span-1 text-start ps-10">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Row</h2>
+              <p class="text-lg text-white font-semibold">
+                Standing
+              </p>
+            </div>
+          </div>
         </div>
+
+        <div class="bg-primaryBlue rounded-b-lg pb-4">
+          <div class="bg-red w-full flex items-center">
+            <div class="flex-shrink-0">
+                <img src="{% static 'default_images/payment/half_circle_left.png' %}" class="h-20" alt="">
+            </div> 
+            <div class="bg-gray-500 flex-grow h-1"></div>
+            <div class="flex-shrink-0">
+                <img src="{% static 'default_images/payment/half_circle_right.png' %}" class="h-20" alt="">
+            </div>
+          </div>
+
+          <div class="flex justify-center px-8">
+            <svg id="barcode"></svg>
+          </div>
+        </div>
+       
+        
+
+        <div class="flex justify-end space-x-4 mt-10">
+          <!-- First Button: No Background -->
+          <button class="border border-primaryBlue rounded-lg px-5 py-4 text-primaryBlue hover:bg-primaryBlue hover:text-white transition duration-200">
+              Kembali ke Beranda
+          </button>
+          
+          <!-- Second Button: Dark Blue Background -->
+          <button id="download-ticket" class="bg-primaryBlue text-white rounded-lg px-5 py-4 hover:bg-blue-950 transition duration-200">
+            Download Tiket
+          </button>
+        </div>
+
+
       </div>
 
 
       <div class="col-span-1 justify-items-center">
-        
+          <div class="border-2 border-primaryBlue rounded-lg p-6 bg-white shadow-md w-full">
+            <!-- Image -->
+            <div class="flex justify-center mb-4">
+                <img src="{% static 'default_images/payment/Payment_success.png' %}" alt="Payment Successful" class="rounded h-20">
+            </div>
+            
+            <!-- Payment Successful Text -->
+            <h2 class="text-center text-lg font-bold mb-2">Payment Successful</h2>
+            
+            <!-- Order Number Box -->
+            <div class="bg-primaryBlue text-white rounded-lg p-2 text-center mb-4">
+                <p>Order #4335</p>
+            </div>
+            
+            <!-- Transaction Detail Text -->
+            <p class="text-start font-semibold mb-2 text-sm">Transaction Detail</p>
+            
+            <!-- Transaction Details Box -->
+            <div class="border-2 border-primaryBlue rounded-lg">
+                <div class="border-b-2 border-blue-800 pb-2 mb-2 p-2">
+                    <div class="grid grid-cols-2">
+                        <div class="text-start text-sm font-bold text-lightBlueApp">
+                            <p>Date</p>
+                        </div>
+                        <div class="text-end text-sm font-bold text-primaryBlue">
+                            <p>13/2/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-b-2 border-blue-800 pb-2 mb-2 p-2">
+                  <div class="grid grid-cols-2">
+                      <div class="text-start text-sm font-bold text-lightBlueApp">
+                          <p>Payment Method</p>
+                      </div>
+                      <div class="text-end text-sm font-bold text-primaryBlue">
+                          <p>BCA Virtual Account</p>
+                      </div>
+                  </div>
+              </div>
+                <div class="grid grid-cols-2 p-2">
+                    <div class="text-start text-sm font-bold text-lightBlueApp">
+                        <p>Total</p>
+                    </div>
+                    <div class="text-end text-sm font-bold text-primaryBlue">
+                        <p>IDR 660.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <img class="h-auto max-w-full mt-8" src="{% static 'default_images/payment/payment3.png' %}" alt="image description">
-        
-        
+
       </div>
 
 
     </section>
-
 
 
     {% include 'footer.html' %}
@@ -153,49 +260,53 @@
     
     {% block javascript %}
     <script>
-        // Set the countdown time in seconds (10 minutes)
-        let countdownTime = 10 * 60; // 10 minutes in seconds
+      // URL to encode
+      var url = "http://127.0.0.1:8000/detailpage/payment1/payment2/";
 
-      // Update the countdown every second
-      const countdownInterval = setInterval(() => {
-        // Calculate minutes and seconds
-        const minutes = Math.floor(countdownTime / 60);
-        const seconds = countdownTime % 60;
+      // Generate QR Code
+      new QRCode(document.getElementById("qrcode"), {
+          text: url,
+          width: 150,
+          height: 150
+      });
 
-        // Update the HTML elements
-        document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
-        document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+      // Generate Barcode
+      JsBarcode("#barcode", url, {
+          format: "CODE128",
+          lineColor: "#000",
+          width: 2,
+          height: 50,
+          displayValue: true
+      });
 
-        // Decrease the countdown time
-        countdownTime--;
+      // Function to download the ticket as a PDF
+      document.getElementById("download-ticket").addEventListener("click", function () {
+        const ticketContent = document.getElementById("ticket-info");
+        const originalClasses = ticketContent.className; 
+        ticketContent.className = "mx-auto max-w-screen-xl px-6 py-10 grid grid-cols-3 gap-8"; 
 
-        // Stop the countdown when it reaches zero
-        if (countdownTime < 0) {
-          clearInterval(countdownInterval);
-          document.getElementById('minutes').textContent = '00';
-          document.getElementById('seconds').textContent = '00';
-          alert("Waktu habis!"); // Optional: Alert when time is up
-        }
-      }, 1000);
+        const options = {
+          margin: 0, 
+          filename: "tiket.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { 
+            scale: 2, 
+            logging: true,
+            useCORS: true,
+            scrollY: 0, 
+            scrollX: 0, 
+          },
+          jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+        };
 
-      document.getElementById('copyButton').addEventListener('click', function() {
-            const textToCopy = "780 1234 5678 9999";
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("Copied to clipboard: " + textToCopy);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var qrValue = "{{ qr_data|default:'https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg' }}";  
-            var qr = new QRious({
-                element: document.getElementById('qrcode'),
-                value: qrValue,
-                size: 200
-            });
-        });
-
-    </script>
+        html2pdf()
+          .from(ticketContent)
+          .set(options)
+          .save()
+          .then(() => {
+            ticketContent.className = originalClasses;
+          });
+      });
+  </script>
 
     {% endblock %}

@@ -51,6 +51,7 @@ module.exports = {
                 secondaryOrange: '#FF7F3E',
                 creamBg: '#fef6e9',
                 lightOrange:'#FFF5F0',
+                lightBlueApp:'#666794',
               },
             lineHeight: {
             '0.1': '0.1',
