@@ -69,6 +69,8 @@ class Event(models.Model):
     lokasi = models.CharField(max_length=255)
     foto_event = models.ImageField(upload_to='foto_event/', blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0, blank=True, null=True)
+    is_free = models.BooleanField(default=False)
+    additional_info = models.TextField(blank=True, null=True)
 
 class Tiket(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
