@@ -2350,6 +2350,18 @@ input[type="range"]::-ms-fill-lower {
   padding-top: 1rem;
 }
 
+.pe-1 {
+  padding-inline-end: 0.25rem;
+}
+
+.ps-1 {
+  padding-inline-start: 0.25rem;
+}
+
+.ps-2 {
+  padding-inline-start: 0.5rem;
+}
+
 .text-left {
   text-align: left;
 }

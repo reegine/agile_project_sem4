@@ -230,15 +230,31 @@ def about_us(request):
 @login_required
 def payment_1(request, tiket_id):
     tiket = get_object_or_404(Tiket, id=tiket_id)
+    event = tiket.event_terkait
+
     if request.method == "POST":
+        nama_lengkap = request.POST.get('nama_lengkap')
+        nomor_ponsel = request.POST.get('nomor_ponsel')
+        email_pribadi = request.POST.get('email_pribadi')
+        ticket_quantity = request.POST.get('ticket_quantity')  # Get the ticket quantity
+
+        print('Nama Lengkap:', nama_lengkap)
+        print('Nomor Ponsel:', nomor_ponsel)
+        print('Email Pribadi:', email_pribadi)
+        print('Jumlah Tiket:', ticket_quantity)  # Print the ticket quantity
+
         purchase = EventPurchase.objects.create(
             user=request.user,
             tiket=tiket,
-            status_pembelian='pending'
+            status_pembelian='pending',
+            jumlah_tiket=ticket_quantity  # Save the ticket quantity if your model supports it
         )
         return redirect('payment_2', purchase_id=purchase.id)
 
-    context = {'tiket': tiket}
+    context = {
+        'tiket': tiket,
+        'event': event 
+    }
     return render(request, 'payment_1.html', context)
 
 @login_required
