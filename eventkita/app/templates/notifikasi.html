@@ -74,55 +74,27 @@
 
     <section class="bg-white py-10">
       <div class="mx-auto max-w-screen-xl justify-center px-10">           
-        <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Notifikasi</h1>
-        
-        <div class="bg-white rounded-md shadow-md p-4">
-
-            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
-                <div class="col-span-1 justify-items-center">
-                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
-                </div>
-                <div class="col-span-4">
-                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
-                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
-                </div>
-            </div>
-    
-            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
-                <div class="col-span-1 justify-items-center">
-                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
-                </div>
-                <div class="col-span-4">
-                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
-                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
-                </div>
-            </div>
-    
-            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
-                <div class="col-span-1 justify-items-center">
-                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
-                </div>
-                <div class="col-span-4">
-                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
-                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
-                </div>
-            </div>
-    
-            <div class="grid grid-cols-5 bg-lightOrange px-4 py-2 rounded-lg items-center mb-3">
-                <div class="col-span-1 justify-items-center">
-                    <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
-                </div>
-                <div class="col-span-4">
-                    <h2 class="font-bold">Dapatkan Jaminan Harga Termurah untuk pesananmu</h2>
-                    <p>Dapatkan tiketmu hanya dari EventKita!</p>
-                </div>
-            </div>
-    
-
-        </div>
-        
+          <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Notifikasi</h1>
+          
+          <div class="bg-white rounded-md shadow-md p-4">
+              {% for notification in notifications %}
+                  <a href="{% url 'mark_notification_as_read' notification.id %}">
+                      <div class="grid grid-cols-5 px-4 py-2 rounded-lg items-center mb-3 {% if notification.is_read %}bg-lightOrange{% else %}bg-transparent{% endif %}">
+                          <div class="col-span-1 justify-items-center">
+                              <img src="{% static 'default_images/tiket_icon.png' %}" alt="Description of Image" class="h-16" />
+                          </div>
+                          <div class="col-span-4">
+                              <h2 class="font-bold">{{ notification.message }}</h2>
+                              <p><a href="{{ notification.link }}">Lihat Detail</a></p>
+                          </div>
+                      </div>
+                  </a>
+              {% empty %}
+                  <p class="text-gray-500">Tidak ada notifikasi baru.</p>
+              {% endfor %}
+          </div>
       </div>
-    </section>
+  </section>
 
 
     {% include 'footer.html' %}

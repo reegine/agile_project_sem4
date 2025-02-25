@@ -8,6 +8,7 @@ from .models import (
     SavedEvents,
     # Review,  # jika nanti aktifkan model Review
     Footer,
+    Notification,
 )
 
 # ============================
@@ -88,3 +89,11 @@ class FooterAdmin(admin.ModelAdmin):
     list_filter = ('subscribe', 'created_at')
     search_fields = ('email',)
     ordering = ('-created_at',)
+
+
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event', 'purchase', 'message', 'is_read', 'created_at')
+    list_filter = ('is_read', 'created_at')
+    search_fields = ('message', 'user__email')  # Assuming user has an email field
+
+admin.site.register(Notification, NotificationAdmin)

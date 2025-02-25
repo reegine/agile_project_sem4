@@ -97,6 +97,9 @@ class EventPurchase(models.Model):
     bukti_pembayaran = models.ImageField(upload_to='bukti_pembayaran/', blank=True, null=True)
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    jumlah_tiket = models.IntegerField()
+
+
 
     # def generate_qr_code(self):
     #     qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
