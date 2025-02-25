@@ -101,8 +101,8 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
-def detail_page(request,id):
-    event = get_object_or_404(Event, id=id, is_free=False)
+def detail_page(request,event_id):
+    event = get_object_or_404(Event, id=event_id, is_free=False)
     tickets = event.tiket.all()
 
     context = {'event': event, 'tickets': tickets}
