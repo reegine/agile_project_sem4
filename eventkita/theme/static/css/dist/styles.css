@@ -1527,10 +1527,6 @@ input[type="range"]::-ms-fill-lower {
   height: 100vh;
 }
 
-.max-h-24 {
-  max-height: 6rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
 }
@@ -2318,12 +2314,20 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 1rem;
 }
 
+.pe-1 {
+  padding-inline-end: 0.25rem;
+}
+
 .pe-5 {
   padding-inline-end: 1.25rem;
 }
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.ps-1 {
+  padding-inline-start: 0.25rem;
 }
 
 .ps-10 {
@@ -2348,18 +2352,6 @@ input[type="range"]::-ms-fill-lower {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pe-1 {
-  padding-inline-end: 0.25rem;
-}
-
-.ps-1 {
-  padding-inline-start: 0.25rem;
-}
-
-.ps-2 {
-  padding-inline-start: 0.5rem;
 }
 
 .text-left {
@@ -2488,11 +2480,6 @@ input[type="range"]::-ms-fill-lower {
 .text-\[\#2F2F72\] {
   --tw-text-opacity: 1;
   color: rgb(47 47 114 / var(--tw-text-opacity, 1));
-}
-
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
 
 .text-blue-600 {
@@ -2673,10 +2660,6 @@ input[type="range"]::-ms-fill-lower {
 
 .duration-200 {
   transition-duration: 200ms;
-}
-
-.duration-300 {
-  transition-duration: 300ms;
 }
 
 .hover\:bg-\[\#1B1464\]:hover {

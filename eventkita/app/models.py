@@ -100,7 +100,6 @@ class EventPurchase(models.Model):
     jumlah_tiket = models.IntegerField()
 
 
-
     # def generate_qr_code(self):
     #     qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
     #     qr = qrcode.make(qr_data)
