@@ -1,9 +1,11 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.files.base import ContentFile
 from django.db import models
 import uuid
+import qrcode
+from io import BytesIO
 from django.utils import timezone
 from datetime import timedelta
-
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -65,7 +67,7 @@ class Event(models.Model):
     judul = models.CharField(max_length=255)
     deskripsi = models.TextField(blank=True, null=True)
     kategori = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    tanggal_kegiatan = models.DateTimeField()
+    tanggal_kegiatan = models.DateTimeField(default=timezone.now)
     lokasi = models.CharField(max_length=255)
     foto_event = models.ImageField(upload_to='foto_event/', blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0, blank=True, null=True)
@@ -78,10 +80,12 @@ class Tiket(models.Model):
     deskripsi = models.TextField(blank=True, null=True)
     harga = models.DecimalField(max_digits=20, decimal_places=2)
     event_terkait = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='tiket')
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 class EventPurchase(models.Model):
     STATUS_PEMBELIAN = [
         ('pending', 'Pending'),
+        ('verifikasi', 'Menunggu Verifikasi'),
         ('berhasil', 'Berhasil'),
         ('gagal', 'Gagal'),
     ]
@@ -90,7 +94,17 @@ class EventPurchase(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='purchases')
     tiket = models.ForeignKey(Tiket, on_delete=models.CASCADE, related_name='purchases')
     status_pembelian = models.CharField(max_length=10, choices=STATUS_PEMBELIAN)
+    bukti_pembayaran = models.ImageField(upload_to='bukti_pembayaran/', blank=True, null=True)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def generate_qr_code(self):
+        qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
+        qr = qrcode.make(qr_data)
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        self.qr_code.save(f"qr_{self.id}.png", ContentFile(buffer.getvalue()), save=False)
+
 
 class SavedEvents(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -137,3 +151,15 @@ class PasswordResetOTP(models.Model):
 
     def __str__(self):
         return f"OTP for {self.user.email} - {self.otp_code}"
+    
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True) 
+    purchase = models.ForeignKey(EventPurchase, on_delete=models.CASCADE, null=True, blank=True)
+    message = models.TextField()
+    link = models.URLField(blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Notif untuk {self.user.email} - {self.event.judul if self.event else 'No Event'}"

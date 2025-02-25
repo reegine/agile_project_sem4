@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import  get_user_model, authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils.timezone import now
+from django.utils import timezone
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
-from django.utils import timezone
-from datetime import datetime
 from .models import *
 from typing import cast
 
@@ -30,6 +30,7 @@ def login_view(request):
 
     return render(request, 'login.html')
 
+@login_required
 def logout_view(request):
     logout(request)
     messages.success(request, "Logout berhasil!")
@@ -84,7 +85,7 @@ def finishsignup_view(request):
     return render(request, 'finishsignup.html')
 
 def home(request):
-    today = datetime.now()  
+    today = timezone.now()
 
     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
 
@@ -204,14 +205,39 @@ def reset_view(request):
 def about_us(request):
     return render(request, 'about_us.html')
 
-def payment_1(request):
-    return render(request, 'payment_1.html')
+@login_required
+def payment_1(request, tiket_id):
+    tiket = get_object_or_404(Tiket, id=tiket_id)
+    if request.method == "POST":
+        purchase = EventPurchase.objects.create(
+            user=request.user,
+            tiket=tiket,
+            status_pembelian='pending'
+        )
+        return redirect('payment_2', purchase_id=purchase.id)
 
-def payment_2(request):
-    return render(request, 'payment_2.html')
+    context = {'tiket': tiket}
+    return render(request, 'payment_1.html', context)
 
-def payment_3(request):
-    return render(request, 'payment_3.html')
+@login_required
+def payment_2(request, purchase_id):
+    purchase = get_object_or_404(EventPurchase, id=purchase_id)
+    
+    if request.method == "POST" and 'bukti_pembayaran' in request.FILES:
+        purchase.bukti_pembayaran = request.FILES['bukti_pembayaran']
+        purchase.status_pembelian = 'verifikasi'
+        purchase.save()
+        return redirect('payment_3', purchase_id=purchase.id)
+
+    context = {'purchase': purchase}
+    return render(request, 'payment_2.html', context)
+
+@login_required
+def payment_3(request, purchase_id):
+    purchase = get_object_or_404(EventPurchase, id=purchase_id, status_pembelian='berhasil')
+
+    context = {'purchase': purchase}
+    return render(request, 'payment_3.html', context)
 
 @login_required
 def profile_view(request):
@@ -294,8 +320,15 @@ def saved_view(request):
 
     return render(request, 'saved.html', {'saved_events': saved_events})
 
+@login_required
 def notifikasi(request):
-    return render(request, 'notifikasi.html')
+    notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'notifikasi.html', {'notifications': notifications})
+
+def get_unread_notifications(request):
+    if request.user.is_authenticated:
+        return {'unread_notifications': Notification.objects.filter(user=request.user, is_read=False).count()}
+    return {}
 
 def subscribe(request):
     if request.method == 'POST':
@@ -334,28 +367,42 @@ def unsubscribe(request, email):
 #     fail_silently=False,
 # )
 
-def get_upcoming_events():
-    # Get the current date and time
-    now = timezone.now()
-    # Fetch all events starting from now
-    events = Event.objects.filter(tanggal_kegiatan__gte=now).order_by('tanggal_kegiatan')
-    return events
-
 def calendar(request):
-    events = get_upcoming_events()  # Fetch upcoming events
-    return render(request, 'calendar.html', {'events': events})
+    bulan = request.GET.get('bulan', timezone.now().month)
+    tahun = request.GET.get('tahun', timezone.now().year)
+    events = Event.objects.filter(
+        tanggal_kegiatan__year=tahun,
+        tanggal_kegiatan__month=bulan
+    )
 
-def get_events_for_date(date):
-    # Convert the date string to a date object
-    # Assuming date is in 'YYYY-MM-DD' format
-    date_obj = timezone.datetime.strptime(date, '%Y-%m-%d').date()
-    # Query the database for events on the given date
-    events = Event.objects.filter(tanggal_kegiatan__date=date_obj) 
-    return events
+    today = timezone.now().date()
+    one_month_later = today + timedelta(days=30)
+    upcoming_events = Event.objects.filter(
+        tanggal_kegiatan__range=[
+            timezone.make_aware(timezone.datetime.combine(today, timezone.datetime.min.time())),
+            timezone.make_aware(timezone.datetime.combine(one_month_later, timezone.datetime.min.time()))
+        ]
+    ).order_by('tanggal_kegiatan')
+
+    context = {
+        'events': events,
+        'bulan': bulan,
+        'tahun': tahun,
+        'upcoming_events': upcoming_events
+    }
+    return render(request, 'calendar.html', context)
+
+# def get_events_for_date(date):
+#     # Convert the date string to a date object
+#     # Assuming date is in 'YYYY-MM-DD' format
+#     date_obj = timezone.datetime.strptime(date, '%Y-%m-%d').date()
+#     # Query the database for events on the given date
+#     events = Event.objects.filter(tanggal_kegiatan__date=date_obj) 
+#     return events
 
 def calendar_detail(request, date):
-    events = get_events_for_date(date) 
-    return render(request, 'calendar_detail.html', {'events': events, 'date': date})
+    events = Event.objects.filter(date=date)
+    return render(request, 'calendar_detail.html', {'date': date, 'events': events})
 
 # ini yg dari home page, masuk ke selengkapnya
 def selengkapnya(request):
