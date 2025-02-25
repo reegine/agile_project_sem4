@@ -84,16 +84,35 @@ def finishsignup_view(request):
 
     return render(request, 'finishsignup.html')
 
+# def home(request):
+#     today = timezone.now()
+
+#     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+
+#     semua_event = {
+#         'konser': upcoming_events.filter(kategori='konser'),
+#         'konferensi': upcoming_events.filter(kategori='konferensi'),
+#         'bazaar': upcoming_events.filter(kategori='bazaar'),
+#         'workshop': upcoming_events.filter(kategori='workshop'),
+#     }
+
+#     context = {
+#         'semua_event': semua_event
+#     }
+#     return render(request, 'index.html', context)
+
 def home(request):
     today = timezone.now()
 
+    # Get upcoming events
     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
 
+    # Limit to 4 events per category
     semua_event = {
-        'konser': upcoming_events.filter(kategori='konser'),
-        'konferensi': upcoming_events.filter(kategori='konferensi'),
-        'bazaar': upcoming_events.filter(kategori='bazaar'),
-        'workshop': upcoming_events.filter(kategori='workshop'),
+        'konser': upcoming_events.filter(kategori='konser')[:4],
+        'konferensi': upcoming_events.filter(kategori='konferensi')[:4],
+        'bazaar': upcoming_events.filter(kategori='bazaar')[:4],
+        'workshop': upcoming_events.filter(kategori='workshop')[:4],
     }
 
     context = {
@@ -101,11 +120,14 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
-def detail_page(request,event_id):
+def detail_page(request, event_id):
     event = get_object_or_404(Event, id=event_id, is_free=False)
-    tickets = event.tiket.all()
+    tickets = event.tiket.all() 
 
-    context = {'event': event, 'tickets': tickets}
+    context = {
+        'event': event,
+        'tickets': tickets
+    }
 
     return render(request, 'detail_page.html', context)
     

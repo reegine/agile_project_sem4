@@ -1619,10 +1619,6 @@ input[type="range"]::-ms-fill-lower {
   width: 1.75rem;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
 .w-80 {
   width: 20rem;
 }
@@ -2822,16 +2818,8 @@ input[type="range"]::-ms-fill-lower {
     margin-top: 0px;
   }
 
-  .sm\:w-10 {
-    width: 2.5rem;
-  }
-
   .sm\:w-11\/12 {
     width: 91.666667%;
-  }
-
-  .sm\:w-6 {
-    width: 1.5rem;
   }
 
   .sm\:w-auto {

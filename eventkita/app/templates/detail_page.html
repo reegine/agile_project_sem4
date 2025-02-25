@@ -72,228 +72,119 @@
 </section>
 
 <section class="mt-5 md:mt-10 mx-auto max-w-screen-xl p-5">
-    <!-- breadcrumbs nya -->
+    <!-- breadcrumbs -->
     <nav class="flex" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-        <li class="inline-flex items-center">
-            <a href="javascript:history.back()" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-            </svg>
-            Beranda
-            </a>
-        </li>
-        <li>
-            <div class="flex items-center">
-            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Judul</a>
-            </div>
-        </li>
-        <!-- <li aria-current="page">
-            <div class="flex items-center">
-            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Flowbite</span>
-            </div>
-        </li> -->
+            <li class="inline-flex items-center">
+                <a href="javascript:history.back()" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                    </svg>
+                    Beranda
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">{{ event.judul }}</span>
+                </div>
+            </li>
         </ol>
     </nav>
 
-  <!-- Image nya -->
-    <img class="mx-auto max-w-screen-xl mt-8 w-full h-96 object-cover rounded-xl" src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="image description">
-</section>
+    <!-- Event Image -->
+    <img class="mx-auto max-w-screen-xl mt-8 w-full h-96 object-cover rounded-xl" src="{{ event.foto_event.url }}" alt="{{ event.judul }}">
 
-<section class="mt-2 md:mt-5 lg:mt-5 mx-auto max-w-screen-xl p-5">
-    <div class="grid grid-cols-4 gap-2">
-        <div class="col-span-3">
-            <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">THE SCRIPT SATELLITES WORLD TOUR - JAKARTA</h1>
-            <div class="flex items-center rounded-lg">
-                <i class="fa-solid fa-location-dot"></i>
-                <p class="ms-5 text-gray-700">
-                    Jl. BSD Grand Boulevard No.1, Pagedangan, Kec. Pagedangan, Kabupaten Tangerang, Banten 15339, Tangerang, Banten, Indonesia
-                </p>
+    <section class="mt-2 md:mt-5 lg:mt-5 mx-auto max-w-screen-xl p-5">
+        <div class="grid grid-cols-4 gap-2">
+            <div class="col-span-3">
+                <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">{{ event.judul }}</h1>
+                <div class="flex items-center rounded-lg">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="ms-5 text-gray-700">{{ event.lokasi }}</p>
+                </div>
+                <div class="mt-2 flex items-center rounded-lg">
+                    <i class="fa-regular fa-calendar"></i>
+                    <p class="ms-5 text-gray-700">{{ event.tanggal_kegiatan|date:"d M Y" }}</p>
+                </div>
             </div>
-            <div class="mt-2 flex items-center rounded-lg">
-                <i class="fa-regular fa-calendar"></i>
-                <p class="ms-5 text-gray-700">
-                    14 Feb 2025
-                </p>
-            </div>
-        </div>
 
-        <div class="col-span-1 flex flex-col items-end">
-
-            <div class="border-4 border-secondaryOrange p-2 rounded-lg bg-white shadow-md">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Column 1 -->
-                    <div class="text-center px-3">
-                        <span class="text-3xl font-bold text-secondaryOrange">3</span>
-                        <p class="text-sm text-secondaryOrange">Hari</p>
-                    </div>
-                    <!-- Column 2 -->
-                    <div class="text-center px-3">
-                        <span class="text-3xl font-bold text-secondaryOrange">18</span>
-                        <p class="text-sm text-secondaryOrange">Jam</p>
-                    </div>
-                    <!-- Column 3 -->
-                    <div class="text-center px-3">
-                        <span class="text-3xl font-bold text-secondaryOrange">34</span>
-                        <p class="text-sm text-secondaryOrange">Menit</p>
+            <div class="col-span-1 flex flex-col items-end">
+                <div class="border-4 border-secondaryOrange p-2 rounded-lg bg-white shadow-md">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center px-3">
+                            <span class="text-3xl font-bold text-secondaryOrange">3</span>
+                            <p class="text-sm text-secondaryOrange">Hari</p>
+                        </div>
+                        <div class="text-center px-3">
+                            <span class="text-3xl font-bold text-secondaryOrange">18</span>
+                            <p class="text-sm text-secondaryOrange">Jam</p>
+                        </div>
+                        <div class="text-center px-3">
+                            <span class="text-3xl font-bold text-secondaryOrange">34</span>
+                            <p class="text-sm text-secondaryOrange">Menit</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mt-5">
-                <i id="bookmarkIcon" class="fa-regular fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="mt-5">
-        <hr class="border-t-2 border-gray-400 rounded-full">
-    </div>
-
-</section>
-
-<!-- Ini yang Detail event: -->
-<section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5">
-    <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Detail Event:</h1>
-    <div class="p-4">
-        <p>
-            IndoBuildTech Expo, pameran bahan bangunan, arsitektur, dan interior terbesar di Indonesia, memperluas jangkauannya pada tahun 2025 dengan menghadirkan Edisi Jakarta. Penekanannya adalah pada distributor, pengecer, dan bisnis-ke-bisnis, dan menyasar pedagang ekspor-impor tidak hanya dari Jawa Timur tetapi juga dari Indonesia Timur. 
-            
-            Ini adalah platform untuk interaksi B2B, jaringan, dan peluang kolaborasi, mengumpulkan beragam pemasok global dan pembeli terkemuka dari banyak kota besar di Indonesia Timur
-        </p>
-    </div>
-
-    <div class="mt-10">
-        <hr class="border-t-2 border-gray-400 rounded-full">
-    </div>
-</section>
-
-<section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5 mb-20">
-    <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">TIKET</h1>
-
-    <!-- TIKET 1 -->
-    <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <!-- Title and Subtitle -->
-        <div class="px-4 pt-2">
-            <h2 class="text-xl font-bold text-gray-800">Festival B</h2>
-            <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
-        </div>
-
-        <!-- Row with Circles and Text -->
-        <div class="flex items-center justify-start px-4 py-3">
-            <div class="flex items-center">
-                <div class="w-2 h-2 bg-orange-500 rounded-full flex items-center justify-center text-white">
+                <div class="mt-5">
+                    <i id="bookmarkIcon" class="fa-regular fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
                 </div>
-                <span class="ml-2 text-gray-700 text-xs">Tidak bisa refund</span>
             </div>
-            <div class="ms-3 flex items-center">
-                <div class="w-2 h-2 bg-green-500 rounded-full flex items-center justify-center text-white">
+        </div>
+
+        <div class="mt-5">
+            <hr class="border-t-2 border-gray-400 rounded-full">
+        </div>
+    </section>
+
+    <!-- Event Details -->
+    <section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5">
+        <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Detail Event:</h1>
+        <div class="p-4">
+            <p>{{ event.deskripsi }}</p>
+        </div>
+
+        <div class="mt-10">
+            <hr class="border-t-2 border-gray-400 rounded-full">
+        </div>
+    </section>
+
+    <!-- Ticket Section -->
+    <section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5 mb-20">
+        <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">TIKET</h1>
+
+        {% for ticket in tickets %}
+        <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-3">
+            <div class="px-4 pt-2">
+                <h2 class="text-xl font-bold text-gray-800">{{ ticket.judul }}</h2>
+                <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
+            </div>
+            <div class="flex items-center justify-start px-4 py-3">
+                <div class="flex items-center">
+                    <div class="w-2 h-2 bg-orange-500 rounded-full flex items-center justify-center text-white"></div>
+                    <span class="ml-2 text-gray-700 text-xs">Tidak bisa refund</span>
                 </div>
-                <span class="ml-2 text-gray-700 text-xs">Berdiri</span>
-            </div>
-        </div>
-
-        <!-- Dotted Divider -->
-        <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
-
-        <!-- Price and Button Row -->
-        <div class="flex justify-between items-center px-4 pt-2">
-            <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
-            </div>
-        </div>
-
-        <div class="ps-4 pb-4">
-            <span class="text-xs text-secondaryOrange">Tersisa 5 tiket</span>
-        </div>
-    </div>
-
-    <!-- TIKET 2 -->
-    <div class="mt-3 w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <!-- Title and Subtitle -->
-        <div class="px-4 pt-2">
-            <h2 class="text-xl font-bold text-gray-800">Festival B</h2>
-            <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
-        </div>
-
-        <!-- Row with Circles and Text -->
-        <div class="flex items-center justify-start px-4 py-3">
-            <div class="flex items-center">
-                <div class="w-2 h-2 bg-orange-500 rounded-full flex items-center justify-center text-white">
+                <div class="ms-3 flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full flex items-center justify-center text-white"></div>
+                    <span class="ml-2 text-gray-700 text-xs">Berdiri</span>
                 </div>
-                <span class="ml-2 text-gray-700 text-xs">Tidak bisa refund</span>
             </div>
-            <div class="ms-3 flex items-center">
-                <div class="w-2 h-2 bg-green-500 rounded-full flex items-center justify-center text-white">
+            <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
+            <div class="flex justify-between items-center px-4 pt-2">
+                <span class="text-lg font-bold text-secondaryOrange">IDR {{ ticket.harga }}</span>
+                <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' ticket.id %}">
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
                 </div>
-                <span class="ml-2 text-gray-700 text-xs">Berdiri</span>
+            </div>
+            <div class="ps-4 pb-4">
+                <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.sisa_tiket }} tiket</span>
             </div>
         </div>
-
-        <!-- Dotted Divider -->
-        <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
-
-        <!-- Price and Button Row -->
-        <div class="flex justify-between items-center px-4 pt-2">
-            <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
-            </div>
-        </div>
-
-        <div class="ps-4 pb-4">
-            <span class="text-xs text-secondaryOrange">Tersisa 5 tiket</span>
-        </div>
-    </div>
-
-    <!-- TIKET 3 -->
-    <div class="mt-3 w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <!-- Title and Subtitle -->
-        <div class="px-4 pt-2">
-            <h2 class="text-xl font-bold text-gray-800">Festival B</h2>
-            <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
-        </div>
-
-        <!-- Row with Circles and Text -->
-        <div class="flex items-center justify-start px-4 py-3">
-            <div class="flex items-center">
-                <div class="w-2 h-2 bg-orange-500 rounded-full flex items-center justify-center text-white">
-                </div>
-                <span class="ml-2 text-gray-700 text-xs">Tidak bisa refund</span>
-            </div>
-            <div class="ms-3 flex items-center">
-                <div class="w-2 h-2 bg-green-500 rounded-full flex items-center justify-center text-white">
-                </div>
-                <span class="ml-2 text-gray-700 text-xs">Berdiri</span>
-            </div>
-        </div>
-
-        <!-- Dotted Divider -->
-        <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
-
-        <!-- Price and Button Row -->
-        <div class="flex justify-between items-center px-4 pt-2">
-            <span class="text-lg font-bold text-secondaryOrange">IDR 660.000</span>
-            <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' %}">
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
-            </div>
-        </div>
-
-        <div class="ps-4 pb-4">
-            <span class="text-xs text-secondaryOrange">Tersisa 5 tiket</span>
-        </div>
-    </div>
-
-</section>
+        {% endfor %}
+    </section>
 
 {% include 'footer.html' %}
 {% endblock %}
