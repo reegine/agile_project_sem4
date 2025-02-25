@@ -140,6 +140,12 @@
                   </div>
               </div>
           </div>
+
+          <a href="{% url 'logout' %}" id="" class="flex items-center justify-center bg-primaryBlue text-white rounded-lg mt-10 px-4 py-4 hover:bg-blue-700 transition w-full">
+            <i class="fa-solid fa-arrow-right-from-bracket me-4"></i>
+            <span>Logout</span>
+          </a>
+
       </div>
   </div>
   
@@ -149,4 +155,19 @@
 </div>
 
 {% include 'footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) { 
+            card.addEventListener('click', function() {
+                const href = card.getAttribute('data-href');
+                window.location.href = href; 
+            });
+        });
+    });
+</script>
 {% endblock %}

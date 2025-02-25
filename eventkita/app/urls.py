@@ -25,4 +25,5 @@ urlpatterns = [
     path('calendar/detail/<str:date>/', views.calendar_detail, name='calendar_detail'),
     path('selengkapnya/', views.selengkapnya, name='selengkapnya'), 
     path('riwayattransaksi/', views.riwayattransaksi, name='riwayattransaksi'), 
+    path('logout/', views.logout_view, name='logout'), 
 ]

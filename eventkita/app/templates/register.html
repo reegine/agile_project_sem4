@@ -84,28 +84,27 @@
               Create your account profile to start booking tickets to events you plan to attend!
           </p>
   
-          <form method="POST" action="{% url 'login' %}" class="space-y-4">
-              {% csrf_token %}
-              <input type="email" name="email" placeholder="Your email here..." 
-                  class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-  
-              <input type="password" name="password" placeholder="Password" 
-                  class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-  
-              <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
-                  <div class="flex items-center space-x-3 text-[#2F2F72] font-semibold justify-center sm:justify-start">
+          <form method="POST" action="{% url 'register' %}" class="space-y-4">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Your email here..." 
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+        
+            <input type="password" name="password" placeholder="Password" 
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+        
+            <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
+                <div class="flex items-center space-x-3 text-[#2F2F72] font-semibold justify-center sm:justify-start">
                     <p class="mr-2 text-gray-500">Already have an account?</p>
                     <a href="{% url 'login' %}" class="text-[#242565] underline hover:text-blue-700">Login...</a>
-                  </div>
-                  <!-- Log in Button -->
-                  <a href="{% url 'finishsignup' %}" 
-                      class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition">
-                      <span class="mr-4">Set Up Profile</span>
-                      <span>→</span>
-                  </a>
-              </div>
-  
-          </form>
+                </div>
+                <!-- Register Button -->
+                <button type="submit" 
+                    class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition">
+                    <span class="mr-4">Register</span>
+                    <span>→</span>
+                </button>
+            </div>
+        </form>
       </div>
   </main>
   

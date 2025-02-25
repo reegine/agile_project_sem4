@@ -82,55 +82,36 @@
           <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Finish Signing Up</h2>
           
           <form method="POST" action="{% url 'finishsignup' %}" class="space-y-4">
-              {% csrf_token %}
-  
-              <!-- Name Fields (Stacked, No Space) -->
-              <div class="w-full">
-                  <input type="text" name="first_name" placeholder="First Name"
-                      class="w-full p-3 border-2 border-[#242565] rounded-t-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65 -mb-px">
-                  <input type="text" name="last_name" placeholder="Last Name"
-                      class="w-full p-3 border-2 border-[#242565] rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
-                  <p class="text-xs text-[#242565] opacity-55 mb-1">Make sure it matches up with your government ID!</p>
-              </div>
-  
-              <!-- Birthdate Field (No Space Between Input & Text) -->
-              <div class="w-full">
-                  <input type="date" name="birthdate" placeholder="Birthdate (mm/dd/yyyy)"
-                      class="w-full p-3 border-2 border-[#0A075F] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565]">
-                  <p class="text-xs text-[#242565] opacity-55 leading-tight mt-1">
-                      To sign up, you need to be at least 18. Your birthday won't be shared with other people who use Eventkita.
-                  </p>
-              </div>
-  
-              <!-- Phone Number -->
-              <div class="w-full">
-                  <input type="tel" name="phone_number" placeholder="Phone Number"
-                      class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
-                  <p class="text-xs text-[#242565] opacity-55">We'll send you confirmation & receipts.</p>
-              </div>
-  
-              <!-- Marketing Checkbox -->
-              <div class="flex items-start space-x-2">
-                  <input type="checkbox" name="marketing_opt_out" id="marketing_opt_out"
-                      class="w-5 h-5 mt-1 border-[#242565] rounded focus:ring-2 focus:ring-blue-500">
-                  <label for="marketing_opt_out" class="text-xs text-[#242565] opacity-55">
-                      I don't want to receive marketing messages from Eventkita. I can also opt out of receiving these at any time in my account settings.
-                  </label>
-              </div>
-  
-              <!-- Terms & Conditions -->
-              <p class="text-xs text-[#242565] opacity-55">
-                  By selecting continue, I agree to Eventkita
-                  <a href="#" class="underline font-bold">Terms of Service, Payment Terms of Service, and Privacy Policy</a>.
-              </p>
-  
-              <!-- Submit Button -->
-              <a href="{% url 'login' %}" 
-                  class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition w-full">
-                  <span class="mr-4">Continue</span>
-                  <span>→</span>
-              </a>
-          </form>
+            {% csrf_token %}
+            
+            <input type="text" name="first_name" placeholder="First Name"
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
+            
+            <input type="text" name="last_name" placeholder="Last Name"
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
+            
+            <input type="tel" name="phone_number" placeholder="Phone Number"
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
+            
+            <div class="flex items-start space-x-2">
+                <input type="checkbox" name="marketing_opt_out" id="marketing_opt_out"
+                    class="w-5 h-5 mt-1 border-[#242565] rounded focus:ring-2 focus:ring-blue-500">
+                <label for="marketing_opt_out" class="text-xs text-[#242565] opacity-55">
+                    I don't want to receive marketing messages from Eventkita.
+                </label>
+            </div>
+            
+            <p class="text-xs text-[#242565] opacity-55">
+                By selecting continue, I agree to Eventkita
+                <a href="#" class="underline font-bold">Terms of Service, Payment Terms of Service, and Privacy Policy</a>.
+            </p>
+            
+            <button type="submit" 
+                class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition w-full">
+                <span class="mr-4">Continue</span>
+                <span>→</span>
+            </button>
+        </form>
       </div>
   </main>
   

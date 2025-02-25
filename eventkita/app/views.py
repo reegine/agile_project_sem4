@@ -50,7 +50,7 @@ def register_view(request):
 
         request.session['temp_email'] = email
 
-        messages.success(request, "Akun berhasil dibuat! Silakan login.")
+        messages.success(request, "Akun berhasil dibuat! Silakan lengkapi data Anda.")
         return redirect('finishsignup')
 
     return render(request, 'register.html')
@@ -67,16 +67,18 @@ def finishsignup_view(request):
         phone_number = request.POST.get('phone_number')
 
         try:
-            user = cast(CustomUser, User.objects.get(email=email))
+            user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, "User tidak ditemukan.")
+            messages.error(request, "User  tidak ditemukan.")
             return redirect('register')
 
+        # Update user information
         user.first_name = first_name
         user.last_name = last_name
         user.phone_number = phone_number
         user.save()
 
+        # Clear the session variable
         request.session.pop('temp_email', None)
 
         messages.success(request, "Data tambahan berhasil disimpan! Silakan login.")
