@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.files.base import ContentFile
 from django.db import models
 import uuid
-import qrcode
+# import qrcode
 from io import BytesIO
 from django.utils import timezone
 from datetime import timedelta
@@ -99,12 +99,12 @@ class EventPurchase(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     jumlah_tiket = models.IntegerField(blank=True,null=True)
 
-    def generate_qr_code(self):
-        qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
-        qr = qrcode.make(qr_data)
-        buffer = BytesIO()
-        qr.save(buffer, format="PNG")
-        self.qr_code.save(f"qr_{self.id}.png", ContentFile(buffer.getvalue()), save=False)
+    # def generate_qr_code(self):
+    #     qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
+    #     qr = qrcode.make(qr_data)
+    #     buffer = BytesIO()
+    #     qr.save(buffer, format="PNG")
+    #     self.qr_code.save(f"qr_{self.id}.png", ContentFile(buffer.getvalue()), save=False)
 
 
 class SavedEvents(models.Model):

@@ -99,3 +99,32 @@ class NotificationAdmin(admin.ModelAdmin):
     list_filter = ('is_read', 'created_at')
     search_fields = ('user__email', 'message')
     ordering = ('-created_at',)
+
+# ============================
+# Admin untuk PasswordResetOTP
+# ============================
+@admin.register(PasswordResetOTP)
+class PasswordResetOTPAdmin(admin.ModelAdmin):
+    list_display = ('user', 'otp_code', 'is_used', 'created_at')
+    list_filter = ('is_used', 'created_at')
+    search_fields = ('user__email', 'otp_code')
+    ordering = ('-created_at',)
+
+
+# ============================
+# Admin untuk Notification
+# ============================
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event', 'purchase', 'message', 'is_read', 'created_at')
+    list_filter = ('is_read', 'created_at')
+    search_fields = ('user__email', 'message')
+    ordering = ('-created_at',)
+
+
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event', 'purchase', 'message', 'is_read', 'created_at')
+    list_filter = ('is_read', 'created_at')
+    search_fields = ('message', 'user__email')  # Assuming user has an email field
+
+admin.site.register(Notification, NotificationAdmin)
