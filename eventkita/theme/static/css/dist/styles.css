@@ -2826,6 +2826,10 @@ input[type="range"]::-ms-fill-lower {
     width: auto;
   }
 
+  .sm\:w-full {
+    width: 100%;
+  }
+
   .sm\:max-w-xl {
     max-width: 36rem;
   }

@@ -469,8 +469,25 @@ def calendar_detail(request, date):
     return render(request, 'calendar_detail.html', {'date': date, 'events': events})
 
 # ini yg dari home page, masuk ke selengkapnya
-def selengkapnya(request):
-    return render(request, 'selengkapnya.html')
+def selengkapnya(request, category):
+    today = timezone.now()
+    upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today, kategori=category).order_by('tanggal_kegiatan')
 
-def riwayattransaksi(request):
+    # Get upcoming events
+    if category == 'konser' :
+        new_category = 'Konser'
+    elif category == 'konferensi' :
+        new_category = 'Konferensi'
+    elif category == 'bazaar' :
+        new_category = 'Bazaar'
+    elif category == 'workshop' :
+        new_category = 'Workshop'
+
+    context = {
+        'semua_event': upcoming_events,
+        'category' : new_category
+    }
+    return render(request, 'selengkapnya.html', context)
+
+def riwayattransaksi(request, category):
     return render(request, 'transactionHistory.html')
