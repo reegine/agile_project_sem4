@@ -43,7 +43,7 @@ class EventAdmin(admin.ModelAdmin):
 # ============================
 @admin.register(Tiket)
 class TiketAdmin(admin.ModelAdmin):
-    list_display = ('judul', 'event_terkait', 'harga')
+    list_display = ('judul', 'event_terkait', 'harga', 'date', 'stock')
     list_filter = ('event_terkait',)
     search_fields = ('judul', 'deskripsi')
     ordering = ('event_terkait', 'judul')
