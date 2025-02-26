@@ -1176,6 +1176,14 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 0;
 }
 
+.datatable-wrapper .datatable-table tbody tr.selected {
+  background-color: var(--color-gray-100);
+}
+
+.dark .datatable-wrapper .datatable-table tbody tr.selected {
+  background-color: var(--color-gray-700);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1414,6 +1422,14 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
 }
 
 .line-clamp-2 {
@@ -2700,6 +2716,11 @@ input[type="range"]::-ms-fill-lower {
 .hover\:bg-gray-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-orange-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(124 45 18 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-pink-600:hover {
