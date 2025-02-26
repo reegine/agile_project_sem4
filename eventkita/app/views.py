@@ -235,14 +235,7 @@ def payment_1(request, tiket_id):
     event = tiket.event_terkait
 
     if request.method == "POST":
-        nama_lengkap = request.POST.get('nama_lengkap')
-        nomor_ponsel = request.POST.get('nomor_ponsel')
-        email_pribadi = request.POST.get('email_pribadi')
         ticket_quantity = request.POST.get('ticket_quantity')
-
-        print('Nama Lengkap:', nama_lengkap)
-        print('Nomor Ponsel:', nomor_ponsel)
-        print('Email Pribadi:', email_pribadi)
         print('Jumlah Tiket:', ticket_quantity)  
 
         purchase = EventPurchase.objects.create(
@@ -258,6 +251,7 @@ def payment_1(request, tiket_id):
         'event': event 
     }
     return render(request, 'payment_1.html', context)
+
 
 @login_required
 def payment_2(request, purchase_id):

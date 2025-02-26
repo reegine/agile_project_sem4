@@ -32,7 +32,7 @@ admin.site.register(CustomUser, CustomUserAdmin)
 # ============================
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('judul', 'kategori', 'tanggal_kegiatan', 'lokasi', 'rating')
+    list_display = ('judul', 'kategori', 'tanggal_kegiatan', 'lokasi', 'rating', 'foto_event')
     list_filter = ('kategori', 'tanggal_kegiatan')
     search_fields = ('judul', 'deskripsi', 'lokasi')
     ordering = ('-tanggal_kegiatan',)

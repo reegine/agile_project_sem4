@@ -170,7 +170,7 @@
             <div class="col-span-2">
               <h2 class="text-xl font-bold text-primaryBlue">Informasi Transaksi</h2>
             </div>
-            <a href="{% url 'payment_1' %}" class="col-span-1 flex items-center justify-center border-2 border-primaryBlue rounded-lg bg-white hover:bg-red-600 hover:text-white transition">
+            <a href="{% url 'home' %}" class="col-span-1 flex items-center justify-center border-2 border-primaryBlue rounded-lg bg-white hover:bg-red-600 hover:text-white transition">
               <div class="p-2 flex items-center">
                 <i class="fa-solid fa-xmark mr-3"></i> 
                 <span class="">Gagalkan Transaksi</span>
@@ -309,11 +309,6 @@
           <div class="border-b border-gray-300 mb-4"></div>
   
           <h2 class="text-xl font-bold text-start mb-4">Status Pembayaran</h2>
-  
-          <!-- <a href="{% url 'payment_3' %}" class="flex items-center justify-center bg-primaryBlue text-white rounded-lg px-4 py-4 hover:bg-blue-700 transition w-full">
-            <i class="fa-solid fa-lock mr-2"></i>
-            <span>Cek Status Pembayaran</span>
-          </a> -->
 
           <a href="#" id="checkPaymentStatus" class="flex items-center justify-center bg-primaryBlue text-white rounded-lg px-4 py-4 hover:bg-blue-700 transition w-full">
             <i class="fa-solid fa-lock mr-2"></i>
@@ -384,7 +379,7 @@
         // Handle file upload submission logic here
         alert('File submitted successfully!');
         closeModal(); // Close the modal after submission
-        window.location.href = "{% url 'payment_3' %}";
+        window.location.href = "{% url 'payment_2' purchase.id %}";
 
     });
 
