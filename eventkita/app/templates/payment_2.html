@@ -111,28 +111,22 @@
 
     <section class="bg-primaryBlue py-10">
       <div class="mx-auto max-w-screen-xl grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-5 justify-center px-10">           
-        <figure class="md:col-span-1 max-w-lg"> 
-          <img class="h-auto w-lg rounded-lg" src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="image description">
-        </figure>
-        <div class="col-span-1 md:col-span-2 flex flex-col justify-center">
-          <h1 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-1xl lg:text-2xl dark:text-white">THE SCRIPT SATELLITES WORLD TOUR - JAKARTA</h1>
-          <div class="mt-2 flex items-center rounded-lg">
-            <i class="fa-regular fa-calendar text-white"></i>
-            <p class="ms-5 text-white">
-              02 - 06 Juli 2025
-            </p>
+          <figure class="md:col-span-1 max-w-lg"> 
+              <img class="h-60 w-lg rounded-lg" src="{{ event.foto_event.url }}" alt="Event Image">
+          </figure>
+          <div class="col-span-1 md:col-span-2 flex flex-col justify-center">
+              <h1 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-1xl lg:text-2xl dark:text-white">{{ event.judul }}</h1>
+              <div class="mt-2 flex items-center rounded-lg">
+                  <i class="fa-regular fa-calendar text-white"></i>
+                  <p class="ms-5 text-white">{{ event.tanggal_kegiatan|date:"d M Y" }}</p>
+              </div>
+              <div class="flex items-center rounded-lg">
+                  <i class="fa-solid fa-location-dot text-white"></i>
+                  <p class="ms-5 text-white">{{ event.lokasi }}</p>
+              </div>
           </div>
-    
-          <div class="flex items-center rounded-lg">
-            <i class="fa-solid fa-location-dot text-white"></i>
-            <p class="ms-5 text-white">
-              Jl. BSD Grand Boulevard No.1, Pagedangan, Kec. Pagedangan, Kabupaten Tangerang, Banten 15339, Tangerang, Banten, Indonesia
-            </p>
-          </div>
-          
-        </div>
       </div>
-    </section>
+  </section>
 
     <section class="mx-auto max-w-screen-xl px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="col-span-2">
@@ -170,26 +164,29 @@
             <div class="col-span-2">
               <h2 class="text-xl font-bold text-primaryBlue">Informasi Transaksi</h2>
             </div>
-            <a href="{% url 'home' %}" class="col-span-1 flex items-center justify-center border-2 border-primaryBlue rounded-lg bg-white hover:bg-red-600 hover:text-white transition">
-              <div class="p-2 flex items-center">
-                <i class="fa-solid fa-xmark mr-3"></i> 
-                <span class="">Gagalkan Transaksi</span>
-              </div>
-            </a>
+            <form action="{% url 'batalkantransaksi' purchase.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="w-full col-span-1 flex items-center justify-center border-2 border-primaryBlue rounded-lg bg-white hover:bg-red-600 hover:text-white transition">
+                  <div class="p-2 flex items-center">
+                      <i class="fa-solid fa-xmark mr-3"></i> 
+                      <span class="">Gagalkan Transaksi</span>
+                  </div>
+              </button>
+          </form>
           </div>
         
           <div class="grid grid-cols-1 md:grid-cols-3 mt-7 text-start justify-items-stretch gap-6">
             <div class="flex flex-col h-full border-r-4 border-gray-500">
               <h3 class="text-lg font-semibold text-primaryBlue">Nama Lengkap</h3>
-              <p class="text-sm text-secondaryOrange font-bold">John Doe</p>
+              <p class="text-sm text-secondaryOrange font-bold">{{ user.first_name }} {{ user.last_name }}</p>
             </div>
             <div class="flex flex-col h-full border-r-4 border-gray-500 ">
               <h3 class="text-lg font-semibold text-primaryBlue">Email</h3>
-              <p class="text-sm text-secondaryOrange font-bold">example123@gmail.com</p>
+              <p class="text-sm text-secondaryOrange font-bold">{{ user.email }}</p>
             </div>
             <div class="flex flex-col h-full">
               <h3 class="text-lg font-semibold text-primaryBlue">Nomor Telepon</h3>
-              <p class="text-sm text-secondaryOrange font-bold">0812-3456-789</p>
+              <p class="text-sm text-secondaryOrange font-bold">{{ user.phone_number }}</p>
             </div>
           </div>
         </div>
@@ -266,15 +263,15 @@
         
         <div class="bg-primaryBlue rounded-t-lg p-6">
           <div class="flex items-center mb-4">
-            <img src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="Event Image" class="rounded-lg w-28 mr-3" />
-            <h2 class="text-white text-lg font-bold">The Script Satellites World Tour - Jakarta</h2>
+            <img src="{{ event.foto_event.url }}" alt="Event Image" class="rounded-lg w-28 mr-3" />
+            <h2 class="text-white text-lg font-bold">{{ event.judul }}</h2>
           </div>
         
           <hr class="border-white mb-4"/>
         
-          <div class="text-white text-lg font-semibold mb-1">Festival B</div>
+          <div class="text-white text-lg font-semibold mb-1">{{ tiket.judul }}</div>
         
-          <div class="text-white text-base mb-1">1 Ticket - 1 Pax</div>
+          <div class="text-white text-base mb-1">{{ purchase.jumlah_tiket }} Ticket - {{ purchase.jumlah_tiket }} Pax</div>
         
           <div class="mt-5 text-gray-300 font-semibold text-base mb-1">Tanggal Dipilih</div>
         

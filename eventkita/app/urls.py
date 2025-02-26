@@ -26,4 +26,6 @@ urlpatterns = [
     path('selengkapnya/', views.selengkapnya, name='selengkapnya'), 
     path('riwayattransaksi/', views.riwayattransaksi, name='riwayattransaksi'), 
     path('logout/', views.logout_view, name='logout'), 
+    path('batalkantransaksi/<uuid:purchase_id>', views.batalkantransaksi, name='batalkantransaksi'), 
+
 ]

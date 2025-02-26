@@ -233,6 +233,10 @@ def about_us(request):
 def payment_1(request, tiket_id):
     tiket = get_object_or_404(Tiket, id=tiket_id)
     event = tiket.event_terkait
+    context = {
+        'tiket': tiket,
+        'event': event 
+    }
 
     if request.method == "POST":
         ticket_quantity = request.POST.get('ticket_quantity')
@@ -246,16 +250,20 @@ def payment_1(request, tiket_id):
         )
         return redirect('payment_2', purchase_id=purchase.id)
 
-    context = {
-        'tiket': tiket,
-        'event': event 
-    }
+    
     return render(request, 'payment_1.html', context)
 
 
 @login_required
 def payment_2(request, purchase_id):
     purchase = get_object_or_404(EventPurchase, id=purchase_id)
+    tiket = get_object_or_404(Tiket, id=purchase.tiket.id)
+    event = tiket.event_terkait
+    context = {
+        'tiket': tiket,
+        'event': event,
+        'purchase': purchase
+    }
     
     if request.method == "POST" and 'bukti_pembayaran' in request.FILES:
         purchase.bukti_pembayaran = request.FILES['bukti_pembayaran']
@@ -263,8 +271,17 @@ def payment_2(request, purchase_id):
         purchase.save()
         return redirect('payment_3', purchase_id=purchase.id)
 
-    context = {'purchase': purchase}
+    # context = {'purchase': purchase}
     return render(request, 'payment_2.html', context)
+
+@login_required
+def batalkantransaksi(request, purchase_id):
+    purchase = get_object_or_404(EventPurchase, id=purchase_id)
+    
+    if request.method == "POST" :
+        purchase.status_pembelian = 'gagal'
+        purchase.save()
+        return redirect('home')
 
 @login_required
 def payment_3(request, purchase_id):
