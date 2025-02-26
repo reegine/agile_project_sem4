@@ -88,101 +88,37 @@
     <!-- Header Row -->
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-bold text-[#242565]">Event Tersimpan</h2>
-        <button class="flex items-center text-gray-600">
-            <span class="pb-1">selengkapnya</span>
-            <i class="h-4 w-4 ml-1 fa-solid fa-chevron-right"></i>
-        </button>
+        
     </div>
 
     <!-- Cards Container -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <!-- Card 1 -->
-        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
-            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="grid grid-cols-5 gap-1">
-                        <div class="col-span-1 text-center">
-                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                            <p class="text-2xl font-bold">01</p>
-                            <p class="text-2xl font-bold leading-0.4">-</p>
-                            <p class="text-2xl font-bold">01</p>
-                        </div>
-                        <div class="col-span-4 pl-4">
-                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% for saved_event in saved_events %}
+        {% with event=saved_event.event %}
 
-        <!-- Card 2 -->
-        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
             <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
+                <img src="{{ event.foto_event.url }}" alt="Event Image" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <div class="grid grid-cols-5 gap-1">
                         <div class="col-span-1 text-center">
-                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                            <p class="text-2xl font-bold">01</p>
-                            <p class="text-2xl font-bold leading-0.4">-</p>
-                            <p class="text-2xl font-bold">01</p>
+                            <p class="text-xs font-medium text-primaryBlue">{{ event.tanggal_kegiatan|date:"M" }}</p>
+                            <p class="text-2xl font-bold">{{ event.tanggal_kegiatan|date:"d" }}</p>
                         </div>
                         <div class="col-span-4 pl-4">
-                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                            <h3 class="text-base font-bold">{{ event.judul }}</h3>
+                            <p class="text-gray-600 text-sm">{{ event.deskripsi|truncatewords:10 }}</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
 
-        <!-- Card 3 -->
-        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
-            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="grid grid-cols-5 gap-1">
-                        <div class="col-span-1 text-center">
-                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                            <p class="text-2xl font-bold">01</p>
-                            <p class="text-2xl font-bold leading-0.4">-</p>
-                            <p class="text-2xl font-bold">01</p>
-                        </div>
-                        <div class="col-span-4 pl-4">
-                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' %}">
-            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="grid grid-cols-5 gap-1">
-                        <div class="col-span-1 text-center">
-                            <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                            <p class="text-2xl font-bold">01</p>
-                            <p class="text-2xl font-bold leading-0.4">-</p>
-                            <p class="text-2xl font-bold">01</p>
-                        </div>
-                        <div class="col-span-4 pl-4">
-                            <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                            <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
     </div>
 </section>
