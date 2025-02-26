@@ -101,11 +101,14 @@
             <p class="">Nomor Virtual Account: <span id="virtualAccountNumber">780 1234 5678 9999</span></p>
           </div>
           <p class="mt-3">Unggah bukti pembayaran</p>
-          <input type="file" id="fileUpload" class="mt-3 mb-4 border rounded p-2 w-full" />
-          <div class="flex justify-between">
-              <button id="cancelPayment" class="bg-red-500 text-white rounded px-4 py-2" onclick="closeModal()">Batalkan Pembayaran</button>
-              <button id="submitPayment" class="bg-primaryBlue text-white rounded px-4 py-2">Kirimkan Bukti</button>
-          </div>
+          <form action="{% url 'payment_2' purchase.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="bukti_pembayaran" id="fileUpload" class="mt-3 mb-4 border rounded p-2 w-full" required />
+            <div class="flex justify-between">
+                <button type="button" class="bg-red-500 text-white rounded px-4 py-2" onclick="closeModal()">Batalkan Pembayaran</button>
+                <button type="submit" class="bg-primaryBlue text-white rounded px-4 py-2">Kirimkan Bukti</button>
+            </div>
+        </form>
       </div>
     </div>
 
@@ -261,7 +264,7 @@
 
       <div class="col-span-1 justify-items-center">
         
-        <div class="bg-primaryBlue rounded-t-lg p-6">
+        <div class="bg-primaryBlue rounded-t-lg p-6 w-full">
           <div class="flex items-center mb-4">
             <img src="{{ event.foto_event.url }}" alt="Event Image" class="rounded-lg w-28 mr-3" />
             <h2 class="text-white text-lg font-bold">{{ event.judul }}</h2>

@@ -89,14 +89,14 @@
     <section class="bg-primaryBlue py-10">
       <div class="mx-auto max-w-screen-xl grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-5 justify-center px-10">           
         <figure class="md:col-span-1 max-w-lg"> 
-          <img class="h-auto w-lg rounded-lg" src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="image description">
+          <img class="h-60 w-lg rounded-lg" src="{{ event.foto_event.url }}" alt="image description">
         </figure>
         <div class="col-span-1 md:col-span-2 flex flex-col justify-center">
-          <h1 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-1xl lg:text-2xl dark:text-white">THE SCRIPT SATELLITES WORLD TOUR - JAKARTA</h1>
+          <h1 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-1xl lg:text-2xl dark:text-white">{{ event.judul }}</h1>
           <div class="mt-2 flex items-center rounded-lg">
             <i class="fa-regular fa-calendar text-white"></i>
             <p class="ms-5 text-white">
-              02 - 06 Juli 2025
+              {{ event.tanggal_kegiatan|date:"d M Y" }}
             </p>
           </div>
     
@@ -119,54 +119,54 @@
         <!-- Ticket Details -->
         <div class="bg-primaryBlue pt-10 px-10 justify-items-start rounded-t-lg mt-6">
           <div class="flex items-center mb-4">
-            <img src="https://indobuildtech.com/wp-content/uploads/2025/02/cover-art1-sby.jpg" alt="Event Image" class="rounded-lg w-56 mr-3" />
+            <img src="{{ event.foto_event.url }}" alt="Event Image" class="rounded-lg w-56 mr-3 h-36 object-cover" />
             <h2 class="text-white text-2xl font-bold">The Script Satellites World Tour - Jakarta</h2>
           </div>
           <div class="grid grid-cols-4 items-center w-full">
             <div class="col-span-3">
               <h2 class="mt-10 text-xl font-semibold text-gray-300">Lokasi</h2>
               <p class="text-lg text-white font-semibold">
-                Indonesia Convention Exhibition (ICE) BSD
+                {{ event.lokasi }}
               </p>
             </div>
             <div class="col-span-1">
               <div class="bg-white p-6 rounded-lg shadow-md" id="qrcode"></div>
             </div>
           </div>
-          <div class="grid grid-cols-3 w-full">
+          <div class="grid grid-cols-2 w-full">
             <div class="col-span-1">
               <h2 class="mt-10 text-xl font-semibold text-gray-300">Date</h2>
               <p class="text-lg text-white font-semibold">
-                14 February 2025
+                {{ event.tanggal_kegiatan|date:"d M Y" }}
               </p>
             </div>
-            <div class="col-span-1 justify-items-center"></div>
+            <!-- <div class="col-span-1 justify-items-center"></div> -->
             <div class="col-span-1 text-start ps-10">
               <h2 class="mt-10 text-xl font-semibold text-gray-300">Time</h2>
               <p class="text-lg text-white font-semibold">
-                08.00
+                {{ event.tanggal_kegiatan|date:"h:i A" }}
               </p>
             </div>
           </div>
-          <div class="grid grid-cols-3 w-full">
+          <div class="grid grid-cols-2 w-full">
             <div class="col-span-1">
               <h2 class="mt-10 text-xl font-semibold text-gray-300">Section</h2>
               <p class="text-lg text-white font-semibold">
-                Festival B
+                {{ tiket.judul }}
               </p>
             </div>
             <div class="col-span-1 ps-10">
-              <h2 class="mt-10 text-xl font-semibold text-gray-300">Seat</h2>
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Deskripsi</h2>
               <p class="text-lg text-white font-semibold">
-                Standing
+                {{ tiket.deskripsi }}
               </p>
             </div>
-            <div class="col-span-1 text-start ps-10">
-              <h2 class="mt-10 text-xl font-semibold text-gray-300">Row</h2>
+            <!-- <div class="col-span-1 text-start ps-10">
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Deskripsi</h2>
               <p class="text-lg text-white font-semibold">
-                Standing
+                {{ tiket.deskripsi }}
               </p>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -185,20 +185,7 @@
             <svg id="barcode"></svg>
           </div>
         </div>
-       
-        
-
-        <div class="flex justify-end space-x-4 mt-10">
-          <!-- First Button: No Background -->
-          <button class="border border-primaryBlue rounded-lg px-5 py-4 text-primaryBlue hover:bg-primaryBlue hover:text-white transition duration-200">
-              Kembali ke Beranda
-          </button>
-          
-          <!-- Second Button: Dark Blue Background -->
-          <button id="download-ticket" class="bg-primaryBlue text-white rounded-lg px-5 py-4 hover:bg-blue-950 transition duration-200">
-            Download Tiket
-          </button>
-        </div>
+      
 
 
       </div>
@@ -216,7 +203,7 @@
             
             <!-- Order Number Box -->
             <div class="bg-primaryBlue text-white rounded-lg p-2 text-center mb-4">
-                <p>Order #4335</p>
+                <p>Order #{{ purchase.id }}</p>
             </div>
             
             <!-- Transaction Detail Text -->
@@ -230,7 +217,7 @@
                             <p>Date</p>
                         </div>
                         <div class="text-end text-sm font-bold text-primaryBlue">
-                            <p>13/2/2025</p>
+                            <p>{{ purchase.created_at }}</p>
                         </div>
                     </div>
                 </div>
@@ -249,7 +236,7 @@
                         <p>Total</p>
                     </div>
                     <div class="text-end text-sm font-bold text-primaryBlue">
-                        <p>IDR 660.000</p>
+                      <p>IDR {{ total_price }}</p>
                     </div>
                 </div>
             </div>
@@ -258,8 +245,20 @@
 
       </div>
 
-
     </section>
+
+    <div class="mx-auto max-w-screen-xl flex items-center space-x-4 px-6 mb-10 w-full">
+      <!-- First Button: No Background -->
+      <a href="{% url 'home' %}" class="border border-primaryBlue rounded-lg px-5 py-4 text-primaryBlue hover:bg-primaryBlue hover:text-white transition duration-200">
+          Kembali ke Beranda
+      </a>
+      
+      <!-- Second Button: Dark Blue Background -->
+      <button id="download-ticket" class="bg-primaryBlue text-white rounded-lg px-5 py-4 hover:bg-blue-950 transition duration-200">
+        Download Tiket
+      </button>
+    </div>
+
 
 
     {% include 'footer.html' %}
@@ -270,7 +269,9 @@
     {% block javascript %}
     <script>
       // URL to encode
-      var url = "http://127.0.0.1:8000/detailpage/payment1/payment2/";
+      var purchaseId = "{{ purchase.id }}";  // Get the purchase ID from the context
+      var url = "http://127.0.0.1:8000/detailpage/payment1/payment2/payment3/" + purchaseId;
+
 
       // Generate QR Code
       new QRCode(document.getElementById("qrcode"), {
@@ -305,7 +306,7 @@
             scrollY: 0, 
             scrollX: 0, 
           },
-          jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+          jsPDF: { unit: "mm", format: "b4", orientation: "landscape" },
         };
 
         html2pdf()

@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from .models import *
 from typing import cast
+import locale
 
 User = get_user_model()
 
@@ -267,12 +268,13 @@ def payment_2(request, purchase_id):
     
     if request.method == "POST" and 'bukti_pembayaran' in request.FILES:
         purchase.bukti_pembayaran = request.FILES['bukti_pembayaran']
-        purchase.status_pembelian = 'verifikasi'
+        purchase.status_pembelian = 'berhasil'
         purchase.save()
         return redirect('payment_3', purchase_id=purchase.id)
 
     # context = {'purchase': purchase}
     return render(request, 'payment_2.html', context)
+
 
 @login_required
 def batalkantransaksi(request, purchase_id):
@@ -286,8 +288,19 @@ def batalkantransaksi(request, purchase_id):
 @login_required
 def payment_3(request, purchase_id):
     purchase = get_object_or_404(EventPurchase, id=purchase_id, status_pembelian='berhasil')
+    tiket = get_object_or_404(Tiket, id=purchase.tiket.id)
+    event = tiket.event_terkait
 
-    context = {'purchase': purchase}
+    total_price = purchase.jumlah_tiket * tiket.harga if purchase.jumlah_tiket and tiket.harga else 0
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8') 
+    formatted_total_price = locale.currency(total_price, grouping=True)
+
+    context = {
+        'tiket': tiket,
+        'event': event,
+        'purchase': purchase,
+        'total_price': formatted_total_price,
+    }
     return render(request, 'payment_3.html', context)
 
 @login_required
