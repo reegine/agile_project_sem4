@@ -270,7 +270,20 @@ def payment_2(request, purchase_id):
         purchase.bukti_pembayaran = request.FILES['bukti_pembayaran']
         purchase.status_pembelian = 'berhasil'
         purchase.save()
+
+        notification_message = f"Pembayaran untuk {event.judul} - {tiket.judul} berhasil. Terima kasih telah melakukan pembayaran."
+        Notification.objects.create(
+            user=request.user,
+            event=event,
+            purchase=purchase,
+            message=notification_message,
+            link=f"http://127.0.0.1:8000/detailpage/payment1/payment2/payment3/{purchase.id}"
+        )
+
         return redirect('payment_3', purchase_id=purchase.id)
+    
+        
+    
 
     # context = {'purchase': purchase}
     return render(request, 'payment_2.html', context)
