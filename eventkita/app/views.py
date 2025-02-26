@@ -389,6 +389,13 @@ def notifikasi(request):
     notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'notifikasi.html', {'notifications': notifications})
 
+@login_required
+def mark_notification_as_read(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    notification.is_read = True
+    notification.save()
+    return JsonResponse({'success': True})
+
 def get_unread_notifications(request):
     if request.user.is_authenticated:
         return {'unread_notifications': Notification.objects.filter(user=request.user, is_read=False).count()}
