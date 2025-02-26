@@ -249,9 +249,9 @@ def payment_1(request, tiket_id):
             status_pembelian='pending',
             jumlah_tiket=ticket_quantity, 
         )
+        messages.info(request, 'Selesaikan pembyaaran sebelum 10 menit!')
         return redirect('payment_2', purchase_id=purchase.id)
-
-    
+       
     return render(request, 'payment_1.html', context)
 
 
@@ -280,10 +280,9 @@ def payment_2(request, purchase_id):
             link=f"http://127.0.0.1:8000/detailpage/payment1/payment2/payment3/{purchase.id}"
         )
 
+        messages.success(request, 'Pembayaran Berhasil!')
+
         return redirect('payment_3', purchase_id=purchase.id)
-    
-        
-    
 
     # context = {'purchase': purchase}
     return render(request, 'payment_2.html', context)
@@ -293,9 +292,11 @@ def payment_2(request, purchase_id):
 def batalkantransaksi(request, purchase_id):
     purchase = get_object_or_404(EventPurchase, id=purchase_id)
     
-    if request.method == "POST" :
+    if request.method == "POST":
         purchase.status_pembelian = 'gagal'
         purchase.save()
+        messages.warning(request, "Pembelian tiket telah digagalkan!")
+
         return redirect('home')
 
 @login_required

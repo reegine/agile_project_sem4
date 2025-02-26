@@ -2,6 +2,30 @@
 {% load static %}
 
 {% block title %}EventKita | Home{% endblock %}
+{% block head %} 
+<style>
+  #toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Aligns to the right */
+  }
+
+  .toast-message {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 300px;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+</style>
+{% endblock %}
 
 {% block content %}
 
@@ -91,6 +115,7 @@
       </div>
     </div>
     </nav>
+    
 
     <!-- Isi Dari Banner -->
   
@@ -142,6 +167,24 @@
     </div>
 
 </section>
+
+ <!-- Toast Top right -->
+ {% if messages %}
+ <div id="toast-container">
+     {% for message in messages %}
+     <div class="toast-message text-white rounded-lg shadow-md flex items-center justify-between p-4 mb-2
+         {% if message.tags == 'success' %} bg-green-500 {% elif message.tags == 'warning' %} bg-yellow-500 
+         {% elif message.tags == 'error' %} bg-red-500 {% elif message.tags == 'info' %} bg-blue-500 {% else %} bg-gray-500 {% endif %}">
+         <span class="text-sm font-normal">{{ message }}</span>
+         <button type="button" class="ms-8 text-white hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" aria-label="Close" onclick="this.closest('.toast-message').remove()">
+             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+             </svg>
+         </button>
+     </div>
+     {% endfor %}
+ </div>
+ {% endif %}
 
 <section class="px-4 mx-auto max-w-screen-xl mt-24 md:mt-40">
     {% for category, events in semua_event.items %}
@@ -241,5 +284,16 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('#toast-container .flex');
+        toasts.forEach(toast => {
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 1000); // Removes after transition
+            }, 5000); // Show for 5 seconds
+        });
+    });
+
 </script>
 {% endblock %}
