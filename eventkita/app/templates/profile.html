@@ -89,66 +89,71 @@
           <div class="flex items-center justify-between border-b pb-4">
               <a href="{% url 'login' %}" class="flex items-center space-x-2 hover:underline">
                   <img src="{% static 'logo/rumah.png' %}" alt="User Profile" class="w-6 h-6 rounded-full object-cover">
-                  <span class="text-lg font-semibold">Edit Profile</span>
+                  <span class="text-lg font-semibold">Ubah Profil</span>
               </a>
           </div>
   
           <!-- User Card -->
           <div class="flex flex-wrap items-center justify-between bg-gray-100 p-4 rounded-lg mt-4">
               <div class="flex items-center space-x-4">
-                  <div class="w-16 h-16 bg-gray-300 rounded-full"></div>
+                <div class="relative w-16 h-16 rounded-full border border-gray-400 overflow-hidden bg-gray-300 flex items-center justify-center">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile" class="w-full h-full object-cover rounded-full">
+                    {% else %}
+                        <div class="w-full h-full bg-gray-300 rounded-full"></div>
+                    {% endif %}
+                </div>
                   <div>
-                      <p class="text-lg font-bold">User 144321</p>
-                      <p class="text-sm text-orange-500">Jakarta, Indonesia</p>
+                      <p class="text-lg font-bold">{{ user.username }}</p>
+                      <p class="text-sm text-orange-500">{{ user.kota_kabupaten }}, {{ user.provinsi }}</p>
                   </div>
               </div>
-              <a href="{% url 'editprofile' %}" class="border border-gray-400 px-3 py-1 rounded-lg text-sm flex items-center space-x-1 mt-2 sm:mt-0">
-                  ✏️ <span>Edit</span>
+              <a href="{% url 'editprofile' %}" class="border border-gray-400 px-3 py-1 rounded-lg text-sm flex items-center space-x-1 mt-2 sm:mt-0 hover:bg-gray-400">
+                  ✏️ <span>Ubah</span>
               </a>
           </div>
   
           <!-- Personal Information Section -->
           <div class="bg-white p-4 rounded-lg shadow mt-6 border">
-              <h3 class="font-bold text-lg border-b pb-2">Personal Information</h3>
+              <h3 class="font-bold text-lg border-b pb-2">Informasi Personal</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                   <div>
-                      <p class="text-sm text-gray-500">First Name</p>
-                      <p class="text-orange-500 font-semibold">John</p>
+                      <p class="text-sm text-gray-500">Nama Depan</p>
+                      <p class="text-orange-500 font-semibold">{{ user.first_name }}</p>
                   </div>
                   <div>
-                      <p class="text-sm text-gray-500">Last Name</p>
-                      <p class="text-orange-500 font-semibold">Doe</p>
+                      <p class="text-sm text-gray-500">Nama Belakang</p>
+                      <p class="text-orange-500 font-semibold">{{ user.last_name }}</p>
                   </div>
                   <div>
                       <p class="text-sm text-gray-500">Alamat Email</p>
-                      <p class="text-orange-500 font-semibold">example123@gmail.com</p>
+                      <p class="text-orange-500 font-semibold">{{ user.email }}</p>
                   </div>
                   <div>
-                      <p class="text-sm text-gray-500">Phone</p>
-                      <p class="text-orange-500 font-semibold">0812-3456-789</p>
+                      <p class="text-sm text-gray-500">Nomor Telepon</p>
+                      <p class="text-orange-500 font-semibold">{{ user.phone_number }}</p>
                   </div>
               </div>
           </div>
   
           <!-- Address Section -->
           <div class="bg-white p-4 rounded-lg shadow mt-6 border">
-              <h3 class="font-bold text-lg border-b pb-2">Address</h3>
+              <h3 class="font-bold text-lg border-b pb-2">Alamat</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                   <div>
                       <p class="text-sm text-gray-500">Provinsi</p>
-                      <p class="text-orange-500 font-semibold">Jawa Barat</p>
+                      <p class="text-orange-500 font-semibold">{{ user.provinsi }}</p>
                   </div>
                   <div>
                       <p class="text-sm text-gray-500">Kota/Kabupaten</p>
-                      <p class="text-orange-500 font-semibold">Jakarta</p>
+                      <p class="text-orange-500 font-semibold">{{ user.kota_kabupaten }}</p>
                   </div>
                   <div>
-                      <p class="text-sm text-gray-500">Kode Pos</p>
-                      <p class="text-orange-500 font-semibold">10110</p>
+                    <p class="text-sm text-gray-500">Alamat Lengkap</p>
+                    <p class="text-orange-500 font-semibold truncate">{{ user.alamat_lengkap }}</p>
                   </div>
                   <div>
-                      <p class="text-sm text-gray-500">Alamat Lengkap</p>
-                      <p class="text-orange-500 font-semibold truncate">Jl. Tanah Abang I, Kelurahan Keb...</p>
+                     
                   </div>
               </div>
           </div>

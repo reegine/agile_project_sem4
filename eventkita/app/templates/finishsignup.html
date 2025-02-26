@@ -79,36 +79,36 @@
   
       <!-- Finish Signing Up Form -->
       <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg w-full mt-10 mb-10 max-w-lg sm:w-11/12 md:w-2/3 md:max-w-md lg:max-w-lg mx-auto border-2 border-[#0A075F]">
-          <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Finish Signing Up</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Selesaikan Pendaftaran</h2>
           
           <form method="POST" action="{% url 'finishsignup' %}" class="space-y-4">
             {% csrf_token %}
             
-            <input type="text" name="first_name" placeholder="First Name"
+            <input type="text" name="first_name" placeholder="Nama Depan"
                 class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
             
-            <input type="text" name="last_name" placeholder="Last Name"
+            <input type="text" name="last_name" placeholder="Nama Belakang"
                 class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
             
-            <input type="tel" name="phone_number" placeholder="Phone Number"
+            <input type="tel" name="phone_number" placeholder="Nomor Telepon"
                 class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#242565] placeholder-[#242565] placeholder-opacity-65">
             
             <div class="flex items-start space-x-2">
                 <input type="checkbox" name="marketing_opt_out" id="marketing_opt_out"
                     class="w-5 h-5 mt-1 border-[#242565] rounded focus:ring-2 focus:ring-blue-500">
                 <label for="marketing_opt_out" class="text-xs text-[#242565] opacity-55">
-                    I don't want to receive marketing messages from Eventkita.
+                    Saya tidak ingin menerima pesan pemasaran dari Eventkita.
                 </label>
             </div>
             
             <p class="text-xs text-[#242565] opacity-55">
-                By selecting continue, I agree to Eventkita
-                <a href="#" class="underline font-bold">Terms of Service, Payment Terms of Service, and Privacy Policy</a>.
+                Dengan memilih lanjut, saya setuju dengan Eventkita.
+                <a href="#" class="underline font-bold">Syarat Layanan, Syarat Layanan Pembayaran, dan Kebijakan Privasi</a>.
             </p>
             
             <button type="submit" 
                 class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition w-full">
-                <span class="mr-4">Continue</span>
+                <span class="mr-4">Lanjut</span>
                 <span>→</span>
             </button>
         </form>

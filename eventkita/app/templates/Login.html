@@ -56,9 +56,9 @@
             <!-- <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button> -->
             <button class="flex items-center justify-between p-2 shadow-md hover:shadow-lg transition-shadow duration-200 focus:outline-none">
                 <div class="flex flex-col">
-                    <span class="text-xs font-semibold text-gray-100">Username</span>
-                    <span class="text-xs text-gray-400">Set up profile...</span>
-                </div>
+                    <span class="text-xs font-semibold text-gray-100">Nama Pengguna</span>
+                    <span class="text-xs text-gray-400">Atur Profil...</span>
+                </div>  
                 <div class="w-7 h-7">
                     <img src="{% static 'default_images/profile.png' %}" alt="User  Profile" class="w-full h-full rounded-full object-cover">
                 </div>
@@ -79,41 +79,41 @@
   
       <!-- Login Form -->
       <div class="bg-white p-6 sm:p-10 rounded-lg shadow-lg w-full max-w-xl sm:w-11/12 md:w-2/3 md:max-w-md lg:max-w-xl mx-auto">
-          <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Get Started</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#0A075F] mb-2">Masuk ke Eventkita</h2>
           <p class="text-sm sm:text-md text-[#242565] mb-4 opacity-55">
-              Register for events and book tickets for events you plan to attend!
+              Daftarkan diri untuk acara dan pesan tiket untuk acara yang ingin Anda hadiri!
           </p>
   
           <form method="POST" action="{% url 'login' %}" class="space-y-4">
               {% csrf_token %}
-              <input type="email" name="email" placeholder="Your email here..." 
+              <input type="email" name="email" placeholder="Masukkan Email" 
                   class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
   
-              <input type="password" name="password" placeholder="Password" 
+              <input type="password" name="password" placeholder="Masukkan Password" 
                   class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
               
               <p class="text-xs sm:text-sm text-gray-500">
-                  By logging in, you agree to our <a href="#" class="text-[#242565] underline hover:text-blue-700">Terms & Conditions</a>.
+                  Dengan masuk, Anda setuju dengan <a href="#" class="text-[#242565] underline hover:text-blue-700">Syarat & Ketentuan</a> kami.
               </p>
   
               <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
                   <!-- Log in Button -->
                   <button type="submit" 
                       class="flex items-center justify-center space-x-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#2F2F72] text-white text-lg sm:text-xl rounded-md font-semibold hover:bg-[#1B1464] transition">
-                      <span class="mr-4">Log in</span>
+                      <span class="mr-4">Masuk</span>
                       <span>→</span>
                   </button>
   
                   <!-- Forgot Password Button (Outlined) -->
                   <a href="{% url 'forgotpassword' %}" 
                       class="px-4 py-2 sm:px-6 sm:py-3 border border-[#0A075F] text-[#0A075F] rounded-md font-semibold hover:bg-[#2F2F72] hover:text-white transition text-center">
-                      Forgot Password
+                      Lupa Password
                   </a>
               </div>
   
               <div class="flex text-xs sm:text-sm mt-2 justify-center sm:justify-start">
-                  <p class="mr-2 text-gray-500">Don’t have an account yet?</p>
-                  <a href="{% url 'register' %}" class="text-[#242565] underline hover:text-blue-700">Create Account...</a>
+                  <p class="mr-2 text-gray-500">Belum punya akun?</p>
+                  <a href="{% url 'register' %}" class="text-[#242565] underline hover:text-blue-700">Buat akun...</a>
               </div>
           </form>
       </div>

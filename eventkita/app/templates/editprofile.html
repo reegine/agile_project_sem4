@@ -14,7 +14,7 @@
       </a>
       <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="{% static 'default_images/profile.png' %}" fill="none" viewBox="0 0 17 14">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
           </svg>
       </button>
@@ -45,13 +45,7 @@
                         <li>
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                         </li>
-                        <!-- <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li> -->
                         </ul>
-                        <!-- <div class="py-1">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                        </div> -->
                     </div>
                 </li>
                 {% endif %}
@@ -82,7 +76,9 @@
     </div>
     </nav>
     
-
+    <form id="profileForm" method="POST" action="{% url 'editprofile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
     <div class="flex justify-center items-center min-h-screen bg-[#242565]">
         <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg border-2 border-gray-200">
             <!-- Profile Picture -->
@@ -91,15 +87,19 @@
                 <div class="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-3 sm:space-y-0 w-full">
                     <!-- Profile Image -->
                     <div class="relative w-20 h-20 rounded-full border border-gray-400 overflow-hidden bg-gray-300 flex items-center justify-center">
-                        <img src="your-profile-image.jpg" alt="Profile" class="w-full h-full object-cover rounded-full">
-                        <div class="absolute bottom-0 right-0 bg-orange-500 p-1 rounded-full border border-white">
-                            <span class="text-white text-xs">&#128247;</span>
-                        </div>
+                        {% if user.profile_picture %}    
+                        <img id="profile-image-preview" class="w-full h-full object-cover" alt="Profile" src="{{ user.profile_picture.url }}" />
+                         {% else %}
+                        <img id="profile-image-preview" class="w-full h-full object-cover" alt="Profile" src="{% static 'default_images/profile.png'%}" />
+                          {% endif %}
+                         
+                        
                     </div>
                     <!-- Buttons (Responsive) -->
                     <div class="flex flex-col sm:flex-row w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-2">
-                        <button class="border-2 border-orange-500 text-[#242565] px-4 py-1 rounded w-full sm:w-auto font-semibold">Delete Picture</button>
-                        <button class="bg-orange-500 text-white px-4 py-1 rounded w-full sm:w-auto">Change Picture</button>
+                        
+                        <button type="button" class="bg-orange-500 text-white px-4 py-1 rounded w-full sm:w-auto hover:bg-orange-900" onclick="document.getElementById('profile_picture').click();">Change Picture</button>
+                        <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="hidden" onchange="previewImage(event)">
                     </div>
                 </div>
             </div>
@@ -108,16 +108,16 @@
             <!-- Form Fields -->
             <div class="mt-6 grid grid-cols-3 gap-4">
                 <div>
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Username</label>
-                    <input type="text" value="User 144321" class="w-full border rounded p-2 bg-gray-100 font-bold" disabled>
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Nama Pengguna</label>
+                    <input type="text" name="username" value="{{ user.username }}" class="w-full border rounded p-2 font-bold">
                 </div>
                 <div>
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">First Name</label>
-                    <input type="text" class="w-full border rounded p-2">
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Nama Depan</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full border rounded p-2">
                 </div>
                 <div>
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Last Name</label>
-                    <input type="text" class="w-full border rounded p-2">
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Nama Belakang</label>
+                    <input type="text" name="last_name" value="{{ user.last_name }}" class="w-full border rounded p-2">
                 </div>
             </div>
             
@@ -126,46 +126,43 @@
             <div class="grid grid-cols-2 gap-4 mt-2">
                 <div>
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Provinsi</label>
-                    <select class="w-full border rounded p-2">
-                        <option>Select</option>
-                    </select>
+                    <input type="text" name="provinsi" value="{{ user.provinsi }}" class="w-full border rounded p-2">
                 </div>
                 <div>
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Kota/Kabupaten</label>
-                    <select class="w-full border rounded p-2">
-                        <option>Select</option>
-                    </select>
+                    <input type="text" name="kota_kabupaten" value="{{ user.kota_kabupaten }}" class="w-full border rounded p-2">
                 </div>
                 <div class="col-span-2">
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Alamat Lengkap</label>
-                    <input type="text" class="w-full border rounded p-2">
+                    <input type="text" name="alamat_lengkap" value="{{ user.alamat_lengkap }}" class="w-full border rounded p-2">
                 </div>
             </div>
             
             <!-- Contact Info -->
             <div class="grid grid-cols-2 gap-4 mt-4">
                 <div>
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Gmail</label>
-                    <input type="email" class="w-full border rounded p-2">
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Email</label>
+                    <input type="email" name="email" value="{{ user.email }}" class="w-full border rounded p-2">
                 </div>
                 <div>
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Phone</label>
-                    <input type="tel" class="w-full border rounded p-2">
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Nomor Telepon</label>
+                    <input type="tel" name="phone_number" value="{{ user.phone_number }}" class="w-full border rounded p-2">
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mt-4">
                 <div class="mt-4">
-                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Password</label>
-                    <input type="password" class="w-full border rounded p-2">
+                    <label class="text-sm text-[#242565] opacity-60 font-semibold">Password Baru</label>
+                    <input type="password" name="new_password" class="w-full border rounded p-2">
                 </div>
                 <div class="mt-4 flex items-end">
-                    <button class="w-full bg-orange-500 text-white p-2 rounded-md">Save Changes</button>
+                    <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded-md hover:bg-orange-900">Simpan Perubahan</button>
                 </div>
             </div>
             
         </div>
     </div>
+</form>
     
 
     
@@ -188,5 +185,19 @@
             });
         });
     });
+
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('profile-image-preview');
+                if (img) {
+                    img.src = e.target.result;
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
 {% endblock %}
