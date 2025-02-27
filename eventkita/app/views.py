@@ -655,7 +655,9 @@ def syaratdanketentuan(request):
 
 def search_page(request):
     category_choices = Event.CATEGORY_CHOICES
-    events = Event.objects.all()  # Get all events by default
+    today = timezone.now().date()
+    events = Event.objects.all()
+    events = events.filter(tanggal_kegiatan__gte=today)
     return render(request, 'search_page.html', {'category_choices': category_choices, 'events': events})
 
 def search_events(request):
@@ -664,17 +666,18 @@ def search_events(request):
     title = request.GET.get('title', '') 
     date = request.GET.get('date', '')
 
-    # Start with all events
     events = Event.objects.all()
 
-    # Apply filters based on user input
+    today = timezone.now().date()
+    events = events.filter(tanggal_kegiatan__gte=today)
+
     if category:
-        events = events.filter(kategori__icontains=category)  # Filter by category
+        events = events.filter(kategori__icontains=category)
     if location:
-        events = events.filter(lokasi__icontains=location)    # Filter by location
-    if title:  # Only filter by title if a title is provided
-        events = events.filter(judul__icontains=title)       # Filter by title
-    if date:  # Only filter by date if a date is provided
-        events = events.filter(tanggal_kegiatan=date)        # Filter by date
+        events = events.filter(lokasi__icontains=location) 
+    if title:
+        events = events.filter(judul__icontains=title)
+    if date: 
+        events = events.filter(tanggal_kegiatan=date)
 
     return render(request, 'search_page.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES})
