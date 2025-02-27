@@ -150,8 +150,8 @@
             {% csrf_token %}
             <input type="file" name="bukti_pembayaran" id="fileUpload" class="mt-3 mb-4 border rounded p-2 w-full" required />
             <div class="flex justify-between">
-                <button type="button" class="bg-red-500 text-white rounded px-4 py-2" onclick="closeModal()">Batalkan Pembayaran</button>
-                <button type="submit" class="bg-primaryBlue text-white rounded px-4 py-2">Tutup</button>
+                <button type="button" class="bg-red-500 text-white rounded px-4 py-2" onclick="closeModal()">Tutup</button>
+                <button type="submit" class="bg-primaryBlue text-white rounded px-4 py-2">Kirimkan Bukti Pembayaran</button>
             </div>
         </form>
       </div>
@@ -323,7 +323,7 @@
         
           <div class="mt-5 text-gray-300 font-semibold text-base mb-1">Tanggal Dipilih</div>
         
-          <div class="text-white text-base mb-4 font-semibold">Jum, 14 Feb 2025</div>
+          <div class="text-white text-base mb-4 font-semibold">{{ tiket.date }}</div>
         
           <hr class="border-white mb-4" />
         
@@ -344,7 +344,7 @@
         <div class="mx-auto mt-5 bg-primaryBlue rounded-b-lg p-6">
           <div class="flex justify-between items-center">
             <div class="text-white text-lg font-bold">Total Pembayaran</div>
-            <div id="totalPrice2" class="text-secondaryOrange text-lg font-bold text-right">IDR 660.000</div>
+            <div id="totalPrice2" class="text-secondaryOrange text-lg font-bold text-right">IDR {{ total_price }}</div>
           </div>
         </div>
         

@@ -239,9 +239,14 @@ def about_us(request):
 def payment_1(request, tiket_id):
     tiket = get_object_or_404(Tiket, id=tiket_id)
     event = tiket.event_terkait
+
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8') 
+    formatted_price_per_pax = locale.currency(tiket.harga, grouping=True)
+
     context = {
         'tiket': tiket,
-        'event': event 
+        'event': event,
+        'price_per_pax' : formatted_price_per_pax 
     }
 
     if request.method == "POST":
@@ -265,10 +270,16 @@ def payment_2(request, purchase_id):
     purchase = get_object_or_404(EventPurchase, id=purchase_id)
     tiket = get_object_or_404(Tiket, id=purchase.tiket.id)
     event = tiket.event_terkait
+
+    total_price = purchase.jumlah_tiket * tiket.harga if purchase.jumlah_tiket and tiket.harga else 0
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8') 
+    formatted_total_price = locale.currency(total_price, grouping=True)
+
     context = {
         'tiket': tiket,
         'event': event,
-        'purchase': purchase
+        'purchase': purchase,
+        'total_price': formatted_total_price,
     }
     
     if request.method == "POST" and 'bukti_pembayaran' in request.FILES:
