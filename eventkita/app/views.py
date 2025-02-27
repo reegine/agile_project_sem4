@@ -9,7 +9,10 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from .models import *
+from .models import AdminMessage
 from typing import cast
+from .models import NewsletterSubscriber
+
 import locale
 
 User = get_user_model()
@@ -233,6 +236,51 @@ def reset_view(request):
 def about_us(request):
     return render(request, 'about_us.html')
 
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        if not name or not email or not message:
+            messages.error(request, "Semua field harus diisi!")
+            return redirect('contact_us')
+
+        # Ambil pesan tambahan dari admin
+        admin_message = AdminMessage.objects.last()  # Ambil pesan terbaru dari admin
+        additional_message = admin_message.default_message if admin_message else "Terima kasih telah menghubungi kami!"
+
+        subject = "Pesan Baru dari Formulir Kontak"
+        message_body = f"""
+        Halo {name},
+
+        Kami telah menerima pesan Anda:
+        ------------------------
+        {message}
+        ------------------------
+
+        {additional_message}
+
+        Salam,
+        EventKita Team
+        """
+
+        try:
+            send_mail(
+                subject,
+                message_body,
+                settings.EMAIL_HOST_USER,  # Sender
+                [email],  # Recipient (user yang mengisi form)
+                fail_silently=False,
+            )
+            messages.success(request, "Pesan berhasil dikirim! Silakan cek email Anda.")
+        except Exception as e:
+            messages.error(request, f"Terjadi kesalahan: {str(e)}")
+
+        return redirect('contact_us')
+
+    return render(request, 'index.html')
+
 @login_required
 def payment_1(request, tiket_id):
     tiket = get_object_or_404(Tiket, id=tiket_id)
@@ -436,27 +484,51 @@ def get_unread_notifications(request):
         return {'unread_notifications': Notification.objects.filter(user=request.user, is_read=False).count()}
     return {}
 
-def subscribe(request):
-    if request.method == 'POST':
+def subscribe_newsletter(request):
+    if request.method == "POST":
         email = request.POST.get('email')
-        if email:
-            try:
-                subscriber, created = Footer.objects.get_or_create(email=email)
-                if created:
-                    send_mail(
-                        'Terima Kasih Telah Berlangganan',
-                        'Anda telah berhasil berlangganan untuk menerima informasi terbaru.',
-                        settings.EMAIL_HOST_USER,
-                        [email],
-                        fail_silently=False,
-                    )
-                else:
-                    subscriber.subscribe = True
-                    subscriber.save()
-            except BadHeaderError:
-                return HttpResponse("Header tidak valid.")
-            except Exception as e:
-                return HttpResponse(f"Terjadi kesalahan: {str(e)}")
+
+        if not email:
+            messages.error(request, "Email tidak boleh kosong!")
+            return redirect('home')
+
+        # Cek apakah email sudah terdaftar
+        if NewsletterSubscriber.objects.filter(email=email).exists():
+            messages.warning(request, "Email sudah terdaftar!")
+            return redirect('home')
+
+        # Simpan email ke database
+        subscriber = NewsletterSubscriber(email=email)
+        subscriber.save()
+
+        # Kirim email ke pengguna
+        subject = "Terima Kasih Telah Berlangganan EventKita 🎉"
+        message_body = f"""
+        Halo,
+
+        Terima kasih telah bergabung dengan EventKita!
+        Kami akan mengirimkan informasi event terbaru langsung ke email Anda.
+
+        Jangan lewatkan berbagai acara menarik di BSD! 🎶✨
+
+        Salam,
+        Tim EventKita
+        """
+
+        try:
+            send_mail(
+                subject,
+                message_body,
+                settings.EMAIL_HOST_USER,  # Sender
+                [email],  # Recipient
+                fail_silently=False,
+            )
+            messages.success(request, "Anda berhasil berlangganan! Silakan cek email Anda.")
+        except Exception as e:
+            messages.error(request, f"Terjadi kesalahan: {str(e)}")
+
+        return redirect('home')
+
     return render(request, 'footer.html')
 
 # def send_test_email():

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
-
+from .models import AdminMessage
+from .models import NewsletterSubscriber
 # ============================
 # Admin untuk CustomUser
 # ============================
@@ -24,8 +25,14 @@ class CustomUserAdmin(UserAdmin):
     # Jika username tidak ingin diedit melalui admin, bisa dijadikan read-only
     readonly_fields = ('username',)
 
+
+#FOOTER KEKNYA
 admin.site.register(CustomUser, CustomUserAdmin)
 
+@admin.register(NewsletterSubscriber)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'subscribed_at')  # Menampilkan email & waktu daftar
+    search_fields = ('email',)
 
 # ============================
 # Admin untuk Event
@@ -99,3 +106,8 @@ class NotificationAdmin(admin.ModelAdmin):
     list_filter = ('is_read', 'created_at')
     search_fields = ('user__email', 'message')
     ordering = ('-created_at',)
+
+@admin.register(AdminMessage)
+class AdminMessageAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'created_at')  # Menampilkan kolom di admin
+    search_fields = ('subject',)

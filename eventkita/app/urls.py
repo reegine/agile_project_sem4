@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from .views import contact_view
+from .views import subscribe_newsletter
+
 
 urlpatterns = [
     path('', views.home, name='home'), 
@@ -8,6 +11,8 @@ urlpatterns = [
     path('verify/', views.verify_view, name='verify'),
     path('reset/', views.reset_view, name='reset'),
     path('aboutus/', views.about_us, name='about_us'), 
+    path('subscribe/', subscribe_newsletter, name='subscribe_newsletter'),
+    path('contact/', contact_view, name='contact_us'),
     path('detailpage/<uuid:event_id>', views.detail_page, name='detail_page'), 
     path('detailpagefree/<uuid:event_id>', views.detail_page_free, name='detail_page_free'), 
     path('register/', views.register_view, name='register'), 

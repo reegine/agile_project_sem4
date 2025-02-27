@@ -22,6 +22,14 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+class AdminMessage(models.Model):
+    subject = models.CharField(max_length=255)  # Judul pesan
+    default_message = models.TextField()  # Pesan tambahan dari admin
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subject
+    
     def create_superuser(self, email, password, **extra_fields):
         """
         Membuat dan menyimpan superuser dengan email dan password.
@@ -35,6 +43,14 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser harus memiliki is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
+
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)  # Pastikan email tidak bisa duplikat
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
