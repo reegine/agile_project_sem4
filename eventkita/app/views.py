@@ -130,9 +130,17 @@ import locale
 from django.shortcuts import get_object_or_404, render
 from .models import Event, SavedEvents
 
+from django.contrib.auth.decorators import login_required
+
 def detail_page(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    isSaved = SavedEvents.objects.filter(user=request.user, event=event).exists() 
+    
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        isSaved = SavedEvents.objects.filter(user=request.user, event=event).exists()
+    else:
+        isSaved = False  # User is not logged in, so the event cannot be saved
+
     tickets = event.tiket.all() 
 
     # Set locale for currency formatting
@@ -319,7 +327,7 @@ def contact_view(request):
         except Exception as e:
             messages.error(request, f"Terjadi kesalahan: {str(e)}")
 
-        return redirect('contact_us')
+        return redirect('home')
 
     return render(request, 'index.html')
 
@@ -480,10 +488,13 @@ def unsave_event_view(request, event_id):
 
     saved_event = SavedEvents.objects.filter(user=user, event=event).first()
     if not saved_event:
+        messages.error(request, "Acara tidak ditemukan di daftar saved!")
         return JsonResponse({'message': 'Event tidak ditemukan di daftar saved'}, status=404)
 
     saved_event.delete()
+    messages.warning(request, "Acara telah dihapuskan dari daftar tersimpan!")
     return JsonResponse({'message': 'Event berhasil dihapus dari daftar saved'}, status=200)
+
 
 @login_required
 def save_event_view(request, event_id):
@@ -495,9 +506,11 @@ def save_event_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
 
     if SavedEvents.objects.filter(user=user, event=event).exists():
+        messages.warning(request, "Acara sudah pernah ditambahkan ke daftar tersimpan!")
         return JsonResponse({'message': 'Event sudah disimpan sebelumnya'}, status=400)
 
     SavedEvents.objects.create(user=user, event=event)
+    messages.success(request, "Acara telah ditambahkan ke daftar tersimpan!")
     return JsonResponse({'message': 'Event berhasil disimpan'}, status=201)
 
 @login_required

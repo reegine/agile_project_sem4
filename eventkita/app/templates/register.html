@@ -106,10 +106,16 @@
           <form method="POST" action="{% url 'register' %}" class="space-y-4">
             {% csrf_token %}
             <input type="email" name="email" placeholder="Masukkan Email" 
-                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100" required>
         
-            <input type="password" name="password" placeholder="Masukkan Password" 
-                class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+                <div class="relative">
+                  <input type="password" id="password" name="password" placeholder="Masukkan Password" 
+                      class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100" required>
+                  
+                  <button type="button" id="togglePassword" class="absolute right-3 top-5 text-gray-500">
+                      <i class="fa-solid fa-eye-slash" id="toggleIcon"></i>
+                  </button>
+              </div>
         
             <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 justify-between">
                 <div class="flex items-center space-x-3 text-[#2F2F72] font-semibold justify-center sm:justify-start">
@@ -132,4 +138,21 @@
 </div>
 
 {% include 'footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const toggleIcon = document.getElementById('toggleIcon');
+
+      // Toggle the type attribute
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      // Toggle the icon
+      toggleIcon.classList.toggle('fa-eye-slash'); // Toggle eye icon
+      toggleIcon.classList.toggle('fa-eye'); // Toggle eye-slash icon
+  });
+</script>
 {% endblock %}
