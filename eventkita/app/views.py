@@ -461,11 +461,11 @@ def subscribe(request):
                 return HttpResponse(f"Terjadi kesalahan: {str(e)}")
     return render(request, 'footer.html')
 
-def send_test_email():
-    subject = "Test Email from Django"
-    message = "Ini adalah email percobaan dari Django."
-    recipient_list = ["mimintheresa@gmail.com"]
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
+# def send_test_email():
+#     subject = "Test Email from Django"
+#     message = "Ini adalah email percobaan dari Django."
+#     recipient_list = ["mimintheresa@gmail.com"]
+#     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
 
 def unsubscribe(request, email):
     subscriber = get_object_or_404(Footer, email=email)
