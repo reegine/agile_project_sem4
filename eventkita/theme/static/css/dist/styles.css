@@ -1967,6 +1967,10 @@ input[type="range"]::-ms-fill-lower {
   display: inline-flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -2161,6 +2165,10 @@ input[type="range"]::-ms-fill-lower {
 
 .w-full {
   width: 100%;
+}
+
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-2xl {
@@ -3100,6 +3108,21 @@ input[type="range"]::-ms-fill-lower {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+.text-yellow-600 {
+  --tw-text-opacity: 1;
+  color: rgb(202 138 4 / var(--tw-text-opacity, 1));
 }
 
 .text-opacity-100 {

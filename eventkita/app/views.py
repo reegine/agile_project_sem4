@@ -515,8 +515,20 @@ def selengkapnya(request, category):
     }
     return render(request, 'selengkapnya.html', context)
 
-def riwayattransaksi(request, category):
-    return render(request, 'transactionHistory.html')
+@login_required
+def riwayattransaksi(request):
+    user = request.user    
+    
+    purchases = EventPurchase.objects.filter(
+        user=user
+    ).exclude(
+        status_pembelian='gagal'
+    ).select_related('tiket__event_terkait').order_by('-created_at')
+
+    context = {
+        'purchases': purchases
+    }
+    return render(request, 'transactionHistory.html', context)
 
 def syaratdanketentuan(request):
     return render(request, 'termsandcondition.html')

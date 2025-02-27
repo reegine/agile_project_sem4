@@ -93,97 +93,44 @@
       <div class="mx-auto max-w-screen-xl justify-center px-10">           
         <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Riwayat Transaksi</h1>
         
-        <!-- Cards Container -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <!-- Card 1 -->
-            <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' '9e5fabc6-5678-8a90-cdef-1234ef567890' %}">
-                <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <div class="grid grid-cols-5 gap-1">
-                            <div class="col-span-1 text-center">
-                                <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                                <p class="text-2xl font-bold">01</p>
-                                <p class="text-2xl font-bold leading-0.4">-</p>
-                                <p class="text-2xl font-bold">01</p>
-                            </div>
-                            <div class="col-span-4 pl-4">
-                                <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                                <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                                <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 2 -->
-            <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' '9e5fabc6-5678-8a90-cdef-1234ef567890'  %}">
-                <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <div class="grid grid-cols-5 gap-1">
-                            <div class="col-span-1 text-center">
-                                <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                                <p class="text-2xl font-bold">01</p>
-                                <p class="text-2xl font-bold leading-0.4">-</p>
-                                <p class="text-2xl font-bold">01</p>
-                            </div>
-                            <div class="col-span-4 pl-4">
-                                <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                                <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                                <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 3 -->
-            <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' '9e5fabc6-5678-8a90-cdef-1234ef567890'  %}">
-                <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <div class="grid grid-cols-5 gap-1">
-                            <div class="col-span-1 text-center">
-                                <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                                <p class="text-2xl font-bold">01</p>
-                                <p class="text-2xl font-bold leading-0.4">-</p>
-                                <p class="text-2xl font-bold">01</p>
-                            </div>
-                            <div class="col-span-4 pl-4">
-                                <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                                <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                                <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 4 -->
-            <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' '9e5fabc6-5678-8a90-cdef-1234ef567890'  %}">
-                <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://www.eventbrite.co.uk/blog/wp-content/uploads/2021/02/image6-min.png" alt="Event Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <div class="grid grid-cols-5 gap-1">
-                            <div class="col-span-1 text-center">
-                                <p class="text-xs font-medium text-primaryBlue">JAN</p>
-                                <p class="text-2xl font-bold">01</p>
-                                <p class="text-2xl font-bold leading-0.4">-</p>
-                                <p class="text-2xl font-bold">01</p>
-                            </div>
-                            <div class="col-span-4 pl-4">
-                                <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
-                                <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                                <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-        </div>
+        {% if purchases %}
+            <table class="min-w-full bg-white border border-gray-700 rounded-lg overflow-hidden">
+                <thead class="bg-primaryBlue text-white">
+                    <tr>
+                        <th class="py-3 px-4 border-b text-start">Event</th>
+                        <th class="py-3 px-4 border-b text-start">Tiket</th>
+                        <th class="py-3 px-4 border-b text-start">Jumlah Tiket</th>
+                        <th class="py-3 px-4 border-b text-start">Status Pembelian</th>
+                        <th class="py-3 px-4 border-b text-start">Tanggal Pembelian</th>
+                        <th class="py-3 px-4 border-b text-start">Lihat Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in purchases %}
+                        <tr class="hover:bg-gray-100 transition duration-200">
+                            <td class="py-2 px-4 border-b">{{ purchase.tiket.event_terkait.judul }}</td>
+                            <td class="py-2 px-4 border-b">{{ purchase.tiket.judul }}</td>
+                            <td class="py-2 px-4 border-b">{{ purchase.jumlah_tiket }}</td>
+                            <td class="py-2 px-4 border-b">
+                                <span class="font-semibold {% if purchase.status_pembelian == 'berhasil' %}text-green-600{% elif purchase.status_pembelian == 'gagal' %}text-red-600{% else %}text-yellow-600{% endif %}">
+                                    {{ purchase.get_status_pembelian_display }}
+                                </span>
+                            </td>
+                            <td class="py-2 px-4 border-b">{{ purchase.created_at|date:"d M Y H:i" }}</td>
+                            <td class="py-2 px-4 border-b">
+                                {% if purchase.status_pembelian == 'berhasil' %}
+                                <a href="http://127.0.0.1:8000/detailpage/payment1/payment2/payment3/{{ purchase.id }}" class="text-gray-700 hover:text-blue-700"> Lihat Tiket</a>
+                                {% else %}
+                                <p class="text-gray-400">Tidak Tersedia</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-gray-600 mt-4">Anda belum melakukan pembelian tiket.</p>
+        {% endif %}
         
       </div>
     </section>
