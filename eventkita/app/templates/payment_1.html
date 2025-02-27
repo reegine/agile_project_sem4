@@ -159,13 +159,13 @@
                 <p class="mt-3 text-gray-700 text-base">Periksa kembali data dengan benar karena e-tiket akan dikirim melalui email, data hanya dapat diganti melalui profil</p>
                 <div class="mt-5 bg-primaryBlue px-4 py-7 rounded-lg">
                     <div class="flex flex-col space-y-4">
-                        <p class="bg-transparent border border-white rounded-lg p-3 text-white">
+                        <p class="bg-transparent border border-white rounded-lg p-3 text-gray-300">
                             Nama Lengkap: {{ user.first_name }} {{ user.last_name }}
                         </p>
-                        <p class="bg-transparent border border-white rounded-lg p-3 text-white">
+                        <p class="bg-transparent border border-white rounded-lg p-3  text-gray-300">
                             Nomor Ponsel: {{ user.phone_number }}
                         </p>
-                        <p class="bg-transparent border border-white rounded-lg p-3 text-white">
+                        <p class="bg-transparent border border-white rounded-lg p-3  text-gray-300">
                             Email Pribadi: {{ user.email }}
                         </p>
                         <input type="hidden" id="ticketQuantity" name="ticket_quantity" value="1" />
@@ -207,7 +207,7 @@
               <div class="text-white text-base ps-1 mb-1">  Pax</div>
             </span>
             <div class="mt-5 text-gray-300 font-semibold text-base mb-1">Tanggal Dipilih</div>
-            <div class="text-white text-base mb-4 font-semibold">{{ event.tanggal_kegiatan|date:"d M Y" }}</div>
+            <div class="text-white text-base mb-4 font-semibold">{{ tiket.date|date:"d M Y" }}</div>
             <hr class="border-white mb-4" />
             <div class="flex items-center text-white mb-2">
                 <i class="fa-solid fa-money-bill-wave mr-2"></i>

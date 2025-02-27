@@ -35,5 +35,8 @@ urlpatterns = [
     path('notifikasi/mark/<int:notification_id>/', views.mark_notification_as_read, name='mark_notification_as_read'),
     path('syaratdanketentuan/', views.syaratdanketentuan, name='syaratdanketentuan'), 
     path('resend-otp/', views.resend_otp_view, name='resend_otp'),
+    path('pencarian/', views.search_page, name='pencarian'),
+    path('search/', views.search_events, name='search_events'),
+
 
 ]

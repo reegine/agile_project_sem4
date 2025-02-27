@@ -652,3 +652,29 @@ def riwayattransaksi(request):
 
 def syaratdanketentuan(request):
     return render(request, 'termsandcondition.html')
+
+def search_page(request):
+    category_choices = Event.CATEGORY_CHOICES
+    events = Event.objects.all()  # Get all events by default
+    return render(request, 'search_page.html', {'category_choices': category_choices, 'events': events})
+
+def search_events(request):
+    category = request.GET.get('category', '')
+    location = request.GET.get('location', '')
+    title = request.GET.get('title', '') 
+    date = request.GET.get('date', '')
+
+    # Start with all events
+    events = Event.objects.all()
+
+    # Apply filters based on user input
+    if category:
+        events = events.filter(kategori__icontains=category)  # Filter by category
+    if location:
+        events = events.filter(lokasi__icontains=location)    # Filter by location
+    if title:  # Only filter by title if a title is provided
+        events = events.filter(judul__icontains=title)       # Filter by title
+    if date:  # Only filter by date if a date is provided
+        events = events.filter(tanggal_kegiatan=date)        # Filter by date
+
+    return render(request, 'search_page.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES})

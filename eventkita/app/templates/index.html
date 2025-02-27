@@ -143,26 +143,26 @@
     </div>
 
     <!-- Search bar -->
-    <div class="mt-14 max-w-6xl mx-auto bg-primaryBlue p-6 rounded-lg shadow-md md:mt-24 lg:-mt-10">
-        <div class="flex flex-wrap items-center">
-            <div class="mr-4 mb-4 flex-grow">
-                <label class="block text-white mb-1" for="categories">Kategori Acara</label>
-                <input type="text" id="categories" placeholder="Search Categories" class="form-input block w-full rounded-md border-gray-300 shadow-sm">
+    <div class="card max-w-7xl mx-auto bg-primaryBlue p-8 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[-3rem]" style="cursor: pointer;" data-href="{% url 'pencarian' %}">
+        <div class="flex flex-wrap items-center gap-3">
+            <div class="flex-grow b-none">
+                <label class="block text-white text-md mb-1 " for="categories">Kategori Acara</label>
+                <input readonly type="text" id="categories" placeholder="Search Categories" class="w-full p-2 border-none bg-transparent text-white text-lg">
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
             </div>
-
-            <div class="mr-4 mb-4 flex-grow">
-                <label class="block text-white mb-1" for="location">Lokasi</label>
-                <input type="text" id="location" placeholder="Location" class="form-input block w-full rounded-md border-gray-300 shadow-sm">
+    
+            <div class="flex-grow">
+                <label class="block text-white text-md mb-1" for="location">Lokasi</label>
+                <input readonly type="text" id="location" placeholder="Location" class="w-full p-2 border-none bg-transparent text-white text-lg">
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
             </div>
-
-            <div class="mr-4 mb-4 flex-grow">
-                <label class="block text-white mb-1" for="datepicker">Waktu</label>
-                <input type="text" id="datepicker" placeholder="Select Date" class="form-input block w-full rounded-md border-gray-300 shadow-sm">
+    
+            <div class="flex-grow">
+                <label class="block text-white text-md mb-1" for="datepicker">Waktu</label>
+                <input readonly type="text" id="datepicker" placeholder="Select Date" class="w-full p-2 border-none bg-transparent text-white text-lg">
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
             </div>
-
-            <button class="mt-3 bg-white text-primaryBlue px-4 py-2 rounded-md hover:bg-gray-200">
-                <i class="h-6 w-5 justify-center inline-block fa-solid fa-magnifying-glass"></i>
-            </button>
+    
         </div>
     </div>
 
@@ -186,7 +186,7 @@
  </div>
  {% endif %}
 
-<section class="px-4 mx-auto max-w-screen-xl mt-24 md:mt-40">
+<section class="px-4 mx-auto max-w-screen-xl mt-[15rem] md:mt-[2-rem] lg:mt-[8rem]">
     {% for category, events in semua_event.items %}
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-bold">{{ category|title }}</h2>
@@ -223,7 +223,6 @@
 </section>
 
 
-<!-- CONTACT US -->
 <!-- CONTACT US -->
 <div class="bg-center bg-cover h-[40rem] bg-no-repeat bg-[url('/static/background/bg_contactus2.png')] w-full mt-24">
     <section class="mx-auto max-w-screen-xl md:grid md:grid-cols-2 gap-4 p-24 ">
@@ -287,12 +286,12 @@
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        flatpickr("#datepicker", {
-            dateFormat: "Y-m-d",
-            allowInput: false,
-        });
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     flatpickr("#datepicker", {
+    //         dateFormat: "Y-m-d",
+    //         allowInput: false,
+    //     });
+    // });
 
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.card');
