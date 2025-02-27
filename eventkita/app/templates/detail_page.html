@@ -229,75 +229,97 @@
 
 {% block javascript %}
 <script>
-     let isSaving = false;
+    let isSaving = false;
 
-function toggleBookmark() {
-    if (isSaving) return; // Prevent multiple clicks
-    isSaving = true;
+    function toggleBookmark() {
+        if (isSaving) return; // Prevent multiple clicks
+        isSaving = true;
 
-    let icon = document.getElementById("bookmarkIcon");
-    const eventId = "{{ event.id }}"; // Get the event ID from the template
+        let icon = document.getElementById("bookmarkIcon");
+        const eventId = "{{ event.id }}"; // Get the event ID from the template
 
-    if (icon.classList.contains("fa-regular")) {
-        icon.classList.remove("fa-regular");
-        icon.classList.add("fa-solid");
+        console.log('Toggling bookmark for event ID:', eventId); // Debugging log
 
-        // Save event
-        fetch(`/event/save/${eventId}/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                if (response.status === 400) {
-                    console.log('Event already saved');
-                    return;
+        if (icon.classList.contains("fa-regular")) {
+            // Save event
+            fetch(`../save/${eventId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                    'Content-Type': 'application/json'
                 }
-                throw new Error('Error saving event');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data.message);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            isSaving = false; // Re-enable the button
-        });
-    } else {
-        icon.classList.remove("fa-solid");
-        icon.classList.add("fa-regular");
-
-        // Remove event
-        fetch(`/event/unsave/${eventId}/`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error removing event');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data.message);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            isSaving = false; // Re-enable the button
-        });
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 400) {
+                        console.log('Event already saved');
+                        return;
+                    }
+                    throw new Error('Error saving event');
+                }
+                // Change icon to solid after successful save
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                isSaving = false; // Re-enable the button
+            });
+        } else {
+            // Remove event
+            fetch(`../unsave/${eventId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error removing event');
+                }
+                // Change icon back to regular after successful unsave
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                isSaving = false; // Re-enable the button
+            });
+        }
     }
-}
+
+    // Event listeners for other clickable elements
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.payment');
+        cards.forEach(function(card) { 
+            card.addEventListener('click', function() {
+                const href = card.getAttribute('data-href');
+                window.location.href = href; 
+            });
+        });
+
+        const cardElements = document.querySelectorAll('.card');
+        cardElements.forEach(function(card) { 
+            card.addEventListener('click', function() {
+                const href = card.getAttribute('data-href');
+                window.location.href = href; 
+            });
+        });
+    });
+
 
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.payment');

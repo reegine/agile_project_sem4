@@ -125,24 +125,22 @@ def home(request):
 
 def detail_page(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-
-    if event.is_free == True :
-        context = {
-                'event': event,
-            }
-    else :
-        tickets = event.tiket.all() 
-        context = {
-            'event': event,
-            'tickets': tickets
-        }
+    isSaved = SavedEvents.objects.filter(user=request.user, event=event).exists() 
+    tickets = event.tiket.all() 
+    
+    context = {
+        'event': event,
+        'tickets': tickets,
+        'isSaved': isSaved,
+    }
     
     return render(request, 'detail_page.html', context)
     
 def detail_page_free(request, id):
     event = get_object_or_404(Event, id=id, is_free=True)
+    isSaved = SavedEvents.objects.filter(user=request.user, event=event).exists()  
     
-    context = {'event': event}
+    context = {'event': event, 'isSaved': isSaved,}
 
     return render(request, 'detail_page_free.html', context)
 
