@@ -86,7 +86,7 @@
     </div>
     </nav>
 
-    <div class="px-[0rem] md:px-[3rem]  pt-3 bg-[#2E2B5F]">
+    <div class="px-[0rem] md:px-[3rem] pt-3 bg-[#2E2B5F]">
         <a href="javascript:history.back()" class="flex items-center w-64 ms-8 px-4 py-2 text-lg font-semibold text-white rounded-md 
                   transition-all">
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -99,8 +99,8 @@
     <form id="profileForm" method="POST" action="{% url 'editprofile' %}" enctype="multipart/form-data" class="bg-[#2E2B5F] ">
         {% csrf_token %}
         
-    <div class="flex justify-center items-center min-h-[25rem] py-10">
-        <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg border-2 border-gray-200">
+    <div class="flex justify-center items-center min-h-[25rem] py-5 px-3 md:px-[5rem]">
+        <div class="bg-white w-full p-6 rounded-lg shadow-lg border-2 border-gray-200">
             <!-- Profile Picture -->
             <div class="flex flex-col items-start w-full">
                 <h3 class="text-lg font-bold mb-2">Foto Profil</h3>
@@ -126,7 +126,7 @@
 
             
             <!-- Form Fields -->
-            <div class="mt-6 grid grid-cols-3 gap-4">
+            <div class="mt-6 grid grid-cols-3 gap-4 items-end">
                 <div>
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Nama Pengguna</label>
                     <input type="text" name="username" value="{{ user.username }}" class="w-full border rounded p-2 font-bold">
