@@ -30,58 +30,35 @@
             <a href="{% url 'about_us' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tentang Kita</a>
           </li>
           
-          {% if user.id == None %}
-          {% else %}
           <li class="md:pt-[10]">
-              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Selengkapnya <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Selengkapnya <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
               </svg></button>
-              <!-- Dropdown menu -->
-              <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+            <!-- Dropdown menu -->
+            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                   <li>
-                      <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
+                    <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
                   </li>
                   <li>
-                    <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                   </li>
                   <li>
                     <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
                   </li>
-                  </ul>
-                  <!-- <div class="py-1">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                  </div> -->
-              </div>
+                </ul>
+            </div>
           </li>
-          {% endif %}
-          
           <li>
-            {% if user.id == None %}
-            <div class="card" style="cursor: pointer;" data-href="{% url 'login' %}">
-                <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-            </div>
-            
-            {% else %}
-            <div class="card" style="cursor: pointer;" data-href="{% url 'profile' %}">
-                <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
-                    <div class="flex flex-col text-end me-5">
-                        <span class="text-xs font-semibold text-gray-100">{{ user.username }}</span>
-                        <span class="text-xs text-gray-400">Set up profile...</span>
-                    </div>
-                    {% if user.profile_picture %}
-                    <div class="w-7 h-7">
-                        <img src="{{ user.profile_picture.url }}" alt="User Profile" class="w-full h-full rounded-full object-cover">
-                    </div>
-                    {% else %}
-                    <div class="w-7 h-7">
-                        <img src="{% static 'default_images/profile.png' %}" alt="User Profile" class="w-full h-full rounded-full object-cover">
-                    </div>
-                    {% endif %}
-
-                </button>
-            </div>
-            {% endif %}
+            <button class="flex items-center justify-between p-2 shadow-md hover:shadow-lg transition-shadow duration-200 focus:outline-none">
+                <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-gray-100">Username</span>
+                    <span class="text-xs text-gray-400">Set up profile...</span>
+                </div>
+                <div class="w-7 h-7">
+                    <img src="{% static 'default_images/profile.png' %}" alt="User   Profile" class="w-full h-full rounded-full object-cover">
+                </div>
+            </button>
           </li>
     
         </ul>
@@ -90,48 +67,72 @@
     </nav>
     
 
-    <main class="flex items-center justify-center min-h-screen bg-[#242565] px-6">
-    
-        <!-- Reset Password Form -->
-        <div class="bg-white py-10 px-8 rounded-lg shadow-lg w-full max-w-md">
+    <div class="mx-auto max-w-screen-xl justify-items-center min-h-[40rem] content-center">
+      <!-- Reset Password Form -->
+      <div class="bg-white py-10 px-8 rounded-lg shadow-lg min-w-[30rem] max-w-md">
             
-            <!-- Title -->
-            <h2 class="text-2xl font-bold text-[#0A075F] text-left mb-2">Reset Your Password</h2>
-            <p class="text-md text-[#242565] text-left opacity-70 mb-6">
-                Enter your new password and confirm
-            </p>
-    
-            <!-- Form -->
-            <form method="POST" action="{% url 'reset' %}" class="space-y-4">
-              {% csrf_token %}
+        <!-- Title -->
+        <h2 class="text-2xl font-bold text-[#0A075F] text-left mb-2">Atur Ulang Kata Sandi Anda</h2>
+        <p class=" text-md text-[#242565] text-left opacity-70 mb-6">
+          Masukkan kata sandi baru Anda dan konfirmasi
+        </p>
 
-              <!-- Password Inputs -->
-              <div class="space-y-3">
-                  <input type="password" name="password1" 
-                      placeholder="Enter new password..." 
-                      class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
-                            placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-                  
-                  <input type="password" name="password2" 
-                      placeholder="Confirm new password..." 
-                      class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
-                            placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
-              </div>
+        <!-- Form -->
+        <form method="POST" action="{% url 'reset' %}" class="space-y-4">
+          {% csrf_token %}
 
-              <!-- Reset Password Button -->
-              <button type="submit"
-                  class="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-[#2F2F72] text-white text-lg rounded-md font-semibold hover:bg-[#1B1464] transition">
-                  <span>Reset Password</span>
-                  <span class="ml-2">→</span>
-              </button>
-            </form>
-        </div>
-    
-    </main>
-    
-    
-    </main>
+          <!-- Password Inputs -->
+          <div class="space-y-3">
+            <div class="relative">
+              <input type="password" name="password1" 
+                  placeholder="Masukkan kata sandi baru..." 
+                  class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                        placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+                <button type="button" class="absolute right-3 top-3" onclick="togglePasswordVisibility('password1')">
+                    <i id="eye-icon-password1" class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+            
+            <div class="relative">
+                <input type="password" name="password2" 
+                    placeholder="Konfirmasi kata sandi baru..." 
+                    class="w-full p-3 border-2 border-[#242565] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                          placeholder-[#242565] placeholder-opacity-65 text-[#242565] text-opacity-100">
+                <button type="button" class="absolute right-3 top-3" onclick="togglePasswordVisibility('password2')">
+                    <i id="eye-icon-password2" class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+          </div>
 
-    
+          <!-- Reset Password Button -->
+          <button type="submit"
+              class="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-[#2F2F72] text-white text-lg rounded-md font-semibold hover:bg-[#1B1464] transition">
+              <span>Atur Ulang Kata Sandi</span>
+              <span class="ml-2">→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
 {% include 'footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function togglePasswordVisibility(inputId) {
+      var input = document.querySelector(`input[name="${inputId}"]`);
+      var icon = document.getElementById(`eye-icon-${inputId}`);
+
+      if (input.type === "password") {
+          input.type = "text";
+          icon.className = "fa-solid fa-eye";
+          icon.style.color = "green";
+      } else {
+          input.type = "password";
+          icon.className = "fa-solid fa-eye-slash";
+          icon.style.color = ""; // Reset to default
+      }
+  }
+</script>
+
 {% endblock %}

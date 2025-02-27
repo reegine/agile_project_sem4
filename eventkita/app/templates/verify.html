@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}EventKita | verify{% endblock %}
+{% block title %}EventKita | Verifikasi OTP{% endblock %}
 
 {% block head %} 
 <style>
@@ -38,7 +38,7 @@
             <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
         </a>
         <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
+            <span class="sr-only">Buka menu utama</span>
             <svg class="w-5 h-5" aria-hidden="true" xmlns="{% static 'default_images/profile.png' %}" fill="none" viewBox="0 0 17 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
             </svg>
@@ -133,33 +133,32 @@
         {% endif %}
     
 
-        <main class="flex-1 flex flex-col justify-center items-center min-h-screen bg-[#242565] px-6">
-    
+      <div class="mx-auto max-w-screen-xl justify-items-center min-h-[40rem] content-center">
           <div class="bg-white py-10 px-8 rounded-lg shadow-lg w-full max-w-md text-center">
-              <h2 class="text-3xl font-bold text-[#0A075F] mb-2">Verify Your Code</h2>
-              <p class="text-md text-[#242565] mb-6 opacity-55">Check your email (Main or Spam) for your codes!</p>
-      
-              <form method="POST" action="{% url 'verify' %}" class="space-y-6">
-                {% csrf_token %}
-                <div class="flex justify-center space-x-3">
-                  <input type="text" name="otp_code_1" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                  <input type="text" name="otp_code_2" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                  <input type="text" name="otp_code_3" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                  <input type="text" name="otp_code_4" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
+            <h2 class="text-3xl font-bold text-[#0A075F] mb-2">Verifikasi Kode Anda</h2>
+            <p class="text-md text-[#242565] mb-6 opacity-55">Periksa email Anda (Kotak Masuk atau Spam) untuk mendapatkan kode!</p>
     
-                <p class="text-sm text-[#242565] opacity-75">
-                    Didn’t receive code? <span class="font-semibold">Resend in <span id="timer">5:00</span></span>
-                </p>
-                <button type="button" id="resend-otp" class="text-blue-500 hover:underline">Resend OTP</button>
-    
-                <button type="submit" class="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-[#2F2F72] text-white text-lg rounded-md font-semibold hover:bg-[#1B1464] transition">
-                    <span>Reset Password</span>
-                    <span class="ml-2">→</span>
-                </button>
-            </form>
-          </div>
-      </main>
+            <form method="POST" action="{% url 'verify' %}" class="space-y-6">
+              {% csrf_token %}
+              <div class="flex justify-center space-x-3">
+                <input type="text" name="otp_code_1" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" name="otp_code_2" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" name="otp_code_3" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" name="otp_code_4" maxlength="1" class="w-14 h-14 border-2 border-[#242565] text-[#0A075F] text-2xl font-bold text-center rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+              </div>
+
+              <p class="text-sm text-[#242565] opacity-75">
+                  Didn’t receive code? <span class="font-semibold">Kirim ulang dalam <span id="timer">5:00</span></span>
+              </p>
+              <button type="button" id="resend-otp" class="text-blue-500 hover:underline">Kirim Ulang OTP</button>
+
+              <button type="submit" class="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-[#2F2F72] text-white text-lg rounded-md font-semibold hover:bg-[#1B1464] transition">
+                  <span>Reset Password</span>
+                  <span class="ml-2">→</span>
+              </button>
+          </form>
+        </div>
+      </div>
     
     <!-- Timer Countdown Script -->
     <script>
