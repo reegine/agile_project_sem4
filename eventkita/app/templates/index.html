@@ -69,7 +69,7 @@
                     <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                    <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                   </li>
                   <li>
                     <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
@@ -224,42 +224,61 @@
 
 
 <!-- CONTACT US -->
+<!-- CONTACT US -->
 <div class="bg-center bg-cover h-[40rem] bg-no-repeat bg-[url('/static/background/bg_contactus2.png')] w-full mt-24">
     <section class="mx-auto max-w-screen-xl md:grid md:grid-cols-2 gap-4 p-24 ">
         <!-- Contact Form -->
         <div class="bg-primaryBlue dark:bg-gray-800 drop-shadow-lg rounded-lg p-5">
             <h2 class="text-4xl font-semibold text-white dark:text-white mb-2">Hubungi Kami</h2>
-            <!-- <p class="text-gray-500 dark:text-gray-400 mb-6">Please fill out the form below to get in touch with us.</p> -->
-        
-            <!-- Name Input -->
-            <label for="name" class="text-sm font-medium text-gray-100 dark:text-white mb-2 block mt-2">Nama:</label>
-            <input id="name" type="text" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan nama Anda" required>
-        
-            <!-- Email Input -->
-            <label for="email" class="text-sm font-medium  text-gray-100 dark:text-white mb-2 block mt-4">Email:</label>
-            <input id="email" type="email" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan email Anda" required>
-        
-            <!-- Message Input -->
-            <label for="message" class="text-sm font-medium  text-gray-100 dark:text-white mb-2 block mt-4">Pesan:</label>
-            <textarea id="message" rows="4" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tulis pesan Anda di sini..." required></textarea>
-        
-            <!-- Terms and Conditions Checkbox -->
-            <div class="flex items-center mt-4">
-                <input id="terms" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600" required>
-                <label for="terms" class="ml-2 text-sm font-medium  text-gray-100 dark:text-gray-300">Saya bersedia menerima informasi yang dikirimkan.</label>
-            </div>
-        
-            <!-- Submit Button -->
-            <div class="flex items-center space-x-4 rtl:space-x-reverse mt-6">
-                <button type="submit" class="text-white px-10 bg-primaryBlue border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Kirim</button>
-            </div>
+
+            <form method="POST" action="{% url 'contact_us' %}">
+                {% csrf_token %}
+                
+                <!-- Name Input -->
+                <label for="name" class="text-sm font-medium text-gray-100 dark:text-white mb-2 block mt-2">Nama:</label>
+                <input id="name" name="name" type="text" required
+                    class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Masukkan nama Anda">
+
+                <!-- Email Input -->
+                <label for="email" class="text-sm font-medium text-gray-100 dark:text-white mb-2 block mt-4">Email:</label>
+                <input id="email" name="email" type="email" required
+                    class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Masukkan email Anda">
+
+                <!-- Message Input -->
+                <label for="message" class="text-sm font-medium text-gray-100 dark:text-white mb-2 block mt-4">Pesan:</label>
+                <textarea id="message" name="message" rows="4" required
+                    class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Tulis pesan Anda di sini..."></textarea>
+
+                <!-- Terms and Conditions Checkbox -->
+                <div class="flex items-center mt-4">
+                    <input id="terms" name="terms" type="checkbox" required
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="terms" class="ml-2 text-sm font-medium text-gray-100 dark:text-gray-300">
+                        Saya bersedia menerima informasi yang dikirimkan.
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mt-6">
+                    <button type="submit"
+                        class="text-white px-10 bg-primaryBlue border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Kirim
+                    </button>
+                </div>
+            </form>
+
         </div>
-    
+
+        <!-- Image Section -->
         <div class="ms-10 bg-center content-center hidden md:block">
-            <img class="h-auto max-w-full " src="{% static 'logo/logo_large.png' %}" alt="image description">
+            <img class="h-auto max-w-full" src="{% static 'logo/logo_large.png' %}" alt="image description">
         </div>
     </section>
 </div>
+
 
 {% include 'footer.html' %}
 

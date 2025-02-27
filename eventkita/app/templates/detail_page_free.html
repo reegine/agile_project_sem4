@@ -43,7 +43,7 @@
                             <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                            <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                         </li>
                         <li>
                             <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
@@ -167,7 +167,7 @@
             </div>
 
             <div class="mt-5">
-                <i id="bookmarkIcon" class="fa-regular fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
+                <i id="bookmarkIcon" class="{% if isSaved %}fa-solid{% else %}fa-regular{% endif %} fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
             </div>
 
         </div>
@@ -210,14 +210,75 @@
 
 {% block javascript %}
 <script>
+    let isSaving = false;
+
     function toggleBookmark() {
-        const icon = document.getElementById('bookmarkIcon');
-        if (icon.classList.contains('fa-regular')) {
-            icon.classList.remove('fa-regular');
-            icon.classList.add('fa-solid');
+        if (isSaving) return; // Prevent multiple clicks
+        isSaving = true;
+
+        let icon = document.getElementById("bookmarkIcon");
+        const eventId = "{{ event.id }}"; // Get the event ID from the template
+
+        console.log('Toggling bookmark for event ID:', eventId); // Debugging log
+
+        if (icon.classList.contains("fa-regular")) {
+            // Save event
+            fetch(`../save/${eventId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 400) {
+                        console.log('Event already saved');
+                        return;
+                    }
+                    throw new Error('Error saving event');
+                }
+                // Change icon to solid after successful save
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                isSaving = false; // Re-enable the button
+            });
         } else {
-            icon.classList.remove('fa-solid');
-            icon.classList.add('fa-regular');
+            // Remove event
+            fetch(`../unsave/${eventId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error removing event');
+                }
+                // Change icon back to regular after successful unsave
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                isSaving = false; // Re-enable the button
+            });
         }
     }
 

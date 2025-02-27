@@ -44,20 +44,24 @@
 
         <!-- Newsletter Subscription -->
         <div class="flex flex-col md:items-start items-center">
-            <h2 class="text-lg font-bold text-center md:text-left">Bergabung dengan Kami</h2>
-            <p class="text-sm mt-2 text-center md:text-left">
-                Berlangganan dengan broadcast email kami untuk terus mengikuti perkembangan event terbaru.
-            </p>
-            <div class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
-                <input type="email" placeholder="Masukkan Alamat Email..." 
-                    class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0">
-                
-                <button class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all 
-                    md:absolute md:right-1 md:top-1 md:bottom-1 md:h-auto">
-                    Join Sekarang
-                </button>
-            </div>
-        </div>
+    <h2 class="text-lg font-bold text-center md:text-left">Bergabung dengan Kami</h2>
+    <p class="text-sm mt-2 text-center md:text-left">
+        Berlangganan dengan broadcast email kami untuk terus mengikuti perkembangan event terbaru.
+    </p>
+
+    <!-- Form Subscribe -->
+    <form method="POST" action="{% url 'subscribe_newsletter' %}" class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Masukkan Alamat Email..." 
+            class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0" required>
+
+        <button type="submit"
+            class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all md:absolute md:right-1 md:top-1 md:bottom-1 md:h-auto">
+            Join Sekarang
+        </button>
+    </form>
+
+</div>
         
         
         
