@@ -517,3 +517,6 @@ def selengkapnya(request, category):
 
 def riwayattransaksi(request, category):
     return render(request, 'transactionHistory.html')
+
+def syaratdanketentuan(request):
+    return render(request, 'termsandcondition.html')

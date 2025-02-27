@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}EventKita | Syarat Dan Ketentuan{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    
+   <!-- Navigation Bar -->
+   <nav class="bg-primaryBlue border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
+      </a>
+      <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="{% static 'default_images/profile.png' %}" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+        <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <li  class="md:pt-[10]">
+            <a href="{% url 'home' %}" class="block py-2 px-3 text-white rounded-sm bg-primaryBlue md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">Beranda</a>
+          </li>
+          <li  class="md:pt-[10]">
+            <a href="{% url 'calendar' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kalender</a>
+          </li>
+          <li class="md:pt-[10]">
+            <a href="{% url 'about_us' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tentang Kita</a>
+          </li>
+          
+          {% if user.id == None %}
+            {% else %}
+            <li class="md:pt-[10]">
+                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Selengkapnya <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg></button>
+                <!-- Dropdown menu -->
+                <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                    <li>
+                        <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                    </li>
+                    <!-- <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li> -->
+                    </ul>
+                    <!-- <div class="py-1">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                    </div> -->
+                </div>
+            </li>
+            {% endif %}
+            
+          <li>
+            {% if user.id == None %}
+            <div class="card" style="cursor: pointer;" data-href="{% url 'login' %}">
+                <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+            </div>
+            
+            {% else %}
+            <div class="card" style="cursor: pointer;" data-href="{% url 'profile' %}">
+                <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
+                    <div class="flex flex-col text-end me-5">
+                        <span class="text-xs font-semibold text-gray-100">{{ user.username }}</span>
+                        <span class="text-xs text-gray-400">Set up profile...</span>
+                    </div>
+                    {% if user.profile_picture %}
+                    <div class="w-7 h-7">
+                        <img src="{{ user.profile_picture.url }}" alt="User Profile" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    {% else %}
+                    <div class="w-7 h-7">
+                        <img src="{% static 'default_images/profile.png' %}" alt="User Profile" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    {% endif %}
+
+                </button>
+            </div>
+            {% endif %}
+          </li>
+    
+        </ul>
+      </div>
+    </div>
+    </nav>
+    
+
+    <!-- Back Button -->
+    <div class="flex justify-start mx-5 mt-10">
+        <button onclick="window.history.back()" class="flex items-center px-4 py-2 bg-transparent text-black rounded-md hover:bg-gray-400 hover:text-white focus:outline-none">
+            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Kembali
+        </button>
+    </div>
+
+    <!-- Bagian Tulisannya -->
+    <section class="px-6 mx-auto max-w-screen-xl mt-5 md:mt-10 mb-10">
+
+    <section class="px-2 mt-24 md:mt-20">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-[#242565]">Syarat dan Ketentuan</h2>
+        </div>
+        <div class="mx-auto p-6 bg-white shadow-lg rounded-lg mt-2">
+            <!-- <h1 class="text-2xl font-bold mb-4 text-center">Syarat & Ketentuan</h1> -->
+            
+            <h2 class="text-xl font-semibold mt-4">1. Pengenalan</h2>
+            <p class="mt-2 text-gray-700">Selamat datang di platform kami! Situs ini dibuat untuk menampilkan berbagai acara yang berlangsung di BSD City, Indonesia. Dengan mengakses situs ini, Anda menyetujui untuk terikat dengan syarat dan ketentuan yang berlaku.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">2. Ketentuan Penggunaan</h2>
+            <p class="mt-2 text-gray-700">a. Pengguna wajib menggunakan situs ini sesuai dengan hukum yang berlaku di Indonesia.</p>
+            <p class="mt-2 text-gray-700">b. Informasi yang disediakan di situs ini dapat berubah sewaktu-waktu tanpa pemberitahuan terlebih dahulu.</p>
+            <p class="mt-2 text-gray-700">c. Pengguna dilarang menyalahgunakan atau mengganggu layanan situs ini dengan cara apa pun.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">3. Informasi Acara</h2>
+            <p class="mt-2 text-gray-700">Kami berusaha menyediakan informasi acara yang akurat dan terkini, tetapi tidak menjamin keakuratan atau kelengkapan informasi yang disajikan. Kami tidak bertanggung jawab atas perubahan jadwal, pembatalan, atau ketidaksesuaian informasi dari penyelenggara acara.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">4. Hak Cipta & Konten</h2>
+            <p class="mt-2 text-gray-700">Seluruh konten di situs ini, termasuk teks, gambar, dan desain, dilindungi oleh hak cipta dan tidak boleh digunakan kembali tanpa izin dari pemilik.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">5. Tanggung Jawab</h2>
+            <p class="mt-2 text-gray-700">Kami tidak bertanggung jawab atas kerugian atau masalah yang mungkin timbul akibat penggunaan situs ini, termasuk gangguan teknis, kesalahan informasi, atau masalah lainnya.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">6. Perubahan Syarat & Ketentuan</h2>
+            <p class="mt-2 text-gray-700">Kami berhak untuk mengubah syarat & ketentuan ini kapan saja. Pengguna disarankan untuk meninjau halaman ini secara berkala untuk mengetahui perubahan terbaru.</p>
+            
+            <h2 class="text-xl font-semibold mt-4">7. Kontak</h2>
+            <p class="mt-2 text-gray-700">Jika Anda memiliki pertanyaan atau memerlukan bantuan, silakan hubungi kami melalui email di <a href="mailto:support@bsd-event.com" class="text-blue-600">support@bsd-event.com</a>.</p>
+            
+            <p class="mt-6 text-center text-gray-600">Terakhir diperbarui: Februari 2025</p>
+            </div>
+        </section>
+    </section>
+
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}

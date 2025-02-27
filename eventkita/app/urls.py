@@ -28,6 +28,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'), 
     path('batalkantransaksi/<uuid:purchase_id>', views.batalkantransaksi, name='batalkantransaksi'), 
     path('notifikasi/mark/<int:notification_id>/', views.mark_notification_as_read, name='mark_notification_as_read'),
+    path('syaratdanketentuan/', views.syaratdanketentuan, name='syaratdanketentuan'), 
 
 
 ]
