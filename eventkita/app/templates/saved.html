@@ -43,7 +43,7 @@
                         <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
                     </li>
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                        <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                     </li>
                     <li>
                         <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
@@ -99,31 +99,32 @@
     </div>
 
     <!-- Cards Container -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {% for saved_event in saved_events %}
-        {% with event=saved_event.event %}
-
-        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
-            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{{ event.foto_event.url }}" alt="Event Image" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <div class="grid grid-cols-5 gap-1">
-                        <div class="col-span-1 text-center">
-                            <p class="text-xs font-medium text-primaryBlue">{{ event.tanggal_kegiatan|date:"M" }}</p>
-                            <p class="text-2xl font-bold">{{ event.tanggal_kegiatan|date:"d" }}</p>
-                        </div>
-                        <div class="col-span-4 pl-4">
-                            <h3 class="text-base font-bold">{{ event.judul }}</h3>
-                            <p class="text-gray-600 text-sm">{{ event.deskripsi|truncatewords:10 }}</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
-                        </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    {% for saved_event in saved_events %}
+    {% with event=saved_event.event %}
+    <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
+        <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="{{ event.foto_event.url }}" alt="Event Image" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <div class="grid grid-cols-5 gap-1">
+                    <div class="col-span-1 text-center">
+                        <p class="text-xs font-medium text-primaryBlue">{{ event.tanggal_kegiatan|date:"M" }}</p>
+                        <p class="text-2xl font-bold">{{ event.tanggal_kegiatan|date:"d" }}</p>
+                    </div>
+                    <div class="col-span-4 pl-4">
+                        <h3 class="text-base font-bold">{{ event.judul }}</h3>
+                        <p class="text-gray-600 text-sm">{{ event.deskripsi|truncatewords:10 }}</p>
+                        <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
                     </div>
                 </div>
             </div>
         </div>
-        {% endwith %}
-        {% endfor %}
     </div>
+    {% endwith %}
+    {% empty %}
+    <p class="text-gray-500 col-span-4 text-center">Tidak ada event tersimpan.</p>
+    {% endfor %}
+</div>
 
         
 

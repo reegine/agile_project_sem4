@@ -43,7 +43,7 @@
                             <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                            <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
                         </li>
                         <li>
                             <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
@@ -149,7 +149,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <i id="bookmarkIcon" class="fa-regular fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
+                    <i id="bookmarkIcon" class="{% if isSaved %}fa-solid{% else %}fa-regular{% endif %} fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
                 </div>
             </div>
         </div>
@@ -229,16 +229,75 @@
 
 {% block javascript %}
 <script>
-    function toggleBookmark() {
-        const icon = document.getElementById('bookmarkIcon');
-        if (icon.classList.contains('fa-regular')) {
-            icon.classList.remove('fa-regular');
-            icon.classList.add('fa-solid');
-        } else {
-            icon.classList.remove('fa-solid');
-            icon.classList.add('fa-regular');
-        }
+     let isSaving = false;
+
+function toggleBookmark() {
+    if (isSaving) return; // Prevent multiple clicks
+    isSaving = true;
+
+    let icon = document.getElementById("bookmarkIcon");
+    const eventId = "{{ event.id }}"; // Get the event ID from the template
+
+    if (icon.classList.contains("fa-regular")) {
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+
+        // Save event
+        fetch(`/event/save/${eventId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 400) {
+                    console.log('Event already saved');
+                    return;
+                }
+                throw new Error('Error saving event');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            isSaving = false; // Re-enable the button
+        });
+    } else {
+        icon.classList.remove("fa-solid");
+        icon.classList.add("fa-regular");
+
+        // Remove event
+        fetch(`/event/unsave/${eventId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error removing event');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            isSaving = false; // Re-enable the button
+        });
     }
+}
 
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.payment');
