@@ -151,7 +151,7 @@
             <input type="file" name="bukti_pembayaran" id="fileUpload" class="mt-3 mb-4 border rounded p-2 w-full" required />
             <div class="flex justify-between">
                 <button type="button" class="bg-red-500 text-white rounded px-4 py-2" onclick="closeModal()">Batalkan Pembayaran</button>
-                <button type="submit" class="bg-primaryBlue text-white rounded px-4 py-2">Kirimkan Bukti</button>
+                <button type="submit" class="bg-primaryBlue text-white rounded px-4 py-2">Tutup</button>
             </div>
         </form>
       </div>
@@ -364,6 +364,10 @@
 
       </div>
 
+      <form id="cancelTransactionForm" action="{% url 'batalkantransaksi' purchase.id %}" method="post" style="display: none;">
+        {% csrf_token %}
+      </form>
+
 
     </section>
 
@@ -376,29 +380,23 @@
     
     {% block javascript %}
     <script>
-      // Set the countdown time in seconds (10 minutes)
-      let countdownTime = 10 * 60; // 10 minutes in seconds
+      let countdownTime = 10 * 60;
 
-      // Update the countdown every second
       const countdownInterval = setInterval(() => {
-        // Calculate minutes and seconds
-        const minutes = Math.floor(countdownTime / 60);
-        const seconds = countdownTime % 60;
+          const minutes = Math.floor(countdownTime / 60);
+          const seconds = countdownTime % 60;
 
-        // Update the HTML elements
-        document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
-        document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+          document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+          document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
 
-        // Decrease the countdown time
-        countdownTime--;
+          countdownTime--;
 
-        // Stop the countdown when it reaches zero
-        if (countdownTime < 0) {
-          clearInterval(countdownInterval);
-          document.getElementById('minutes').textContent = '00';
-          document.getElementById('seconds').textContent = '00';
-          alert("Waktu habis!"); // Optional: Alert when time is up
-        }
+          if (countdownTime < 0) {
+              clearInterval(countdownInterval);
+              document.getElementById('minutes').textContent = '00';
+              document.getElementById('seconds').textContent = '00';
+              document.getElementById('cancelTransactionForm').submit();
+          }
       }, 1000);
 
       document.getElementById('copyButton').addEventListener('click', function() {
@@ -412,12 +410,12 @@
 
     // Modal Untuk payment
     document.getElementById('checkPaymentStatus').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default anchor behavior
-        document.getElementById('paymentModal').classList.remove('hidden'); // Show the modal
+        event.preventDefault(); 
+        document.getElementById('paymentModal').classList.remove('hidden');
     });
 
     function closeModal() {
-        document.getElementById('paymentModal').classList.add('hidden'); // Hide the modal
+        document.getElementById('paymentModal').classList.add('hidden'); 
     }
 
     document.getElementById('submitPayment').addEventListener('click', function() {
