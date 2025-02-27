@@ -126,14 +126,30 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
+import locale
+from django.shortcuts import get_object_or_404, render
+from .models import Event, SavedEvents
+
 def detail_page(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     isSaved = SavedEvents.objects.filter(user=request.user, event=event).exists() 
     tickets = event.tiket.all() 
+
+    # Set locale for currency formatting
+    locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8') 
+
+    # Format prices for each ticket
+    formatted_tickets = []
+    for ticket in tickets:
+        formatted_price = locale.currency(ticket.harga, grouping=True)
+        formatted_tickets.append({
+            'ticket': ticket,
+            'formatted_price': formatted_price
+        })
     
     context = {
         'event': event,
-        'tickets': tickets,
+        'tickets': formatted_tickets,  # Pass the formatted tickets to the template
         'isSaved': isSaved,
     }
     

@@ -99,7 +99,7 @@
                     <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                     </svg>
-                    Beranda
+                    Kembali
                 </a>
             </li>
             <li>
@@ -191,28 +191,28 @@
         {% for ticket in tickets %}
         <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-3">
             <div class="px-4 pt-2">
-                <h2 class="text-xl font-bold text-gray-800">{{ ticket.judul }} - {{ ticket.date|date:"d M Y" }}</h2>
-                <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
+                <h2 class="text-xl font-bold text-gray-800">{{ ticket.ticket.judul }} - {{ ticket.ticket.date|date:"d M Y" }}</h2>
+                <p class="text-gray-600">{{ ticket.ticket.deskripsi }}</p>
             </div>
-            <div class="flex items-center justify-start px-4 py-3">
+            <div class="flex items-center justify-start px-4 pb-3 pt-[1rem]">
                 <div class="flex items-center">
                     <div class="w-2 h-2 bg-orange-500 rounded-full flex items-center justify-center text-white"></div>
                     <span class="ml-2 text-gray-700 text-xs">Tidak bisa refund</span>
                 </div>
                 <div class="ms-3 flex items-center">
                     <div class="w-2 h-2 bg-green-500 rounded-full flex items-center justify-center text-white"></div>
-                    <span class="ml-2 text-gray-700 text-xs">Berdiri</span>
+                    <span class="ml-2 text-gray-700 text-xs">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</span>
                 </div>
             </div>
             <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
-            <div class="flex justify-between items-center px-4 pt-2">
-                <span class="text-lg font-bold text-secondaryOrange">IDR {{ ticket.harga }}</span>
-                <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' ticket.id %}">
+            <div class="flex justify-between items-center px-4 pt-[1rem]">
+                <span class="text-lg font-bold text-secondaryOrange">IDR {{ ticket.formatted_price  }}</span>
+                <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' ticket.ticket.id %}">
                     <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
                 </div>
             </div>
             <div class="ps-4 pb-4">
-                <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.stock }} tiket</span>
+                <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.ticket.stock }} tiket</span>
             </div>
         </div>
         {% endfor %}
