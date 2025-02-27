@@ -178,7 +178,13 @@ def verify_view(request):
         return redirect('forgot_password')
 
     if request.method == 'POST':
-        otp_input = request.POST.get('otp_code')
+        otp_input = (
+            request.POST.get('otp_code_1', '') +
+            request.POST.get('otp_code_2', '') +
+            request.POST.get('otp_code_3', '') +
+            request.POST.get('otp_code_4', '')
+        )
+
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -192,7 +198,7 @@ def verify_view(request):
                 if not otp_record.is_expired():
                     otp_record.is_used = True
                     otp_record.save()
-                    return redirect('reset_password')
+                    return redirect('reset')
                 else:
                     messages.error(request, "Kode OTP sudah kadaluarsa.")
             else:
@@ -202,6 +208,26 @@ def verify_view(request):
 
     return render(request, 'verify.html')
 
+def resend_otp_view(request):
+    if request.method == 'POST':
+        email = request.session.get('reset_email')
+        User = get_user_model()
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User  not found'}, status=404)
+
+        otp_code = ''.join(str(random.randint(0, 9)) for _ in range(4))
+        PasswordResetOTP.objects.create(user=user, otp_code=otp_code)
+
+        subject = "Kode Reset Password Anda"
+        message = f"Kode OTP Anda adalah: {otp_code}. Kode ini berlaku selama 5 menit."
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], fail_silently=False)
+
+        return JsonResponse({'success': 'OTP has been sent'})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def reset_view(request):
     email = request.session.get('reset_email')
@@ -209,8 +235,8 @@ def reset_view(request):
         return redirect('forgot_password')
 
     if request.method == 'POST':
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
+        password1 = request.POST.get('password1')  # Match the name in the HTML
+        password2 = request.POST.get('password2')  # Match the name in the HTML
 
         if password1 != password2:
             messages.error(request, "Password dan konfirmasi tidak sama.")
@@ -220,7 +246,7 @@ def reset_view(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, "User tidak ditemukan.")
+            messages.error(request, "User  tidak ditemukan.")
             return redirect('forgot_password')
 
         user.set_password(password1)
