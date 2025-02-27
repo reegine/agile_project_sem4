@@ -85,15 +85,25 @@
       </div>
     </div>
     </nav>
+
+    <div class="px-[0rem] md:px-[3rem]  pt-3 bg-[#2E2B5F]">
+        <a href="javascript:history.back()" class="flex items-center w-64 ms-8 px-4 py-2 text-lg font-semibold text-white rounded-md 
+                  transition-all">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l6-6m-6 6l6 6"></path>
+            </svg>
+            Kembali
+        </a>
+      </div>  
     
-    <form id="profileForm" method="POST" action="{% url 'editprofile' %}" enctype="multipart/form-data">
+    <form id="profileForm" method="POST" action="{% url 'editprofile' %}" enctype="multipart/form-data" class="bg-[#2E2B5F] ">
         {% csrf_token %}
         
-    <div class="flex justify-center items-center min-h-screen bg-[#242565]">
+    <div class="flex justify-center items-center min-h-[25rem] py-10">
         <div class="bg-white w-full max-w-3xl p-6 rounded-lg shadow-lg border-2 border-gray-200">
             <!-- Profile Picture -->
             <div class="flex flex-col items-start w-full">
-                <h3 class="text-lg font-bold mb-2">Profile Picture</h3>
+                <h3 class="text-lg font-bold mb-2">Foto Profil</h3>
                 <div class="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-3 sm:space-y-0 w-full">
                     <!-- Profile Image -->
                     <div class="relative w-20 h-20 rounded-full border border-gray-400 overflow-hidden bg-gray-300 flex items-center justify-center">
@@ -108,7 +118,7 @@
                     <!-- Buttons (Responsive) -->
                     <div class="flex flex-col sm:flex-row w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-2">
                         
-                        <button type="button" class="bg-orange-500 text-white px-4 py-1 rounded w-full sm:w-auto hover:bg-orange-900" onclick="document.getElementById('profile_picture').click();">Change Picture</button>
+                        <button type="button" class="bg-orange-500 text-white px-4 py-1 rounded w-full sm:w-auto hover:bg-orange-900" onclick="document.getElementById('profile_picture').click();">Ubah Foto</button>
                         <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="hidden" onchange="previewImage(event)">
                     </div>
                 </div>
@@ -132,7 +142,7 @@
             </div>
             
             <!-- Address Section -->
-            <h3 class="font-bold text-lg mt-6">Address</h3>
+            <h3 class="font-bold text-lg mt-8">Alamat</h3>
             <div class="grid grid-cols-2 gap-4 mt-2">
                 <div>
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Provinsi</label>
@@ -160,25 +170,24 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mt-4">
+            <h3 class="font-bold text-lg mt-8">Password</h3>
+            <div class="grid grid-cols-1 gap-4">
                 <div class="mt-4">
                     <label class="text-sm text-[#242565] opacity-60 font-semibold">Password Baru</label>
                     <input type="password" name="new_password" class="w-full border rounded p-2">
                 </div>
-                <div class="mt-4 flex items-end">
-                    <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded-md hover:bg-orange-900">Simpan Perubahan</button>
-                </div>
+                
+            </div>
+
+            <div class="mt-4 flex items-end">
+                <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded-md hover:bg-orange-900">Simpan Perubahan</button>
             </div>
             
         </div>
     </div>
-</form>
+    </form>
     
 
-    
-
-    
-    
 </div>
 
 {% include 'footer.html' %}

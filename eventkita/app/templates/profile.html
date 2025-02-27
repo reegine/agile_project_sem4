@@ -107,7 +107,8 @@
                     {% if user.profile_picture %}
                         <img src="{{ user.profile_picture.url }}" alt="Profile" class="w-full h-full object-cover rounded-full">
                     {% else %}
-                        <div class="w-full h-full bg-gray-300 rounded-full"></div>
+                        <img src="{% static 'default_images/profile.png' '%}" alt="Profile" class="w-full h-full object-cover rounded-full">
+
                     {% endif %}
                 </div>
                   <div>
