@@ -124,14 +124,19 @@ def home(request):
     return render(request, 'index.html', context)
 
 def detail_page(request, event_id):
-    event = get_object_or_404(Event, id=event_id, is_free=False)
-    tickets = event.tiket.all() 
+    event = get_object_or_404(Event, id=event_id)
 
-    context = {
-        'event': event,
-        'tickets': tickets
-    }
-
+    if event.is_free == True :
+        context = {
+                'event': event,
+            }
+    else :
+        tickets = event.tiket.all() 
+        context = {
+            'event': event,
+            'tickets': tickets
+        }
+    
     return render(request, 'detail_page.html', context)
     
 def detail_page_free(request, id):

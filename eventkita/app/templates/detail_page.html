@@ -170,7 +170,19 @@
             <hr class="border-t-2 border-gray-400 rounded-full">
         </div>
     </section>
-
+    
+    {% if event.is_free == True  %}
+    <!-- ini yg pesan stan-->
+    <section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5">
+        <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Informasi Tambahan:</h1>
+        <div class="p-4 shadow-md rounded-md">
+            <p>
+                {{ event.additional_info }}
+            </p>
+            <!-- <a class="text-secondaryOrange" href="">{{ event.additional_info }}</a> -->
+        </div>
+    </section>
+    {% else %}
     <!-- Ticket Section -->
     <section class="mt-1 md:mt-2 lg:mt-2 mx-auto max-w-screen-xl p-5 mb-20">
         <h1 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">TIKET</h1>
@@ -178,7 +190,7 @@
         {% for ticket in tickets %}
         <div class="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-3">
             <div class="px-4 pt-2">
-                <h2 class="text-xl font-bold text-gray-800">{{ ticket.judul }}</h2>
+                <h2 class="text-xl font-bold text-gray-800">{{ ticket.judul }} - {{ ticket.date|date:"d M Y" }}</h2>
                 <p class="text-gray-600">Harga tiket sudah termasuk pajak pemerintah dan biaya admin tiket 20%</p>
             </div>
             <div class="flex items-center justify-start px-4 py-3">
@@ -199,12 +211,14 @@
                 </div>
             </div>
             <div class="ps-4 pb-4">
-                <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.sisa_tiket }} tiket</span>
+                <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.stock }} tiket</span>
             </div>
         </div>
         {% endfor %}
         
     </section>
+
+    {% endif %}
 
 </section>
 
