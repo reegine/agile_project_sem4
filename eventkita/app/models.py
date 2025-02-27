@@ -96,7 +96,7 @@ class Tiket(models.Model):
     deskripsi = models.TextField(blank=True, null=True)
     harga = models.DecimalField(max_digits=20, decimal_places=2)
     stock = models.BigIntegerField(blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateTimeField(blank=True, null=True)
     event_terkait = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='tiket')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 

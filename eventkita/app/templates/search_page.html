@@ -3,6 +3,23 @@
 
 {% block title %}EventKita | Pencarian{% endblock %}
 
+{% block head %} 
+<style>
+    .single-line {
+        overflow: hidden;  
+        white-space: nowrap;  
+        text-overflow: ellipsis;
+    }
+
+    .two-line {
+        display: -webkit-box;  
+        -webkit-box-orient: vertical; 
+        -webkit-line-clamp: 2;   
+        overflow: hidden;    
+        text-overflow: ellipsis;  
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 
@@ -145,8 +162,8 @@
                                         <p class="text-2xl font-bold">{{ event.tanggal_kegiatan|date:"d" }}</p>
                                     </div>
                                     <div class="col-span-4 pl-4">
-                                        <h3 class="text-base font-bold">{{ event.judul }}</h3>
-                                        <p class="text-gray-600 text-sm">{{ event.deskripsi|truncatewords:10 }}</p>
+                                        <h3 class="text-base font-bold single-line">{{ event.judul }}</h3>
+                                        <p class="text-gray-600 text-sm two-line">{{ event.deskripsi }}</p>
                                         <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
                                     </div>
                                 </div>

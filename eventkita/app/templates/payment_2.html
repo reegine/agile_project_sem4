@@ -323,7 +323,7 @@
         
           <div class="mt-5 text-gray-300 font-semibold text-base mb-1">Tanggal Dipilih</div>
         
-          <div class="text-white text-base mb-4 font-semibold">{{ tiket.date }}</div>
+          <div class="text-white text-base mb-4 font-semibold">{{ tiket.date|date:"d M Y (h:i A)" }}</div>
         
           <hr class="border-white mb-4" />
         
@@ -380,24 +380,50 @@
     
     {% block javascript %}
     <script>
-      let countdownTime = 10 * 60;
+      let countdownTime = 10 * 60; // 10 minutes in seconds
+      const countdownDisplay = document.getElementById('minutes');
+      const secondsDisplay = document.getElementById('seconds');
+
+      // Check if there's a stored end time in localStorage
+      const storedEndTime = localStorage.getItem('countdownEndTime');
+      if (storedEndTime) {
+          const endTime = new Date(storedEndTime);
+          const now = new Date();
+          countdownTime = Math.max(0, Math.floor((endTime - now) / 1000)); // Calculate remaining time
+      }
+
+      // If countdownTime is still 10 minutes, set the end time in localStorage
+      if (countdownTime === 10 * 60) {
+          const endTime = new Date(Date.now() + countdownTime * 1000);
+          localStorage.setItem('countdownEndTime', endTime);
+      }
 
       const countdownInterval = setInterval(() => {
           const minutes = Math.floor(countdownTime / 60);
           const seconds = countdownTime % 60;
 
-          document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
-          document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+          countdownDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+          secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
 
           countdownTime--;
 
+          // Update the end time in localStorage
+          const updatedEndTime = new Date(Date.now() + countdownTime * 1000);
+          localStorage.setItem('countdownEndTime', updatedEndTime);
+
           if (countdownTime < 0) {
               clearInterval(countdownInterval);
-              document.getElementById('minutes').textContent = '00';
-              document.getElementById('seconds').textContent = '00';
+              countdownDisplay.textContent = '00';
+              secondsDisplay.textContent = '00';
               document.getElementById('cancelTransactionForm').submit();
+              localStorage.removeItem('countdownEndTime'); // Clear the stored end time
           }
       }, 1000);
+
+      // Clear the countdown when the user navigates away
+      window.addEventListener('beforeunload', function() {
+          localStorage.removeItem('countdownEndTime');
+      });
 
       document.getElementById('copyButton').addEventListener('click', function() {
             const textToCopy = "780 1234 5678 9999";

@@ -189,7 +189,7 @@
           </div>
           <div class="grid grid-cols-3 w-full">
             <div class="col-span-1">
-              <h2 class="mt-10 text-xl font-semibold text-gray-300">Date</h2>
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Tanggal</h2>
               <p class="text-lg text-white font-semibold">
                 {{ event.tanggal_kegiatan|date:"d M Y" }}
               </p>
@@ -207,9 +207,9 @@
               </p>
             </div> -->
             <div class="col-span-1 ps-10">
-              <h2 class="mt-10 text-xl font-semibold text-gray-300">Time</h2>
+              <h2 class="mt-10 text-xl font-semibold text-gray-300">Waktu</h2>
               <p class="text-lg text-white font-semibold">
-                {{ event.tanggal_kegiatan|date:"h:i A" }}
+                {{ tiket.date|date:"d M Y (h:i A)" }}
               </p>
             </div>
           </div>
@@ -264,32 +264,32 @@
             </div>
             
             <!-- Payment Successful Text -->
-            <h2 class="text-center text-lg font-bold mb-2">Payment Successful</h2>
+            <h2 class="text-center text-lg font-bold mb-2">Transaksi Berhasil</h2>
             
             <!-- Order Number Box -->
             <div class="bg-primaryBlue text-white rounded-lg p-2 text-center mb-4">
-                <p>Order #{{ purchase.id }}</p>
+                <p>Pesanan #{{ purchase.id }}</p>
             </div>
             
             <!-- Transaction Detail Text -->
-            <p class="text-start font-semibold mb-2 text-sm">Transaction Detail</p>
+            <p class="text-start font-semibold mb-2 text-sm">Detail Transaksi</p>
             
             <!-- Transaction Details Box -->
             <div class="border-2 border-primaryBlue rounded-lg">
                 <div class="border-b-2 border-blue-800 pb-2 mb-2 p-2">
                     <div class="grid grid-cols-2">
                         <div class="text-start text-sm font-bold text-lightBlueApp">
-                            <p>Date</p>
+                            <p>Tanggal Transaksi</p>
                         </div>
                         <div class="text-end text-sm font-bold text-primaryBlue">
-                            <p>{{ purchase.created_at }}</p>
+                          <p>{{ purchase.created_at|date:"d M Y (h:i A)" }}</p>                        
                         </div>
                     </div>
                 </div>
                 <div class="border-b-2 border-blue-800 pb-2 mb-2 p-2">
                   <div class="grid grid-cols-2">
                       <div class="text-start text-sm font-bold text-lightBlueApp">
-                          <p>Payment Method</p>
+                          <p>Metode Pembayaran</p>
                       </div>
                       <div class="text-end text-sm font-bold text-primaryBlue">
                           <p>BCA Virtual Account</p>
