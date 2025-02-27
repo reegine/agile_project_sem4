@@ -384,6 +384,9 @@ def editprofile_view(request):
 @login_required
 def unsave_event_view(request, event_id):
     """Menghapus event dari daftar yang disimpan user."""
+    if request.method != 'DELETE':
+        return JsonResponse({'message': 'Method not allowed'}, status=405)
+        
     user = request.user
     event = get_object_or_404(Event, id=event_id)
 
@@ -397,6 +400,9 @@ def unsave_event_view(request, event_id):
 @login_required
 def save_event_view(request, event_id):
     """Menyimpan event ke dalam daftar saved user."""
+    if request.method != 'POST':
+        return JsonResponse({'message': 'Method not allowed'}, status=405)
+        
     user = request.user
     event = get_object_or_404(Event, id=event_id)
 
@@ -413,6 +419,7 @@ def saved_view(request):
     saved_events = SavedEvents.objects.filter(user=user).select_related('event')
 
     return render(request, 'saved.html', {'saved_events': saved_events})
+
 
 @login_required
 def notifikasi(request):
@@ -453,6 +460,12 @@ def subscribe(request):
             except Exception as e:
                 return HttpResponse(f"Terjadi kesalahan: {str(e)}")
     return render(request, 'footer.html')
+
+def send_test_email():
+    subject = "Test Email from Django"
+    message = "Ini adalah email percobaan dari Django."
+    recipient_list = ["mimintheresa@gmail.com"]
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
 
 def unsubscribe(request, email):
     subscriber = get_object_or_404(Footer, email=email)
