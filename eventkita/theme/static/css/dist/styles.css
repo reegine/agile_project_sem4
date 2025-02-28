@@ -1388,24 +1388,16 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 15rem;
 }
 
+.mt-\[3rem\] {
+  margin-top: 3rem;
+}
+
 .mt-\[5rem\] {
   margin-top: 5rem;
 }
 
 .mt-\[6rem\] {
   margin-top: 6rem;
-}
-
-.mb-\[4rem\] {
-  margin-bottom: 4rem;
-}
-
-.mt-\[2rem\] {
-  margin-top: 2rem;
-}
-
-.mt-\[3rem\] {
-  margin-top: 3rem;
 }
 
 .line-clamp-2 {

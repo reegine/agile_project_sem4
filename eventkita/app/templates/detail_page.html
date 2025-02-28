@@ -178,19 +178,20 @@
                 <div class="border-4 border-secondaryOrange p-2 rounded-lg bg-white shadow-md">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="text-center px-3">
-                            <span class="text-3xl font-bold text-secondaryOrange">3</span>
+                            <span id="days" class="text-3xl font-bold text-secondaryOrange">0</span>
                             <p class="text-sm text-secondaryOrange">Hari</p>
                         </div>
                         <div class="text-center px-3">
-                            <span class="text-3xl font-bold text-secondaryOrange">18</span>
+                            <span id="hours" class="text-3xl font-bold text-secondaryOrange">0</span>
                             <p class="text-sm text-secondaryOrange">Jam</p>
                         </div>
                         <div class="text-center px-3">
-                            <span class="text-3xl font-bold text-secondaryOrange">34</span>
+                            <span id="minutes" class="text-3xl font-bold text-secondaryOrange">0</span>
                             <p class="text-sm text-secondaryOrange">Menit</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
                 <div class="mt-5">
                     {% if user.is_authenticated %}
@@ -400,5 +401,32 @@
             }, 5000); // Show for 5 seconds
         });
     });
+
+    function updateCountdown() {
+        const eventDateString = "{{ event.tanggal_kegiatan|date:'Y-m-d' }}";
+        const eventDate = new Date(eventDateString + "T00:00:00"); // Ensure time starts at midnight
+        const now = new Date();
+        const timeDiff = eventDate - now;
+
+        if (timeDiff > 0) {
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+        } else {
+            document.getElementById("days").textContent = "0";
+            document.getElementById("hours").textContent = "0";
+            document.getElementById("minutes").textContent = "0";
+            clearInterval(countdownInterval);
+        }
+    }
+
+    // Update every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Run immediately to prevent initial delay
+    
 </script>
 {% endblock %}
