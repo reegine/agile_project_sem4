@@ -191,8 +191,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
                 <div class="mt-5">
                     {% if user.is_authenticated %}
                         <i id="bookmarkIcon" class="{% if isSaved %}fa-solid{% else %}fa-regular{% endif %} fa-bookmark icon cursor-pointer text-secondaryOrange hover:text-secondaryOrange text-3xl" onclick="toggleBookmark()"></i>
@@ -200,6 +198,9 @@
                         <span class="text-gray-500"> </span>
                     {% endif %}
                 </div>
+            </div>
+
+                
             </div>
         </div>
 
