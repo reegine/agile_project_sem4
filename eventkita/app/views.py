@@ -729,4 +729,4 @@ def search_events(request):
         'workshop': upcoming_events.filter(kategori='workshop')[:4],
     }
 
-    return render(request, 'index.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES, 'semua_event': semua_event, 'context': searchStatus})
+    return render(request, 'index.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES, 'semua_event': semua_event, 'searchStatus': searchStatus})
