@@ -158,7 +158,7 @@
     </div>
 
     <!-- Search bar -->
-    <div class="card max-w-7xl mx-auto bg-primaryBlue p-8 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[-3rem]" style="cursor: pointer;" data-href="{% url 'pencarian' %}">
+    <!-- <div class="card max-w-7xl mx-auto bg-primaryBlue p-8 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[-3rem]" style="cursor: pointer;" data-href="{% url 'pencarian' %}">
         <div class="flex flex-wrap items-center gap-3">
             <div class="flex-grow b-none">
                 <label class="block text-white text-md mb-1 " for="categories">Kategori Acara</label>
@@ -179,8 +179,36 @@
             </div>
     
         </div>
-    </div>
+    </div> -->
 
+    <div class="max-w-7xl mx-auto bg-primaryBlue pt-8 px-8 pb-3 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[-3rem]">
+        <form method="GET" action="{% url 'search_events' %}" class="flex flex-col md:flex-row gap-4">
+            <!-- <input type="text" name="title" placeholder="Judul Event" class="p-2 border rounded w-full md:w-1/3"> -->
+            <div class="w-full md:w-1/3 ">
+                <select name="category" class="p-2 border-none rounded w-full bg-transparent text-white">
+                    <option value="" class="text-black hover:bg-primaryBlue">Pilih Kategori</option>
+                    <option value="konser" class="text-black hover:bg-primaryBlue">Konser Musik</option>
+                    <option value="konferensi" class="text-black hover:bg-primaryBlue">Konferensi</option>
+                    <option value="bazaar" class="text-black hover:bg-primaryBlue">Bazaar</option>
+                    <option value="workshop" class="text-black hover:bg-primaryBlue">Workshop</option>
+                </select>
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
+            </div>
+            <div class="w-full md:w-1/3">
+                <input type="text" name="location" placeholder="Lokasi" class="p-2 border-none rounded w-full bg-transparent text-white">
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
+            </div>
+            <div class="w-full  md:w-1/3">
+                <input type="date" name="date" class="p-2 border-none rounded w-full bg-transparent text-white">
+                <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
+            </div>
+            
+            <button type="submit" class="bg-white text-primaryBlue p-4 rounded ">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    
 </section>
 
  <!-- Toast Top right -->
@@ -202,6 +230,54 @@
  {% endif %}
 
 <section class="px-4 mx-auto max-w-screen-xl mt-[15rem] md:mt-[2-rem] lg:mt-[8rem]">
+
+    {% if events %}
+    <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Hasil Pencarian</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-[1rem]">
+        {% for event in events %}
+        <div class="card" style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
+            <div class="col-span-1 bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="{{ event.foto_event.url }}" alt="Event Image" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="grid grid-cols-5 gap-1">
+                        <div class="col-span-1 text-center">
+                            <p class="text-xs font-medium text-primaryBlue">{{ event.tanggal_kegiatan|date:"M" }}</p>
+                            <p class="text-2xl font-bold">{{ event.tanggal_kegiatan|date:"d" }}</p>
+                        </div>
+                        <div class="col-span-4 pl-4">
+                            <h3 class="text-base font-bold single-line">{{ event.judul }}</h3>
+                            <p class="text-gray-600 text-sm two-line">{{ event.deskripsi }}</p>
+                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <div class="rounded-xl mt-[6rem] relative flex items-center justify-center min-h-[10rem] bg-cover bg-center bg-no-repeat bg-[url('/static/background/bg_contactus2.png')] overflow-hidden" >
+        <div class="absolute inset-0 bg-black opacity-50"></div> 
+        <h1 class="relative text-white text-4xl font-bold text-center p-4">
+            Lihat Acara Lain Yang Ada di EventKita!
+        </h1>
+    </div>
+    {% else %}
+        {% if searchStatus == 'empty' %}
+            <p class="text-gray-500 w-full text-center">Tidak ada hasil ditemukan.</p>
+            <div class="rounded-xl mt-[6rem] relative flex items-center justify-center min-h-[10rem] bg-cover bg-center bg-no-repeat bg-[url('/static/background/bg_contactus2.png')] overflow-hidden" >
+                <div class="absolute inset-0 bg-black opacity-50"></div> 
+                <h1 class="relative text-white text-4xl font-bold text-center p-4">
+                    Lihat Acara Lain Yang Ada di EventKita!
+                </h1>
+            </div>
+        {% else %}
+            
+        {% endif %}
+        
+    {% endif %}
+
+    <!-- Ini bagian yang default display -->
     {% for category, events in semua_event.items %}
     <div class="flex justify-between items-center mb-6 mt-[3rem]">
         <h2 class="text-3xl font-bold">{{ category|title }}</h2>
@@ -233,8 +309,11 @@
             </div>
         </div>
         {% endfor %}
-    </div>
-    {% endfor %}
+        </div>
+    {% endfor %}    
+
+    
+    
 </section>
 
 

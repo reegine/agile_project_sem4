@@ -16,6 +16,7 @@ from .models import NewsletterSubscriber
 import locale
 
 User = get_user_model()
+searchStatus = 'not_empty'
 
 def login_view(request):
     if request.method == 'POST':
@@ -692,7 +693,7 @@ def search_page(request):
 def search_events(request):
     category = request.GET.get('category', '')
     location = request.GET.get('location', '')
-    title = request.GET.get('title', '') 
+    # title = request.GET.get('title', '') 
     date = request.GET.get('date', '')
 
     events = Event.objects.all()
@@ -704,9 +705,28 @@ def search_events(request):
         events = events.filter(kategori__icontains=category)
     if location:
         events = events.filter(lokasi__icontains=location) 
-    if title:
-        events = events.filter(judul__icontains=title)
+    # if title:
+    #     events = events.filter(judul__icontains=title)
     if date: 
         events = events.filter(tanggal_kegiatan=date)
 
-    return render(request, 'search_page.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES})
+
+    # ini biar munculin yg tidak ada pencarian itu
+    searchStatus = 'empty' if not events.exists() else 'not_empty'
+    print(f"Search Status: {searchStatus}")
+
+    # ini demi nunjukkin yg di index normal
+    today = timezone.now()
+
+    # Get upcoming events
+    upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+
+    # Limit to 4 events per category
+    semua_event = {
+        'konser': upcoming_events.filter(kategori='konser')[:4],
+        'konferensi': upcoming_events.filter(kategori='konferensi')[:4],
+        'bazaar': upcoming_events.filter(kategori='bazaar')[:4],
+        'workshop': upcoming_events.filter(kategori='workshop')[:4],
+    }
+
+    return render(request, 'index.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES, 'semua_event': semua_event, 'context': searchStatus})
