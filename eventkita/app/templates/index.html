@@ -198,8 +198,9 @@
                 <input type="text" name="location" placeholder="Lokasi" class="p-2 border-none rounded w-full bg-transparent text-white">
                 <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
             </div>
-            <div class="w-full  md:w-1/3">
-                <input type="date" name="date" class="p-2 border-none rounded w-full bg-transparent text-white">
+            <div class="w-full md:w-1/3">
+                <input id="datepicker" type="text" placeholder="Select Date" class="p-2 border-none rounded w-full bg-transparent text-white" readonly>
+                <input type="hidden" name="date" id="hidden-datepicker">
                 <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
             </div>
             
@@ -380,12 +381,18 @@
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     flatpickr("#datepicker", {
-    //         dateFormat: "Y-m-d",
-    //         allowInput: false,
-    //     });
-    // });
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#datepicker", {
+            dateFormat: "Y-m-d H:i", // Internal format with time
+            allowInput: false,
+            onChange: function(selectedDates, dateStr, instance) {
+                // Set the hidden input value to the full date and time
+                document.getElementById('hidden-datepicker').value = dateStr;
+                // Display only the date in the visible input
+                document.getElementById('datepicker').value = dateStr.split(' ')[0]; // Get only the date part
+            }
+        });
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.card');

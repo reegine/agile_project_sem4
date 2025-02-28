@@ -12,6 +12,8 @@ from .models import *
 from .models import AdminMessage
 from typing import cast
 from .models import NewsletterSubscriber
+from datetime import datetime, timedelta
+
 
 import locale
 
@@ -708,7 +710,17 @@ def search_events(request):
     # if title:
     #     events = events.filter(judul__icontains=title)
     if date: 
-        events = events.filter(tanggal_kegiatan=date)
+        # Parse the date and time from the input
+        try:
+            selected_datetime = datetime.strptime(date, "%Y-%m-%d %H:%M")
+            # Set the start and end of the day
+            start_of_day = selected_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+            end_of_day = selected_datetime.replace(hour=23, minute=59, second=59, microsecond=999999)
+            # Filter events that occur on the selected date
+            events = events.filter(tanggal_kegiatan__range=(start_of_day, end_of_day))
+        except ValueError:
+            # Handle the case where the date format is incorrect
+            pass
 
 
     # ini biar munculin yg tidak ada pencarian itu

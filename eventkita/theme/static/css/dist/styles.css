@@ -1130,6 +1130,10 @@ input[type="range"]::-ms-fill-lower {
   border-width: 0;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -1388,6 +1392,10 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 15rem;
 }
 
+.mt-\[1rem\] {
+  margin-top: 1rem;
+}
+
 .mt-\[3rem\] {
   margin-top: 3rem;
 }
@@ -1398,22 +1406,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-\[6rem\] {
   margin-top: 6rem;
-}
-
-.mt-\[1rem\] {
-  margin-top: 1rem;
-}
-
-.mt-\[2rem\] {
-  margin-top: 2rem;
-}
-
-.mt-\[4rem\] {
-  margin-top: 4rem;
-}
-
-.mt-\[7rem\] {
-  margin-top: 7rem;
 }
 
 .line-clamp-2 {
@@ -1543,12 +1535,8 @@ input[type="range"]::-ms-fill-lower {
   height: 100vh;
 }
 
-.h-\[2rem\] {
-  height: 2rem;
-}
-
-.h-\[5rem\] {
-  height: 5rem;
+.min-h-\[10rem\] {
+  min-height: 10rem;
 }
 
 .min-h-\[25rem\] {
@@ -1565,10 +1553,6 @@ input[type="range"]::-ms-fill-lower {
 
 .min-h-screen {
   min-height: 100vh;
-}
-
-.min-h-\[10rem\] {
-  min-height: 10rem;
 }
 
 .w-1\/2 {
@@ -2104,6 +2088,11 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(47 47 114 / var(--tw-bg-opacity, 1));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
@@ -2196,11 +2185,6 @@ input[type="range"]::-ms-fill-lower {
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
-}
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-65 {
@@ -2439,12 +2423,12 @@ input[type="range"]::-ms-fill-lower {
   padding-top: 1rem;
 }
 
-.pt-\[1rem\] {
-  padding-top: 1rem;
-}
-
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-\[1rem\] {
+  padding-top: 1rem;
 }
 
 .text-left {
@@ -2701,6 +2685,10 @@ input[type="range"]::-ms-fill-lower {
   opacity: 0;
 }
 
+.opacity-50 {
+  opacity: 0.5;
+}
+
 .opacity-55 {
   opacity: 0.55;
 }
@@ -2715,10 +2703,6 @@ input[type="range"]::-ms-fill-lower {
 
 .opacity-75 {
   opacity: 0.75;
-}
-
-.opacity-50 {
-  opacity: 0.5;
 }
 
 .bg-blend-multiply {
@@ -2847,11 +2831,6 @@ input[type="range"]::-ms-fill-lower {
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-blue-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-blue-600:hover {
