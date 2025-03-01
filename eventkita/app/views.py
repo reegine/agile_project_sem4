@@ -611,6 +611,7 @@ def unsubscribe(request, email):
 # )
 
 def calendar(request):
+    today = timezone.now()
     bulan = request.GET.get('bulan', timezone.now().month)
     tahun = request.GET.get('tahun', timezone.now().year)
 
@@ -631,10 +632,15 @@ def calendar(request):
             'tanggal_kegiatan': date_str
         })
 
+    upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+
+
     context = {
         'events_json': json.dumps(event_dict),
         'bulan': bulan,
-        'tahun': tahun
+        'tahun': tahun,
+        'upcoming_events' : upcoming_events,
+
     }
     return render(request, 'calendar.html', context)
 

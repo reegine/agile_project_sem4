@@ -53,8 +53,55 @@
     </div>
 
     <!-- Upcoming Events List -->
-    <h2 class="text-xl font-bold mt-14 text-start text-primaryBlue">Upcoming Events</h2>
-    <div id="eventList" class="mt-4 space-y-4"></div>
+    <!-- <h2 class="text-xl font-bold mt-14 text-start text-primaryBlue">Upcoming Events</h2>
+    <div id="eventList" class="mt-4 space-y-4">
+
+    </div> -->
+
+    <!-- Upcoming Events List -->
+    <h2 class="text-3xl font-bold mt-14 text-start text-primaryBlue mb-[2rem]">Upcoming Events</h2>
+
+    {% for event in upcoming_events %}
+    <div class="card bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 max-h-32"  style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
+        <img src="{{ event.foto_event.url }}" class="rounded-md w-60 max-h-32 col-span-1 bg-cover object-cover" alt="Event">
+            <div class="ml-4 p-4 col-span-3 md:col-span-4">
+                <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
+                <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
+                <p class="line-clamp-2 text-gray-700 text-sm">
+                    {{ event.deskripsi }}
+                </p>
+            </div>
+            <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
+                <div class="border-2 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block text-center w-1/2">
+                    <span id="minutes" class="text-sm font-bold text-secondaryOrange">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
+                </div>
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-1/2">Pesan</button>
+            </div>
+    </div>
+    {% empty %}
+        <p class="text-gray-500">Tidak ada event dalam waktu dekat.</p>
+    {% endfor %}
+
+    <!-- <div id="eventList" class="mt-4 space-y-4">
+        {% for event in upcoming_events %}
+            <div class="card bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 cursor-pointer" style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}'">
+                <img src="{{ event.foto_event.url }}" class="rounded-md w-60 h-full col-span-1" alt="Event">
+                <div class="ml-4 p-4 col-span-3 md:col-span-4">
+                    <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
+                    <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
+                    <p class="line-clamp-2 text-gray-700 text-sm">{{ event.deskripsi }}</p>
+                </div>
+                <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
+                    <div class="border-2 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block text-center w-1/2">
+                        <span class="text-sm font-bold text-secondaryOrange">Lihat Detail</span>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">Tidak ada event dalam waktu dekat.</p>
+        {% endfor %}
+    </div> -->
+    
 </div>
 
 {% include 'footer.html'%}
@@ -62,6 +109,17 @@
 
 {% block javascript %}
 <script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) { 
+            card.addEventListener('click', function() {
+                const href = card.getAttribute('data-href');
+                window.location.href = href; 
+            });
+        });
+    });
+
     const eventDates = {{ events_json|safe }};  // Data dari backend dalam format JSON
 
     let currentDate = new Date();
@@ -120,5 +178,7 @@
     }
 
     generateCalendar();
+
+
 </script>
 {% endblock %}
