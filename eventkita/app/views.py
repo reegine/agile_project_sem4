@@ -1,4 +1,5 @@
 import random
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import  get_user_model, authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -13,9 +14,9 @@ from .models import AdminMessage
 from typing import cast
 from .models import NewsletterSubscriber
 from datetime import datetime, timedelta
-
-
 import locale
+from .models import Event
+
 
 User = get_user_model()
 searchStatus = 'not_empty'
@@ -612,25 +613,28 @@ def unsubscribe(request, email):
 def calendar(request):
     bulan = request.GET.get('bulan', timezone.now().month)
     tahun = request.GET.get('tahun', timezone.now().year)
+
     events = Event.objects.filter(
         tanggal_kegiatan__year=tahun,
         tanggal_kegiatan__month=bulan
-    )
+    ).values('id', 'judul', 'tanggal_kegiatan')
 
-    today = timezone.now().date()
-    one_month_later = today + timedelta(days=30)
-    upcoming_events = Event.objects.filter(
-        tanggal_kegiatan__range=[
-            timezone.make_aware(timezone.datetime.combine(today, timezone.datetime.min.time())),
-            timezone.make_aware(timezone.datetime.combine(one_month_later, timezone.datetime.min.time()))
-        ]
-    ).order_by('tanggal_kegiatan')
+    event_dict = {}
+    for event in events:
+        date_str = event['tanggal_kegiatan'].strftime("%Y-%m-%d")
+        event_id = str(event['id'])  # Konversi UUID ke string
+        if date_str not in event_dict:
+            event_dict[date_str] = []
+        event_dict[date_str].append({
+            'id': event_id,
+            'judul': event['judul'],
+            'tanggal_kegiatan': date_str
+        })
 
     context = {
-        'events': events,
+        'events_json': json.dumps(event_dict),
         'bulan': bulan,
-        'tahun': tahun,
-        'upcoming_events': upcoming_events
+        'tahun': tahun
     }
     return render(request, 'calendar.html', context)
 
@@ -643,8 +647,19 @@ def calendar(request):
 #     return events
 
 def calendar_detail(request, date):
-    events = Event.objects.filter(date=date)
-    return render(request, 'calendar_detail.html', {'date': date, 'events': events})
+    """Menampilkan detail event pada tanggal tertentu"""
+    try:
+        selected_date = datetime.strptime(date, "%Y-%m-%d").date()
+        events = Event.objects.filter(tanggal_kegiatan__date=selected_date)
+
+        if events.count() == 1:
+            # Jika hanya ada satu event, langsung redirect ke detail event
+            return redirect('detail_page', event_id=events.first().id)
+
+        return render(request, 'calendar_detail.html', {'date': date, 'events': events})
+
+    except ValueError:
+        return render(request, 'calendar_detail.html', {'date': date, 'events': []})
 
 # ini yg dari home page, masuk ke selengkapnya
 def selengkapnya(request, category):

@@ -15,6 +15,7 @@ urlpatterns = [
     path('contact/', contact_view, name='contact_us'),
     path('detailpage/<uuid:event_id>', views.detail_page, name='detail_page'), 
     path('detailpagefree/<uuid:event_id>', views.detail_page_free, name='detail_page_free'), 
+    
     path('register/', views.register_view, name='register'), 
     path('finishsignup/', views.finishsignup_view, name='finishsignup'), 
     path('detailpage/payment1/<uuid:tiket_id>', views.payment_1, name='payment_1'), 
