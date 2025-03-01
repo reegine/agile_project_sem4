@@ -12,9 +12,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .cursor-pointer {
-        cursor: pointer;
-    }
 </style>
 {% endblock %}
 
@@ -57,25 +54,7 @@
 
     <!-- Upcoming Events List -->
     <h2 class="text-xl font-bold mt-14 text-start text-primaryBlue">Upcoming Events</h2>
-    <div id="eventList" class="mt-4 space-y-4">
-        {% for event in upcoming_events %}
-            <div class="bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 cursor-pointer" onclick="window.location.href='{% url 'detail_page' event.id %}'">
-                <img src="{{ event.foto_event.url }}" class="rounded-md w-60 h-full col-span-1" alt="Event">
-                <div class="ml-4 p-4 col-span-3 md:col-span-4">
-                    <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
-                    <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
-                    <p class="line-clamp-2 text-gray-700 text-sm">{{ event.deskripsi }}</p>
-                </div>
-                <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
-                    <div class="border-2 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block text-center w-1/2">
-                        <span class="text-sm font-bold text-secondaryOrange">Lihat Detail</span>
-                    </div>
-                </div>
-            </div>
-        {% empty %}
-            <p class="text-gray-500">Tidak ada event dalam waktu dekat.</p>
-        {% endfor %}
-    </div>
+    <div id="eventList" class="mt-4 space-y-4"></div>
 </div>
 
 {% include 'footer.html'%}
@@ -109,7 +88,7 @@
 
             calendar.innerHTML += `
                 <button 
-                    onclick="redirectToEvent('${dateStr}', ${eventCount})" 
+                    onclick="redirectToEvent('${dateStr}')" 
                     class="w-10 h-10 rounded-full ${eventCount > 0 ? 'bg-orange-400 text-white font-bold' : 'bg-gray-200'}"
                 >
                     ${day}
@@ -118,13 +97,8 @@
         }
     }
 
-    function redirectToEvent(date, eventCount) {
-        if (eventCount === 1) {
-            const eventId = eventDates[date][0].id;
-            window.location.href = `/detailpage/${eventId}`;
-        } else {
-            window.location.href = `/calendar/detail/${date}`;
-        }
+    function redirectToEvent(date) {
+        window.location.href = `/calendar/detail/${date}/`;
     }
 
     function prevMonth() {
