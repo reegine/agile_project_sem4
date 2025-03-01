@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.timezone import now
 from django.utils import timezone
+from django.utils.timezone import localtime
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
@@ -643,6 +644,24 @@ def calendar(request):
 
     }
     return render(request, 'calendar.html', context)
+
+def calendar_view(request):
+    events = Event.objects.filter(tanggal_kegiatan__gte=localtime.now()).order_by('tanggal_kegiatan')
+    events_json = {}
+    for event in events:
+        date_str = event.tanggal_kegiatan.strftime('%Y-%m-%d')
+        if date_str not in events_json:
+            events_json[date_str] = []
+        events_json[date_str].append({
+            'id': event.id,
+            'title': event.judul,
+            'description': event.deskripsi,
+            'img': event.foto_event.url if event.foto_event else None,
+            'time': event.tanggal_kegiatan.strftime('%H:%M'),
+            'price': event.harga
+        })
+
+    return render(request, 'calendar.html', {'events_json': events_json})
 
 # def get_events_for_date(date):
 #     # Convert the date string to a date object

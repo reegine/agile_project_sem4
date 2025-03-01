@@ -53,34 +53,27 @@
     </div>
 
     <!-- Upcoming Events List -->
-    <!-- <h2 class="text-xl font-bold mt-14 text-start text-primaryBlue">Upcoming Events</h2>
-    <div id="eventList" class="mt-4 space-y-4">
-
-    </div> -->
-
     <!-- Upcoming Events List -->
     <h2 class="text-3xl font-bold mt-14 text-start text-primaryBlue mb-[2rem]">Upcoming Events</h2>
 
     {% for event in upcoming_events %}
-    <div class="card bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 max-h-32"  style="cursor: pointer;" data-href="{% url 'detail_page' event.id %}">
+    <div class="card bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 max-h-32" style="cursor: pointer;">
         <img src="{{ event.foto_event.url }}" class="rounded-md w-60 max-h-32 col-span-1 bg-cover object-cover" alt="Event">
-            <div class="ml-4 p-4 col-span-3 md:col-span-4">
-                <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
-                <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
-                <p class="line-clamp-2 text-gray-700 text-sm">
-                    {{ event.deskripsi }}
-                </p>
-            </div>
-            <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
-                <div class="border-2 border-secondaryOrange p-2 rounded-lg bg-white shadow-md inline-block text-center w-1/2">
-                    <span id="minutes" class="text-sm font-bold text-secondaryOrange">{{ event.tanggal_kegiatan|date:"H:i" }}</span>
-                </div>
-                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-1/2">Pesan</button>
-            </div>
+        <div class="ml-4 p-4 col-span-3 md:col-span-4">
+            <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
+            <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
+            <p class="line-clamp-2 text-gray-700 text-sm">
+                {{ event.deskripsi }}
+            </p>
+        </div>
+        <div class="col-span-3 md:col-span-2 flex flex-col items-end pe-5 py-2">
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded w-1/2" onclick="location.href='{% url 'detail_page' event.id %}'">Pesan</button>
+        </div>
     </div>
     {% empty %}
         <p class="text-gray-500">Tidak ada event dalam waktu dekat.</p>
     {% endfor %}
+
 
     <!-- <div id="eventList" class="mt-4 space-y-4">
         {% for event in upcoming_events %}
@@ -109,18 +102,7 @@
 
 {% block javascript %}
 <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(function(card) { 
-            card.addEventListener('click', function() {
-                const href = card.getAttribute('data-href');
-                window.location.href = href; 
-            });
-        });
-    });
-
-    const eventDates = {{ events_json|safe }};  // Data dari backend dalam format JSON
+    const eventDates = {{ events_json|safe }}; // Ini adalah data event dalam format JSON yang berasal dari backend
 
     let currentDate = new Date();
     let currentMonth = currentDate.getMonth();
@@ -143,12 +125,10 @@
         for (let day = 1; day <= daysInMonth; day++) {
             const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
             const eventCount = eventDates[dateStr] ? eventDates[dateStr].length : 0;
+            const eventClass = eventCount > 0 ? 'bg-orange-400 text-white font-bold' : 'bg-gray-200';
 
             calendar.innerHTML += `
-                <button 
-                    onclick="redirectToEvent('${dateStr}')" 
-                    class="w-10 h-10 rounded-full ${eventCount > 0 ? 'bg-orange-400 text-white font-bold' : 'bg-gray-200'}"
-                >
+                <button onclick="redirectToEvent('${dateStr}')" class="w-10 h-10 rounded-full ${eventClass}">
                     ${day}
                 </button>
             `;
@@ -156,7 +136,7 @@
     }
 
     function redirectToEvent(date) {
-        window.location.href = `/calendar/detail/${date}/`;
+        window.location.href = `/calendar/detail/${date}`;
     }
 
     function prevMonth() {
@@ -177,8 +157,6 @@
         generateCalendar();
     }
 
-    generateCalendar();
-
-
+    document.addEventListener('DOMContentLoaded', generateCalendar);
 </script>
 {% endblock %}
