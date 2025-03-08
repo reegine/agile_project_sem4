@@ -42,6 +42,7 @@
 {% endblock %}
 
 
+
 {% block content %}
 
 <!-- Navigation Bar -->
@@ -275,9 +276,10 @@
             <div class="border-t-4 border-dotted border-gray-300 mx-4"></div>
             <div class="flex justify-between items-center px-4 pt-[1rem]">
                 <span class="text-lg font-bold text-secondaryOrange">IDR {{ ticket.formatted_price  }}</span>
-                <div class="payment" style="cursor: pointer;" data-href="{% url 'payment_1' ticket.ticket.id %}">
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Pesan</button>
-                </div>
+                <button onclick="checkLogin(event, `{% url 'payment_1' ticket.ticket.id %}`);"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Pesan
+            </button>
             </div>
             <div class="ps-4 pb-4">
                 <span class="text-xs text-secondaryOrange">Tersisa {{ ticket.ticket.stock }} tiket</span>
@@ -288,6 +290,33 @@
     </section>
 
     {% endif %}
+
+<!-- Login Modal -->
+<div id="loginModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center transition-opacity duration-300">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm text-center relative transform scale-95 transition-transform duration-300">
+        <!-- Close Button (Top Right) -->
+        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+            ✖
+        </button>
+
+        <!-- Title -->
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Login Diperlukan</h2>
+        
+        <!-- Message -->
+        <p class="text-gray-600 mb-4">Anda harus login terlebih dahulu untuk memesan tiket.</p>
+
+        <!-- Buttons -->
+        <div class="flex justify-center gap-3">
+            <a href="{% url 'login' %}" class="bg-primaryBlue w-full text-white px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+                Login
+            </a>
+            <!-- <button onclick="closeModal()" class="bg-gray-300 text-gray-700 px-5 py-2 rounded-lg shadow-md hover:bg-gray-400 transition">
+                Tutup
+            </button> -->
+        </div>
+    </div>
+</div>
+
 
 </section>
 
@@ -302,6 +331,32 @@
 </div>
 
 {% include 'footer.html' %}
+
+<script>
+    // Correctly passing authentication status from Django to JavaScript
+    let userIsAuthenticated = "{{ request.user.is_authenticated }}".toLowerCase() === "true";
+
+    function checkLogin(event, paymentUrl) {
+        event.preventDefault(); // Prevent default link behavior
+
+        if (userIsAuthenticated) {
+            // User is logged in, navigate to the payment page
+            window.location.href = paymentUrl;
+        } else {
+            // User is NOT logged in, show the modal
+            document.getElementById("loginModal").classList.remove("hidden");
+            document.getElementById("loginModal").classList.add("flex");
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("loginModal").classList.add("hidden");
+        document.getElementById("loginModal").classList.remove("flex");
+    }
+</script>
+
+
+
 {% endblock %}
 
 
