@@ -408,9 +408,9 @@
     });
 
     function updateCountdown() {
-        const eventDateString = "{{ event.tanggal_kegiatan|date:'Y-m-d' }}";
-        const eventDate = new Date(eventDateString + "T00:00:00"); // Ensure time starts at midnight
-        const now = new Date();
+        const eventDateString = "{{ event.tanggal_kegiatan|date:'Y-m-d H:i:s' }}"; // Ensure the full date and time is used
+        const eventDate = new Date(eventDateString).getTime(); // Parse the date correctly
+        const now = new Date().getTime();
         const timeDiff = eventDate - now;
 
         if (timeDiff > 0) {
