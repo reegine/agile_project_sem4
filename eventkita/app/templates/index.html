@@ -60,7 +60,7 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-center bg-cover h-[40rem] bg-no-repeat bg-[url('/static/default_images/banner/hero_banner1.png')] bg-gray-700 bg-blend-multiply">
+<section class="bg-center bg-cover h-[40rem] bg-no-repeat bg-gray-700 bg-blend-multiply" id="dynamic-banner" style="background-image: url('{{ recent_events.0.foto_event.url }}');">
     
     <!-- Navigation Bar -->
     <nav class="bg-transparent border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -150,22 +150,20 @@
     <!-- Isi Dari Banner -->
   
     <div class="md:grid md:grid-cols-2 md:gap-2 px-4 mx-auto max-w-screen-xl md:text-start lg:py-32 mt-10 md:mt-20 lg:-mt-10 text-center">
-        <div class="h-auto">
-
-        </div>
+        <div class="h-auto"></div>
         <div class="h-auto max-w-full rounded-lg justify-items-center md:justify-items-start">
-            <div class="w-64 grid grid-cols-3 gap-2 text-center">
-                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65">4 Hari</p>
-                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65">20 Jam</p>
-                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65">3 Menit</p>
+            <div class="w-64 grid grid-cols-3 gap-2 text-center" id="countdown">
+                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65" id="days">0 Hari</p>
+                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65" id="hours">0 Jam</p>
+                <p class="w-20 p-2 mb-3 text-white dark:text-gray-400 rounded-lg bg-secondaryOrange bg-opacity-65" id="minutes">0 Menit</p>
             </div>
-            <h1 class="mb-4 mt-4 md:mt-2 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">SBS MTV The Kpop Show Ticket Package</h1>
-            <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl">Look no further! Our SBS The Show tickets are the simplest way for you to experience a live Kpop recording.</p>
+            <h1 class="mb-4 mt-4 md:mt-2 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl" id="event-title"></h1>
+            <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl" id="event-description"></p>
             <div class="space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-                <a href="#" class="inline-flex justify-center items-center py-3 px-10 text-base font-medium text-center text-white rounded-full bg-primaryBlue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                <a href="#" id="get-ticket" class="inline-flex justify-center items-center py-3 px-10 text-base font-medium text-center text-white rounded-full bg-primaryBlue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                     Get Tiket
                 </a>
-                <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-8 sm:ms-4 text-base font-medium text-center text-white rounded-full border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
+                <a href="#" id="learn-more" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-8 sm:ms-4 text-base font-medium text-center text-white rounded-full border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
                     Learn more
                 </a>  
             </div>
@@ -173,7 +171,7 @@
     </div>
 
    
-    <div class="max-w-7xl mx-auto bg-primaryBlue pt-8 px-8 pb-3 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[-3rem]">
+    <div class="max-w-7xl mx-auto bg-primaryBlue pt-8 px-8 pb-3 rounded-lg shadow-lg mt-[6rem] md:mt-[5rem] lg:mt-[1rem]">
         <form method="GET" action="{% url 'search_events' %}" class="flex flex-col md:flex-row gap-4">
             <div class="w-full md:w-1/3 ">
                 <select name="category" class="p-2 border-none rounded w-full bg-transparent text-white">
@@ -221,7 +219,7 @@
  </div>
  {% endif %}
 
-<section class="px-4 mx-auto max-w-screen-xl mt-[15rem] md:mt-[2-rem] lg:mt-[8rem]">
+<section class="px-4 mx-auto max-w-screen-xl mt-[10rem] md:mt-[1rem] lg:mt-[8rem]">
 
     {% if events %}
     <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Hasil Pencarian</h1>
@@ -456,6 +454,66 @@
         document.querySelector('button[type="submit"]').disabled = true;
     }
     
+    document.addEventListener('DOMContentLoaded', function() {
+        // Parse the JSON data passed from the view
+        const events = JSON.parse('{{ recent_events_json|escapejs }}');
+
+        let currentEventIndex = 0;
+        const bannerElement = document.getElementById('dynamic-banner');
+        const titleElement = document.getElementById('event-title');
+        const descriptionElement = document.getElementById('event-description');
+        const countdownElements = document.querySelectorAll('#countdown p');
+        const getTicketLink = document.getElementById('get-ticket');
+        const learnMoreLink = document.getElementById('learn-more');
+
+        function updateBanner(event) {
+            bannerElement.style.backgroundImage = `url('${event.image}')`;
+            titleElement.textContent = event.title;
+            descriptionElement.textContent = event.description;
+            getTicketLink.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", event.id); // Update the link with the event ID
+            learnMoreLink.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", event.id); // Update the link with the event ID
+            updateCountdownBanner(event.date);
+        }
+
+        function updateCountdownBanner(eventDate) {
+            const now = new Date().getTime();
+            const timeDiff = new Date(eventDate).getTime() - now;
+
+            if (timeDiff > 0) {
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+                countdownElements[0].textContent = `${days} Hari`;
+                countdownElements[1].textContent = `${hours} Jam`;
+                countdownElements[2].textContent = `${minutes} Menit`;
+            } else {
+                countdownElements[0].textContent = "0 Hari";
+                countdownElements[1].textContent = "0 Jam";
+                countdownElements[2].textContent = "0 Menit";
+            }
+        }
+
+        function rotateBanner() {
+            currentEventIndex = (currentEventIndex + 1) % events.length;
+            updateBanner(events[currentEventIndex]);
+        }
+
+        // Initialize with the first event
+        if (events.length > 0) {
+            updateBanner(events[currentEventIndex]);
+        }
+
+        // Rotate banner every 5 seconds
+        setInterval(rotateBanner, 5000);
+
+        // Update countdown every second
+        setInterval(() => {
+            if (events.length > 0) {
+                updateCountdownBanner(events[currentEventIndex].date);
+            }
+        }, 1000);
+    });
 
 </script>
 {% endblock %}

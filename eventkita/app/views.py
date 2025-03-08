@@ -17,7 +17,11 @@ from .models import NewsletterSubscriber
 from datetime import datetime
 import locale
 from .models import Event
+import locale
+from django.shortcuts import get_object_or_404, render
+from .models import Event, SavedEvents
 
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 searchStatus = 'not_empty'
@@ -115,6 +119,21 @@ def finishsignup_view(request):
 def home(request):
     today = timezone.now()
 
+    # Get the 5 most upcoming events
+    banner_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')[:5]
+        
+    # Convert banner_events to JSON
+    recent_events_json = json.dumps([
+        {
+            "id": str(event.id),  # Convert UUID to string
+            "date": event.tanggal_kegiatan.strftime('%Y-%m-%d %H:%M:%S'),  # Format datetime
+            "image": event.foto_event.url if event.foto_event else "",  # Handle empty image field
+            "title": event.judul,  # Event title
+            "description": event.deskripsi if event.deskripsi else "No description available."  # Handle empty description
+        }
+        for event in banner_events
+    ])
+
     # Get upcoming events
     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
 
@@ -127,15 +146,11 @@ def home(request):
     }
 
     context = {
-        'semua_event': semua_event
+        'semua_event': semua_event,
+        'recent_events_json': recent_events_json,
     }
     return render(request, 'index.html', context)
 
-import locale
-from django.shortcuts import get_object_or_404, render
-from .models import Event, SavedEvents
-
-from django.contrib.auth.decorators import login_required
 
 def detail_page(request, event_id):
     event = get_object_or_404(Event, id=event_id)
