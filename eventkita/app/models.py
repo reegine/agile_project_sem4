@@ -2,8 +2,6 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.files.base import ContentFile
 from django.db import models
 import uuid
-# import qrcode
-from io import BytesIO
 from django.utils import timezone
 from datetime import timedelta
 
@@ -163,9 +161,6 @@ class PasswordResetOTP(models.Model):
     is_used = models.BooleanField(default=False)
 
     def is_expired(self):
-        """
-        Misalnya, OTP dianggap kadaluarsa setelah 5 menit.
-        """
         return self.created_at + timedelta(minutes=5) < timezone.now()
 
     def __str__(self):

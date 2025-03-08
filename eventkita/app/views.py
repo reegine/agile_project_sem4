@@ -6,15 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.timezone import now
 from django.utils import timezone
-from django.utils.timezone import localtime
-from django.core.mail import send_mail, BadHeaderError
+from django.utils.timezone import localtime, localdate, make_aware, is_aware
+from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from .models import *
 from .models import AdminMessage
 from typing import cast
 from .models import NewsletterSubscriber
-from datetime import datetime, timedelta
+from datetime import datetime
 import locale
 from .models import Event
 
@@ -612,79 +612,63 @@ def unsubscribe(request, email):
 # )
 
 def calendar(request):
-    today = timezone.now()
-    bulan = request.GET.get('bulan', timezone.now().month)
-    tahun = request.GET.get('tahun', timezone.now().year)
-
-    events = Event.objects.filter(
-        tanggal_kegiatan__year=tahun,
-        tanggal_kegiatan__month=bulan
-    ).values('id', 'judul', 'tanggal_kegiatan')
+    """Menampilkan kalender event dengan semua event agar bisa berpindah bulan tanpa fetch ulang."""
+    # Ambil **semua event** agar bisa berpindah bulan
+    events = Event.objects.all().values('id', 'judul', 'tanggal_kegiatan')
 
     event_dict = {}
     for event in events:
-        date_str = event['tanggal_kegiatan'].strftime("%Y-%m-%d")
+        event_date = localtime(event['tanggal_kegiatan']).strftime("%Y-%m-%d")  # Pastikan waktu lokal
         event_id = str(event['id'])  # Konversi UUID ke string
-        if date_str not in event_dict:
-            event_dict[date_str] = []
-        event_dict[date_str].append({
+        if event_date not in event_dict:
+            event_dict[event_date] = []
+        event_dict[event_date].append({
             'id': event_id,
             'judul': event['judul'],
-            'tanggal_kegiatan': date_str
+            'tanggal_kegiatan': event_date
         })
 
-    upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
-
+    # Ambil event mendatang (upcoming events)
+    upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=timezone.now()).order_by('tanggal_kegiatan')
 
     context = {
-        'events_json': json.dumps(event_dict),
-        'bulan': bulan,
-        'tahun': tahun,
-        'upcoming_events' : upcoming_events,
-
+        'events_json': json.dumps(event_dict),  # Kirim semua event
+        'upcoming_events': upcoming_events,  # Tetap menampilkan event mendatang
     }
+
     return render(request, 'calendar.html', context)
-
-def calendar_view(request):
-    events = Event.objects.filter(tanggal_kegiatan__gte=localtime.now()).order_by('tanggal_kegiatan')
-    events_json = {}
-    for event in events:
-        date_str = event.tanggal_kegiatan.strftime('%Y-%m-%d')
-        if date_str not in events_json:
-            events_json[date_str] = []
-        events_json[date_str].append({
-            'id': event.id,
-            'title': event.judul,
-            'description': event.deskripsi,
-            'img': event.foto_event.url if event.foto_event else None,
-            'time': event.tanggal_kegiatan.strftime('%H:%M'),
-            'price': event.harga
-        })
-
-    return render(request, 'calendar.html', {'events_json': events_json})
-
-# def get_events_for_date(date):
-#     # Convert the date string to a date object
-#     # Assuming date is in 'YYYY-MM-DD' format
-#     date_obj = timezone.datetime.strptime(date, '%Y-%m-%d').date()
-#     # Query the database for events on the given date
-#     events = Event.objects.filter(tanggal_kegiatan__date=date_obj) 
-#     return events
 
 def calendar_detail(request, date):
     """Menampilkan detail event pada tanggal tertentu"""
     try:
-        selected_date = datetime.strptime(date, "%Y-%m-%d").date()
+        # Konversi string ke datetime dan buat timezone-aware
+        naive_date = datetime.strptime(date, "%Y-%m-%d")
+        aware_date = make_aware(naive_date)
+        selected_date = localdate(aware_date)
+
+        # Ambil event hanya untuk tanggal yang dipilih
         events = Event.objects.filter(tanggal_kegiatan__date=selected_date)
 
-        if events.count() == 1:
-            # Jika hanya ada satu event, langsung redirect ke detail event
-            return redirect('detail_page', event_id=events.first().id)
+        # Ambil semua event dan pastikan menggunakan timezone lokal
+        all_events = Event.objects.all()
+        events_json = json.dumps({
+            localtime(event.tanggal_kegiatan).date().isoformat(): True
+            for event in all_events
+        })
 
-        return render(request, 'calendar_detail.html', {'date': date, 'events': events})
+        return render(request, 'calendar_detail.html', {
+            'date': date,
+            'events': events,
+            'events_json': events_json
+        })
 
-    except ValueError:
-        return render(request, 'calendar_detail.html', {'date': date, 'events': []})
+    except ValueError as e:
+        print(f"Error parsing date: {e}")
+        return render(request, 'calendar_detail.html', {
+            'date': date,
+            'events': [],
+            'events_json': "{}"
+        })
 
 # ini yg dari home page, masuk ke selengkapnya
 def selengkapnya(request, category):

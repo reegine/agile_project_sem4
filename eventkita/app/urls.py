@@ -3,7 +3,6 @@ from . import views
 from .views import contact_view
 from .views import subscribe_newsletter
 
-
 urlpatterns = [
     path('', views.home, name='home'), 
     path('login/', views.login_view, name='login'),
@@ -15,7 +14,6 @@ urlpatterns = [
     path('contact/', contact_view, name='contact_us'),
     path('detailpage/<uuid:event_id>', views.detail_page, name='detail_page'), 
     path('detailpagefree/<uuid:event_id>', views.detail_page_free, name='detail_page_free'), 
-    
     path('register/', views.register_view, name='register'), 
     path('finishsignup/', views.finishsignup_view, name='finishsignup'), 
     path('detailpage/payment1/<uuid:tiket_id>', views.payment_1, name='payment_1'), 
@@ -38,6 +36,5 @@ urlpatterns = [
     path('resend-otp/', views.resend_otp_view, name='resend_otp'),
     path('pencarian/', views.search_page, name='pencarian'),
     path('search/', views.search_events, name='search_events'),
-
 
 ]

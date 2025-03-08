@@ -26,7 +26,7 @@ class CustomUserAdmin(UserAdmin):
     readonly_fields = ('username',)
 
 
-#FOOTER KEKNYA
+#FOOTER KEKNYA #Buat masukkin ke dalam adminnya
 admin.site.register(CustomUser, CustomUserAdmin)
 
 @admin.register(NewsletterSubscriber)

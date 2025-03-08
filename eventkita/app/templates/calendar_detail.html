@@ -40,14 +40,15 @@
 
     <div class="col-span-1 p-4 mb-8">
         <h2 class="mt-10 text-xl font-bold text-secondaryOrange">{{ date }}</h2>
+
         <div id="eventList" class="mt-4 space-y-4">
             {% for event in events %}
                 <div class="bg-white rounded-lg shadow-lg grid grid-cols-4 mb-3">
-                    <img src="{{ event.img }}" class="rounded-md w-full h-36 col-span-2 object-cover" alt="Event">
+                    <img src="{{ event.foto_event.url }}" class="rounded-md w-full h-36 col-span-2 object-cover" alt="Event">
                     <div class="p-4 col-span-2 md:col-span-2">
-                        <h3 class="font-extrabold text-primaryBlue">{{ event.title }}</h3>
+                        <h3 class="font-extrabold text-primaryBlue">{{ event.judul }}</h3>
                         <p class="text-sm text-secondaryOrange mt-3">Harga Mulai Dari:</p>
-                        <p class="text-lg text-secondaryOrange font-bold">{{ event.price }}</p>
+                        <p class="text-lg text-secondaryOrange font-bold">Rp{{ event.harga }}</p>
                     </div>
                 </div>
             {% empty %}
@@ -63,7 +64,10 @@
 
 {% block javascript %}
 <script>
-    const eventDates = {{ events_json|safe }};  // Data dari backend dalam format JSON
+    console.log("Script Loaded");  // Debugging pertama: pastikan script termuat
+
+    const eventDates = {{ events_json|safe }};  // Semua event dalam JSON
+    console.log("Event Dates Data:", eventDates);  // Debugging kedua
 
     let currentDate = new Date();
     let currentMonth = currentDate.getMonth();
@@ -72,39 +76,37 @@
     function generateCalendar() {
         const monthYear = document.getElementById("monthYear");
         const calendar = document.getElementById("calendar");
-        calendar.innerHTML = "";
+        if (!calendar || !monthYear) {
+            console.error("Element kalender tidak ditemukan!");
+            return;
+        }
 
+        calendar.innerHTML = "";
         const firstDay = new Date(currentYear, currentMonth, 1).getDay();
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-        monthYear.textContent = `${new Intl.DateTimeFormat('id-ID', { month: 'long' }).format(new Date(currentYear, currentMonth))} ${currentYear}`;
+        console.log("First day:", firstDay, "Days in month:", daysInMonth);  // Debugging ketiga
 
+        monthYear.textContent = new Intl.DateTimeFormat('id-ID', { month: 'long', year: 'numeric' }).format(new Date(currentYear, currentMonth));
+
+        // Tambahkan kotak kosong sebelum tanggal 1
         for (let i = 0; i < firstDay; i++) {
-            calendar.innerHTML += `<div></div>`;
+            calendar.innerHTML += '<div></div>';
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
             const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            const eventCount = eventDates[dateStr] ? eventDates[dateStr].length : 0;
+            const hasEvent = eventDates.hasOwnProperty(dateStr) ? 'bg-orange-400 text-white cursor-pointer' : 'bg-gray-200';
 
-            calendar.innerHTML += `
-                <button 
-                    onclick="redirectToEvent('${dateStr}', ${eventCount})" 
-                    class="w-10 h-10 rounded-full ${eventCount > 0 ? 'bg-orange-400 text-white font-bold' : 'bg-gray-200'}"
-                >
-                    ${day}
-                </button>
-            `;
+            calendar.innerHTML += `<button class="w-10 h-10 rounded-full ${hasEvent}" data-date="${dateStr}">${day}</button>`;
         }
-    }
 
-    function redirectToEvent(date, eventCount) {
-        if (eventCount === 1) {
-            const eventId = eventDates[date][0].id;
-            window.location.href = `/detailpage/${eventId}`;
-        } else {
-            window.location.href = `/calendar/detail/${date}`;
-        }
+        document.querySelectorAll("#calendar button").forEach(button => {
+            button.addEventListener("click", function() {
+                const selectedDate = this.getAttribute("data-date");
+                redirectToEvent(selectedDate);
+            });
+        });
     }
 
     function prevMonth() {
@@ -125,6 +127,10 @@
         generateCalendar();
     }
 
-    generateCalendar();
+    function redirectToEvent(date) {
+        window.location.href = `/calendar/detail/${date}/`;
+    }
+
+    document.addEventListener('DOMContentLoaded', generateCalendar);
 </script>
 {% endblock %}
