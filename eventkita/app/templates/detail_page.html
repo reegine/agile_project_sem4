@@ -24,8 +24,23 @@
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-</style>
+  .loader {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+  </style>
 {% endblock %}
+
 
 {% block content %}
 
@@ -275,6 +290,16 @@
     {% endif %}
 
 </section>
+
+<!-- Loading Indicator Modal -->
+<div id="loadingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-5 rounded-lg shadow-lg text-center">
+        <p class="text-lg font-semibold">Loading...</p>
+        <div class="mt-2">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
 
 {% include 'footer.html' %}
 {% endblock %}

@@ -559,24 +559,24 @@ def get_unread_notifications(request):
         return {'unread_notifications': Notification.objects.filter(user=request.user, is_read=False).count()}
     return {}
 
+from django.http import JsonResponse
+
 def subscribe_newsletter(request):
     if request.method == "POST":
         email = request.POST.get('email')
 
         if not email:
-            messages.error(request, "Email tidak boleh kosong!")
-            return redirect('home')
+            return JsonResponse({'status': 'error', 'message': 'Email tidak boleh kosong!'})
 
-        # Cek apakah email sudah terdaftar
+        # Check if the email is already registered
         if NewsletterSubscriber.objects.filter(email=email).exists():
-            messages.warning(request, "Email sudah terdaftar!")
-            return redirect('home')
+            return JsonResponse({'status': 'exists', 'message': 'Sudah terdaftarkan sebelumnya.'})
 
-        # Simpan email ke database
+        # Save the email to the database
         subscriber = NewsletterSubscriber(email=email)
         subscriber.save()
 
-        # Kirim email ke pengguna
+        # Send email to the user
         subject = "Terima Kasih Telah Berlangganan EventKita 🎉"
         message_body = f"""
         Halo,
@@ -598,13 +598,11 @@ def subscribe_newsletter(request):
                 [email],  # Recipient
                 fail_silently=False,
             )
-            messages.success(request, "Anda berhasil berlangganan! Silakan cek email Anda.")
+            return JsonResponse({'status': 'success', 'message': 'Subscription successful! Thank you for joining.'})
         except Exception as e:
-            messages.error(request, f"Terjadi kesalahan: {str(e)}")
+            return JsonResponse({'status': 'error', 'message': f'Terjadi kesalahan: {str(e)}'})
 
-        return redirect('home')
-
-    return render(request, 'footer.html')
+    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
 
 # def send_test_email():
 #     subject = "Test Email from Django"

@@ -49,27 +49,91 @@
         Berlangganan dengan broadcast email kami untuk terus mengikuti perkembangan event terbaru.
     </p>
 
-    <!-- Form Subscribe -->
-    <form method="POST" action="{% url 'subscribe_newsletter' %}" class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Masukkan Alamat Email..." 
-            class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0" required>
+    <!-- Notification Area -->
+    <div id="notification" class="fixed top-4 right-4 z-50 hidden bg-green-500 text-white p-4 rounded-lg shadow-lg">
+        <span id="notification-message"></span>
+    </div>
 
-        <button type="submit"
-            class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all md:absolute md:right-1 md:top-1 md:bottom-1 md:h-auto">
+    <!-- Form Subscribe -->
+    <form method="POST" action="{% url 'subscribe_newsletter' %}" onsubmit="showLoadingIndicator()"  class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Masukkan Alamat Email..." class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0" required>
+        <button type="submit" id="join-button" class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all">
             Join Sekarang
         </button>
     </form>
 
-</div>
-        
-        
     </div>
+</div>
 
     <!-- Copyright Section -->
     <div class="text-center text-sm mt-8 border-t border-gray-600 pt-4">
         &copy; 2025 EventKita. All rights reserved.
     </div>
+
 </footer>
 
+<script>
+    document.getElementById('join-button').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const button = this;
+        button.textContent = 'Loading...'; // Change button text to loading
+        button.disabled = true; // Disable the button to prevent multiple clicks
+
+        // Get the form element
+        const form = button.closest('form'); 
+        const formData = new FormData(form); // Get form data
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'exists') {
+                // Change button text to indicate already registered
+                button.textContent = 'Sudah Terdaftarkan Sebelumnya';
+                button.disabled = false; // Re-enable the button
+            } else if (data.status === 'success') {
+                // Show success notification
+                showNotification(data.message);
+                // Change button to check icon on success
+                button.innerHTML = '<i class="fa-solid fa-check"></i>'; // Use Font Awesome check icon
+                setTimeout(() => {
+                    button.textContent = 'Join Sekarang'; // Reset text after 2 seconds
+                    button.disabled = false; // Re-enable the button
+                }, 2000); // Show check icon for 2 seconds
+            } else {
+                // Show error notification
+                showNotification(data.message, 'error');
+                button.textContent = 'Join Sekarang'; // Reset text
+                button.disabled = false; // Re-enable the button
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('An error occurred. Please try again.', 'error');
+            button.textContent = 'Join Sekarang'; // Reset text
+            button.disabled = false; // Re-enable the button
+        });
+    });
+
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notification-message');
+
+        notificationMessage.textContent = message;
+        notification.className = `fixed top-4 right-4 z-50 bg-${type === 'success' ? 'green' : 'red'}-500 text-white p-4 rounded-lg shadow-lg`;
+        notification.classList.remove('hidden');
+
+        // Hide the notification after 3 seconds
+        setTimeout(() => {
+            notification.classList.add('hidden');
+        }, 3000);
+    }
+</script>
 {% endblock %}
