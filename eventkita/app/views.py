@@ -719,11 +719,9 @@ def search_page(request):
 def search_events(request):
     category = request.GET.get('category', '')
     location = request.GET.get('location', '')
-    # title = request.GET.get('title', '') 
     date = request.GET.get('date', '')
 
     events = Event.objects.all()
-
     today = timezone.now().date()
     events = events.filter(tanggal_kegiatan__gte=today)
 
@@ -731,33 +729,19 @@ def search_events(request):
         events = events.filter(kategori__icontains=category)
     if location:
         events = events.filter(lokasi__icontains=location) 
-    # if title:
-    #     events = events.filter(judul__icontains=title)
     if date: 
-        # Parse the date and time from the input
         try:
             selected_datetime = datetime.strptime(date, "%Y-%m-%d %H:%M")
-            # Set the start and end of the day
             start_of_day = selected_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
             end_of_day = selected_datetime.replace(hour=23, minute=59, second=59, microsecond=999999)
-            # Filter events that occur on the selected date
             events = events.filter(tanggal_kegiatan__range=(start_of_day, end_of_day))
         except ValueError:
-            # Handle the case where the date format is incorrect
             pass
 
-
-    # ini biar munculin yg tidak ada pencarian itu
     searchStatus = 'empty' if not events.exists() else 'not_empty'
-    print(f"Search Status: {searchStatus}")
-
-    # ini demi nunjukkin yg di index normal
     today = timezone.now()
-
-    # Get upcoming events
     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
 
-    # Limit to 4 events per category
     semua_event = {
         'konser': upcoming_events.filter(kategori='konser')[:4],
         'konferensi': upcoming_events.filter(kategori='konferensi')[:4],
@@ -765,4 +749,15 @@ def search_events(request):
         'workshop': upcoming_events.filter(kategori='workshop')[:4],
     }
 
-    return render(request, 'index.html', {'events': events, 'category_choices': Event.CATEGORY_CHOICES, 'semua_event': semua_event, 'searchStatus': searchStatus})
+    return render(request, 'index.html', {
+        'events': events,
+        'category_choices': Event.CATEGORY_CHOICES,
+        'semua_event': semua_event,
+        'searchStatus': searchStatus,
+        'selected_category': category,
+        'selected_location': location,
+        'selected_date': date,
+    })
+
+def faq(request):
+    return render(request, 'faq.html')

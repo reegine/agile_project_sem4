@@ -36,5 +36,7 @@ urlpatterns = [
     path('resend-otp/', views.resend_otp_view, name='resend_otp'),
     path('pencarian/', views.search_page, name='pencarian'),
     path('search/', views.search_events, name='search_events'),
+    path('faq/', views.faq, name='faq'), 
+
 
 ]

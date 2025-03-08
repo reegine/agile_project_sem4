@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}EventKita | FAQ{% endblock %}
+
+{% block content %}
+
+    <!-- Navigation Bar -->
+    <nav class="bg-primaryBlue border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="{% static 'logo/Logo.png' %}" class="h-8" alt="EventKita Logo" />
+      </a>
+      <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="{% static 'default_images/profile.png' %}" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+        <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <li  class="md:pt-[10]">
+            <a href="{% url 'home' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Beranda</a>
+          </li>
+          <li  class="md:pt-[10]">
+            <a href="{% url 'calendar' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Kalender</a>
+          </li>
+          <li class="md:pt-[10]">
+            <a href="{% url 'about_us' %}" class="block py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-primaryBlue dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tentang Kita</a>
+          </li>
+          
+          {% if user.id == None %}
+          {% else %}
+          <li class="md:pt-[10]">
+              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-500 rounded-sm hover:text-white hover:bg-primaryBlue md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Selengkapnya <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg></button>
+              <!-- Dropdown menu -->
+              <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                  <li>
+                      <a href="{% url 'notifikasi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notifikasi</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'saved' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tersimpan</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'riwayattransaksi' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Riwayat Transaksi</a>
+                  </li>
+                  </ul>
+              </div>
+          </li>
+          {% endif %}
+          
+          <li>
+            {% if user.id == None %}
+            <div class="card" style="cursor: pointer;" data-href="{% url 'login' %}">
+                <button type="button" class="text-white px-10 bg-transparent border-4 border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+            </div>
+            
+            {% else %}
+            <div class="card" style="cursor: pointer;" data-h ref="{% url 'profile' %}">
+                <button class="flex items-center justify-between p-2 duration-200 focus:outline-none">
+                    <div class="flex flex-col text-end me-5">
+                        <span class="text-xs font-semibold text-gray-100">{{ user.username }}</span>
+                        <span class="text-xs text-gray-400">Set up profile...</span>
+                    </div>
+                    {% if user.profile_picture %}
+                    <div class="w-7 h-7">
+                        <img src="{{ user.profile_picture.url }}" alt="User  Profile" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    {% else %}
+                    <div class="w-7 h-7">
+                        <img src="{% static 'default_images/profile.png' %}" alt="User  Profile" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    {% endif %}
+                </button>
+            </div>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section class="bg-white py-10">
+      <div class="mx-auto max-w-screen-xl justify-center px-10 min-h-[25rem]">           
+          <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">FAQ (Pertanyaan yang Sering Diajukan)</h1>
+          
+          <div class="space-y-4">
+              <div class="border-b pb-4">
+                  <h2 class="font-semibold text-lg">1. Apa itu EventKita?</h2>
+                  <p class="text-gray-600">EventKita adalah platform yang menampilkan berbagai acara yang berlangsung di BSD, Indonesia, dan memungkinkan pengguna untuk membeli tiket secara online.</p>
+              </div>
+              <div class="border-b pb-4">
+                  <h2 class="font-semibold text-lg">2. Bagaimana cara membeli tiket?</h2>
+                  <p class="text-gray-600">Anda dapat membeli tiket dengan memilih acara yang diinginkan, kemudian klik tombol "Beli Tiket" dan ikuti langkah-langkah yang ada di halaman pembelian.</p>
+              </div>
+              <div class="border-b pb-4">
+                  <h2 class="font-semibold text-lg">3. Apakah saya bisa membatalkan pembelian tiket?</h2>
+                  <p class="text-gray-600">Pembatalan tiket tergantung pada kebijakan acara. Silakan cek syarat dan ketentuan yang berlaku pada setiap acara.</p>
+              </div>
+              <div class="border-b pb-4">
+                  <h2 class="font-semibold text-lg">4. Apakah ada biaya tambahan saat membeli tiket?</h2>
+                  <p class="text-gray-600">Biaya tambahan mungkin berlaku tergantung pada metode pembayaran yang Anda pilih. Pastikan untuk memeriksa total biaya sebelum menyelesaikan pembelian.</p>
+              </div>
+              <div class="border-b pb-4">
+                  <h2 class="font-semibold text-lg">5. Bagaimana cara menghubungi customer service?</h2>
+                  <p class="text-gray-600">Anda dapat menghubungi customer service kami melalui formulir kontak di halaman "Hubungi Kami" atau melalui email yang tertera di situs kami.</p>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    {% include 'footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+   
+   
+
+</script>
+{% endblock %}
