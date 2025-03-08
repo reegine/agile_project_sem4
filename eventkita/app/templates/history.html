@@ -118,7 +118,9 @@
                         <div class="col-span-4 pl-4">
                             <h3 class="text-base font-bold">The Script Satellites World Tour</h3>
                             <p class="text-gray-600 text-sm">Alunan melodi cinta dari band favorit Anda The Script dan Hoobastank.</p>
-                            <span class="inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm">8 Jam 30 Menit</span>
+                            <span class="countdown-timer inline-block mt-2 px-3 py-1 text-orange-600 border border-orange-600 rounded-full text-sm"
+                                data-deadline="{{ event.tanggal_kegiatan.isoformat }}">
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -199,6 +201,31 @@
 </div>
 
 {% include 'footer.html' %}
+
+<script>
+    function updateCountdown() {
+        document.querySelectorAll('.countdown-timer').forEach(timer => {
+            let deadline = new Date(timer.getAttribute('data-deadline')).getTime();
+            let now = new Date().getTime();
+            let timeLeft = deadline - now;
+
+            if (timeLeft > 0) {
+                let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+                timer.textContent = `${days} Hari ${hours} Jam ${minutes} Menit`;
+            } else {
+                timer.textContent = "Sudah Berakhir";
+            }
+        });
+    }
+
+    // Run countdown every second
+    setInterval(updateCountdown, 1000);
+    updateCountdown();  // Run immediately on page load
+</script>
+
 {% endblock %}
 
 
