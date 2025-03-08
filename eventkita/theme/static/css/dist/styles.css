@@ -2544,6 +2544,10 @@ input[type="range"]::-ms-fill-lower {
   font-weight: 600;
 }
 
+.font-extralight {
+  font-weight: 200;
+}
+
 .leading-0\.4 {
   line-height: 0.4;
 }
@@ -2677,6 +2681,11 @@ input[type="range"]::-ms-fill-lower {
 .text-yellow-600 {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+}
+
+.text-orange-300 {
+  --tw-text-opacity: 1;
+  color: rgb(253 186 116 / var(--tw-text-opacity, 1));
 }
 
 .text-opacity-100 {

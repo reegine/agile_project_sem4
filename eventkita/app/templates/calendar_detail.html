@@ -142,9 +142,9 @@
                     <div class="bg-white rounded-lg shadow-lg grid grid-cols-4 mb-3">
                         <img src="{{ event.foto_event.url }}" class="rounded-md w-full h-36 col-span-2 object-cover" alt="Event">
                         <div class="p-4 col-span-2 md:col-span-2">
-                            <h3 class="font-extrabold text-primaryBlue">{{ event.judul }}</h3>
-                            <p class="text-sm text-secondaryOrange mt-3">Harga Mulai Dari:</p>
-                            <p class="text-lg text-secondaryOrange font-bold">Rp{{ event.harga }}</p>
+                            <h3 class="font-extrabold text-primaryBlue text-lg">{{ event.judul }}</h3>
+                            <!-- <p class="text-sm text-secondaryOrange mt-3">Lokasi</p> -->
+                            <p class="text-md text-gray-400">{{ event.lokasi }}</p>
                         </div>
                     </div>
                 </a>
