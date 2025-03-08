@@ -738,6 +738,22 @@ def search_events(request):
     today = timezone.now().date()
     events = events.filter(tanggal_kegiatan__gte=today)
 
+     # Get the 5 most upcoming events
+    banner_events = Event.objects.filter(tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')[:5]
+        
+    # Convert banner_events to JSON
+    recent_events_json = json.dumps([
+        {
+            "id": str(event.id),  # Convert UUID to string
+            "date": event.tanggal_kegiatan.strftime('%Y-%m-%d %H:%M:%S'),  # Format datetime
+            "image": event.foto_event.url if event.foto_event else "",  # Handle empty image field
+            "title": event.judul,  # Event title
+            "description": event.deskripsi if event.deskripsi else "No description available."  # Handle empty description
+        }
+        for event in banner_events
+    ])
+
+
     if category:
         events = events.filter(kategori__icontains=category)
     if location:
@@ -770,6 +786,8 @@ def search_events(request):
         'selected_category': category,
         'selected_location': location,
         'selected_date': date,
+        'recent_events_json': recent_events_json,
+
     })
 
 def faq(request):
