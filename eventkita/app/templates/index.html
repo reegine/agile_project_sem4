@@ -61,19 +61,20 @@
     align-items: center;
     }
 
-  #search-container {
+    #search-container {
     position: absolute; /* Menggunakan posisi fixed untuk menempatkan di atas layar */
     top: 580px;       /* Menentukan jarak dari atas layar */
     left: 50%;
     transform: translateX(-50%); /* Agar selalu di tengah layar */
-    width: 80%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 1250px;
     background: rgba(0, 0, 0, 0.6); /* transparansi */
     padding: 15px;
     border-radius: 10px;
     background-color: rgb(0, 0, 99);
     z-index: 9999;  /* Pastikan elemen ini di atas konten lain */
 }
+
 
 </style>
 {% endblock %}
@@ -240,7 +241,7 @@
  </div>
  {% endif %}
 
-<section class="px-4 mx-auto max-w-screen-xl mt-[10rem] md:mt-[1rem] lg:mt-[8rem]">
+<section class="px-4 mx-auto max-w-screen-xl mt-[10rem] md:mt-[3rem] lg:mt-[1rem]">
 
     {% if events %}
     <h1 class="text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">Hasil Pencarian</h1>
