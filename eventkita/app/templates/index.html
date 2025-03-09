@@ -400,7 +400,28 @@
 
 </div>
 
+<!-- Login Modal -->
+<div id="login-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center transition-opacity duration-300">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm text-center relative transform scale-95 transition-transform duration-300">
+        <!-- Close Button (Top Right) -->
+        <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onclick="closeModal()">
+            ✖
+        </button>
 
+        <!-- Title -->
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Login Diperlukan</h2>
+        
+        <!-- Message -->
+        <p class="text-gray-600 mb-4">Anda harus login terlebih dahulu untuk memesan tiket.</p>
+
+        <!-- Buttons -->
+        <div class="flex justify-center gap-3">
+            <a href="{% url 'login' %}" class="bg-primaryBlue w-full text-white px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">
+                Login
+            </a>
+        </div>
+    </div>
+</div>
 
 
 {% include 'footer.html' %}
@@ -486,13 +507,18 @@
         const countdownElements = document.querySelectorAll('#countdown p');
         const getTicketLink = document.getElementById('get-ticket');
         const learnMoreLink = document.getElementById('learn-more');
+        const loginModal = document.getElementById('login-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        // Fix the authentication status check
+        const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
 
         function updateBanner(event) {
             bannerElement.style.backgroundImage = `url('${event.image}')`;
             titleElement.textContent = event.title;
             descriptionElement.textContent = event.description;
-            getTicketLink.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", event.id); // Update the link with the event ID
-            learnMoreLink.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", event.id); // Update the link with the event ID
+            getTicketLink.dataset.eventId = event.id;
+            learnMoreLink.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", event.id);
             updateCountdownBanner(event.date);
         }
 
@@ -520,21 +546,38 @@
             updateBanner(events[currentEventIndex]);
         }
 
-        // Initialize with the first event
         if (events.length > 0) {
             updateBanner(events[currentEventIndex]);
         }
 
-        // Rotate banner every 5 seconds
         setInterval(rotateBanner, 5000);
-
-        // Update countdown every second
         setInterval(() => {
             if (events.length > 0) {
                 updateCountdownBanner(events[currentEventIndex].date);
             }
         }, 1000);
+
+        getTicketLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            if (!isAuthenticated) {
+                loginModal.style.display = "block";
+            } else {
+                const eventId = this.dataset.eventId;
+                window.location.href = "{% url 'detail_page' '8d4efab5-4567-7a89-bcde-0123def45678' %}".replace("8d4efab5-4567-7a89-bcde-0123def45678", eventId) + "#ticketSection";            }
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            loginModal.style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = "none";
+            }
+        });
     });
+
 
 </script>
 {% endblock %}
