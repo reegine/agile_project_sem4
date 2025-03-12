@@ -55,13 +55,13 @@
     </div>
 
     <!-- Form Subscribe -->
-    <form method="POST" action="{% url 'subscribe_newsletter' %}" onsubmit="showLoadingIndicator()"  class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md relative">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Masukkan Alamat Email..." class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0" required>
-        <button type="submit" id="join-button" class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all">
-            Join Sekarang
-        </button>
-    </form>
+<form method="POST" action="{% url 'subscribe_newsletter' %}" onsubmit="showLoadingIndicator()" class="flex bg-white px-2 py-1 rounded-full shadow-lg w-full mt-3 md:flex-row md:items-center md:max-w-md md:overflow-hidden lg:overflow-visible relative">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Masukkan Alamat Email..." class="flex-grow px-3 py-2 text-xs sm:text-sm text-gray-600 rounded-full border-none focus:outline-none focus:ring-0 md:max-w-[60%] lg:max-w-none" required>
+    <button type="submit" id="join-button" class="bg-pink-500 text-white text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-full shadow-md hover:bg-pink-600 transition-all md:text-xs md:px-3 lg:text-sm lg:px-5">
+        Join Sekarang
+    </button>
+</form>
 
     </div>
 </div>
