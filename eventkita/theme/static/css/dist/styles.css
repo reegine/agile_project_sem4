@@ -1437,6 +1437,10 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 6rem;
 }
 
+.mt-\[-5rem\] {
+  margin-top: -5rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -3156,12 +3160,16 @@ input[type="range"]::-ms-fill-lower {
     margin-top: 1.25rem;
   }
 
-  .md\:mt-\[1rem\] {
-    margin-top: 1rem;
+  .md\:mt-\[3rem\] {
+    margin-top: 3rem;
   }
 
   .md\:mt-\[5rem\] {
     margin-top: 5rem;
+  }
+
+  .md\:mt-\[-1rem\] {
+    margin-top: -1rem;
   }
 
   .md\:block {
@@ -3198,6 +3206,10 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:max-w-2xl {
     max-width: 42rem;
+  }
+
+  .md\:max-w-\[60\%\] {
+    max-width: 60%;
   }
 
   .md\:max-w-md {
@@ -3268,6 +3280,10 @@ input[type="range"]::-ms-fill-lower {
     margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
+  .md\:overflow-hidden {
+    overflow: hidden;
+  }
+
   .md\:border-0 {
     border-width: 0px;
   }
@@ -3278,6 +3294,11 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:p-0 {
     padding: 0px;
+  }
+
+  .md\:px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .md\:px-\[3rem\] {
@@ -3323,6 +3344,11 @@ input[type="range"]::-ms-fill-lower {
   .md\:text-5xl {
     font-size: 3rem;
     line-height: 1;
+  }
+
+  .md\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 
   .md\:text-white {
@@ -3378,8 +3404,8 @@ input[type="range"]::-ms-fill-lower {
     margin-top: 1rem;
   }
 
-  .lg\:mt-\[8rem\] {
-    margin-top: 8rem;
+  .lg\:mt-\[6rem\] {
+    margin-top: 6rem;
   }
 
   .lg\:flex {
@@ -3406,6 +3432,10 @@ input[type="range"]::-ms-fill-lower {
     max-width: 32rem;
   }
 
+  .lg\:max-w-none {
+    max-width: none;
+  }
+
   .lg\:max-w-xl {
     max-width: 36rem;
   }
@@ -3420,6 +3450,15 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:items-center {
     align-items: center;
+  }
+
+  .lg\:overflow-visible {
+    overflow: visible;
+  }
+
+  .lg\:px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .lg\:py-32 {
@@ -3458,6 +3497,11 @@ input[type="range"]::-ms-fill-lower {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .lg\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .lg\:text-xl {
