@@ -37,6 +37,8 @@ urlpatterns = [
     path('pencarian/', views.search_page, name='pencarian'),
     path('search/', views.search_events, name='search_events'),
     path('faq/', views.faq, name='faq'), 
+    path('selengkapnya/bigevents/', views.selengkapnya_bigevent, name='selengkapnya_bigevent'), 
+
 
 
 ]

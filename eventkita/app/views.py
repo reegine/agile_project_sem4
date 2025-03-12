@@ -145,9 +145,14 @@ def home(request):
         'workshop': upcoming_events.filter(kategori='workshop')[:4],
     }
 
+    
+    big_events = Event.objects.filter(big_event=True, tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+
+
     context = {
         'semua_event': semua_event,
         'recent_events_json': recent_events_json,
+        'big_events': big_events,  # Add big events to context
     }
     return render(request, 'index.html', context)
 
@@ -688,21 +693,46 @@ def selengkapnya(request, category):
     today = timezone.now()
     upcoming_events = Event.objects.filter(tanggal_kegiatan__gte=today, kategori=category).order_by('tanggal_kegiatan')
 
-    # Get upcoming events
-    if category == 'konser' :
+    # Set a default value for new_category
+    new_category = 'Unknown Event'  # Default value
+
+    # Assign new_category based on the category
+    if category == 'konser':
         new_category = 'Konser'
-    elif category == 'konferensi' :
+    elif category == 'konferensi':
         new_category = 'Konferensi'
-    elif category == 'bazaar' :
+    elif category == 'bazaar':
         new_category = 'Bazaar'
-    elif category == 'workshop' :
+    elif category == 'workshop':
         new_category = 'Workshop'
 
     context = {
         'semua_event': upcoming_events,
-        'category' : new_category
+        'category': new_category,
     }
     return render(request, 'selengkapnya.html', context)
+
+
+def selengkapnya_bigevent(request):
+    print("selengkapnya_bigevent function called")  # Debugging line
+    today = timezone.now()
+    print("Current date and time:", today)  # Debugging line
+
+    # Fetch big events
+    big_events = Event.objects.filter(big_event=True, tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+    print("Big events fetched:", big_events)  # Debugging line
+
+    # Set the category
+    new_category = 'Event Besar'
+    print("New category set to:", new_category)  # Debugging line
+
+    # Prepare context
+    context = {
+        'semua_event': big_events,
+        'category': new_category
+    }
+    return render(request, 'selengkapnya.html', context)
+
 
 @login_required
 def riwayattransaksi(request):
@@ -778,6 +808,8 @@ def search_events(request):
         'workshop': upcoming_events.filter(kategori='workshop')[:4],
     }
 
+    big_events = Event.objects.filter(big_event=True, tanggal_kegiatan__gte=today).order_by('tanggal_kegiatan')
+
     return render(request, 'index.html', {
         'events': events,
         'category_choices': Event.CATEGORY_CHOICES,
@@ -786,8 +818,8 @@ def search_events(request):
         'selected_category': category,
         'selected_location': location,
         'selected_date': date,
+        'big_events': big_events,
         'recent_events_json': recent_events_json,
-
     })
 
 def faq(request):

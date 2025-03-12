@@ -1417,6 +1417,10 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 2rem;
 }
 
+.mt-\[-5rem\] {
+  margin-top: -5rem;
+}
+
 .mt-\[10rem\] {
   margin-top: 10rem;
 }
@@ -1435,10 +1439,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-\[6rem\] {
   margin-top: 6rem;
-}
-
-.mt-\[-5rem\] {
-  margin-top: -5rem;
 }
 
 .line-clamp-2 {
@@ -3160,16 +3160,12 @@ input[type="range"]::-ms-fill-lower {
     margin-top: 1.25rem;
   }
 
-  .md\:mt-\[3rem\] {
-    margin-top: 3rem;
-  }
-
-  .md\:mt-\[5rem\] {
-    margin-top: 5rem;
-  }
-
   .md\:mt-\[-1rem\] {
     margin-top: -1rem;
+  }
+
+  .md\:mt-\[3rem\] {
+    margin-top: 3rem;
   }
 
   .md\:block {
@@ -3370,10 +3366,6 @@ input[type="range"]::-ms-fill-lower {
   .lg\:mx-auto {
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .lg\:-mt-10 {
-    margin-top: -2.5rem;
   }
 
   .lg\:ml-24 {
