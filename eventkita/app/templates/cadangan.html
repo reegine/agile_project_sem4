@@ -194,14 +194,14 @@
         monthYear.textContent = new Intl.DateTimeFormat('id-ID', { month: 'long', year: 'numeric' }).format(new Date(currentYear, currentMonth));
 
         for (let i = 0; i < firstDay; i++) {
-            calendar.innerHTML += `<div></div>`;
+            calendar.innerHTML += <div></div>;
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const dateStr = ${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')};
             const hasEvent = eventDates[dateStr] ? 'bg-orange-400 text-white cursor-pointer' : 'bg-gray-200';
 
-            calendar.innerHTML += `<button class="w-10 h-10 rounded-full ${hasEvent}" data-date="${dateStr}">${day}</button>`;
+            calendar.innerHTML += <button class="w-10 h-10 rounded-full ${hasEvent}" data-date="${dateStr}">${day}</button>;
         }
 
         // Tambahkan event listener setelah tombol dibuat
@@ -233,7 +233,7 @@
 
     // Fungsi redirect ke halaman detail
     function redirectToEvent(date) {
-        window.location.href = `/calendar/detail/${date}/`;
+        window.location.href = /calendar/detail/${date}/;
     }
 
     // Load calendar saat halaman pertama kali dimuat
