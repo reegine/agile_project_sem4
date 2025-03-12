@@ -39,7 +39,7 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
 # ============================
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('judul', 'kategori', 'tanggal_kegiatan', 'lokasi', 'rating', 'foto_event')
+    list_display = ('judul', 'kategori', 'tanggal_kegiatan', 'lokasi', 'rating', 'foto_event', 'big_event')
     list_filter = ('kategori', 'tanggal_kegiatan')
     search_fields = ('judul', 'deskripsi', 'lokasi')
     ordering = ('-tanggal_kegiatan',)
@@ -64,6 +64,7 @@ class EventPurchaseAdmin(admin.ModelAdmin):
     list_display = ('user', 'tiket', 'status_pembelian', 'created_at')
     list_filter = ('status_pembelian', 'created_at')
     search_fields = ('user__email', 'tiket__judul')
+    autocomplete_fields = ('user', 'tiket')
 
 # ============================
 # Admin untuk SavedEvents

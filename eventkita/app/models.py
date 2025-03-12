@@ -19,14 +19,6 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-
-class AdminMessage(models.Model):
-    subject = models.CharField(max_length=255)  # Judul pesan
-    default_message = models.TextField()  # Pesan tambahan dari admin
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.subject
     
     def create_superuser(self, email, password, **extra_fields):
         """
@@ -42,6 +34,13 @@ class AdminMessage(models.Model):
 
         return self.create_user(email, password, **extra_fields)
 
+class AdminMessage(models.Model):
+    subject = models.CharField(max_length=255)  # Judul pesan
+    default_message = models.TextField()  # Pesan tambahan dari admin
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subject
 
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True)  # Pastikan email tidak bisa duplikat
@@ -87,6 +86,11 @@ class Event(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0, blank=True, null=True)
     is_free = models.BooleanField(default=False)
     additional_info = models.TextField(blank=True, null=True)
+    big_event = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.judul
+
 
 class Tiket(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -97,6 +101,9 @@ class Tiket(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     event_terkait = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='tiket')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.judul} event {self.event_terkait}"
 
 class EventPurchase(models.Model):
     STATUS_PEMBELIAN = [
@@ -111,23 +118,26 @@ class EventPurchase(models.Model):
     tiket = models.ForeignKey(Tiket, on_delete=models.CASCADE, related_name='purchases')
     status_pembelian = models.CharField(max_length=10, choices=STATUS_PEMBELIAN)
     bukti_pembayaran = models.ImageField(upload_to='bukti_pembayaran/', blank=True, null=True)
-    # qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     jumlah_tiket = models.IntegerField(blank=True,null=True)
 
-    # def generate_qr_code(self):
-    #     qr_data = f"Order ID: {self.id}\nUser: {self.user.email}\nTiket: {self.tiket.judul}"
-    #     qr = qrcode.make(qr_data)
-    #     buffer = BytesIO()
-    #     qr.save(buffer, format="PNG")
-    #     self.qr_code.save(f"qr_{self.id}.png", ContentFile(buffer.getvalue()), save=False)
+    def __str__(self):
+        return f"{self.user} dengan tiket {self.tiket} membeli event {self.tiket.event_terkait}"
 
+    def save_model(self, request, obj, form, change):
+        if obj.status_pembelian == 'completed':
+            obj.tiket.stock -= 1 
+            obj.tiket.save()
+        super().save_model(request, obj, form, change)
 
 class SavedEvents(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='saved_events')
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='saved_by_users')
     saved_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} saved event {self.event}"
 
 # class Review(models.Model):
 #     RATING = [
@@ -176,4 +186,6 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Notif untuk {self.user.email} - {self.event.judul if self.event else 'No Event'}"
+        event_name = self.event.judul if self.event else 'No Event'
+        return f"Notif untuk {self.user.email} - {event_name}"
+
