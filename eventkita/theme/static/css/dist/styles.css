@@ -1441,6 +1441,10 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 6rem;
 }
 
+.mb-\[3rem\] {
+  margin-bottom: 3rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -1738,6 +1742,11 @@ input[type="range"]::-ms-fill-lower {
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.rotate-180 {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .scale-95 {

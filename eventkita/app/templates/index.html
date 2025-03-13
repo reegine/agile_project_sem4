@@ -435,6 +435,70 @@
 
 </div>
 
+<section class="bg-white py-10 mt-[3rem]">
+    <div class="mx-auto max-w-screen-xl justify-center px-10 min-h-[25rem] mb-[3rem]">           
+        <h1 class="text-center text-xl mb-9 font-bold leading-none tracking-tight text-primaryBlue md:text-2xl lg:text-4xl dark:text-white">FAQ (Pertanyaan yang Sering Diajukan)</h1>
+        
+        <div class="space-y-4">
+            <div class="border-b pb-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-gray-800 focus:outline-none" onclick="toggleDropdown('faq1')">
+                    <span>Apa itu EventKita?</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" id="faq1-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="faq1" class="hidden mt-2 text-gray-600">
+                    <p>EventKita adalah platform yang menampilkan berbagai acara yang berlangsung di BSD, Indonesia, dan memungkinkan pengguna untuk membeli tiket secara online.</p>
+                </div>
+            </div>
+            <div class="border-b pb-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-gray-800 focus:outline-none" onclick="toggleDropdown('faq2')">
+                    <span>Bagaimana cara membeli tiket?</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" id="faq2-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="faq2" class="hidden mt-2 text-gray-600">
+                    <p>Anda dapat membeli tiket dengan memilih acara yang diinginkan, kemudian klik tombol "Beli Tiket" dan ikuti langkah-langkah yang ada di halaman pembelian.</p>
+                </div>
+            </div>
+            <div class="border-b pb-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-gray-800 focus:outline-none" onclick="toggleDropdown('faq3')">
+                    <span>Apakah saya bisa membatalkan pembelian tiket?</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" id="faq3-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="faq3" class="hidden mt-2 text-gray-600">
+                    <p>Pembatalan tiket tidak bisa dilakukan.</p>
+                </div>
+            </div>
+            <div class="border-b pb-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-gray-800 focus:outline-none" onclick="toggleDropdown('faq4')">
+                    <span>Apakah ada biaya tambahan saat membeli tiket?</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" id="faq4-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="faq4" class="hidden mt-2 text-gray-600">
+                    <p>Biaya tambahan mungkin berlaku tergantung pada metode pembayaran yang Anda pilih. Pastikan untuk memeriksa total biaya sebelum menyelesaikan pembelian.</p>
+                </div>
+            </div>
+            <div class="border-b pb-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-lg text-gray-800 focus:outline-none" onclick="toggleDropdown('faq5')">
+                    <span>Bagaimana cara menghubungi customer service?</span>
+                    <svg class="w-5 h-5 transition-transform duration-200" id="faq5-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="faq5" class="hidden mt-2 text-gray-600">
+                    <p>Anda dapat menghubungi customer service kami melalui formulir kontak di halaman "Hubungi Kami" atau melalui email yang tertera di situs kami.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Login Modal -->
 <div id="login-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center transition-opacity duration-300">
     <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full text-center relative transform scale-95 transition-transform duration-300">
@@ -613,6 +677,13 @@
             }
         });
     });
+
+    function toggleDropdown(faqId) {
+        const content = document.getElementById(faqId);
+        const icon = document.getElementById(faqId + '-icon');
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
 
 
 </script>
