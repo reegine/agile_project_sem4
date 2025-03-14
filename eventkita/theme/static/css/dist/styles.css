@@ -1241,6 +1241,11 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 1rem;
 }
 
+.mx-\[1rem\] {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1279,6 +1284,10 @@ input[type="range"]::-ms-fill-lower {
 
 .mb-\[2rem\] {
   margin-bottom: 2rem;
+}
+
+.mb-\[3rem\] {
+  margin-bottom: 3rem;
 }
 
 .me-2\.5 {
@@ -1441,10 +1450,6 @@ input[type="range"]::-ms-fill-lower {
   margin-top: 6rem;
 }
 
-.mb-\[3rem\] {
-  margin-bottom: 3rem;
-}
-
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -1574,6 +1579,18 @@ input[type="range"]::-ms-fill-lower {
 
 .max-h-\[8rem\] {
   max-height: 8rem;
+}
+
+.max-h-\[10rem\] {
+  max-height: 10rem;
+}
+
+.max-h-\[12rem\] {
+  max-height: 12rem;
+}
+
+.max-h-\[14rem\] {
+  max-height: 14rem;
 }
 
 .min-h-\[10rem\] {
@@ -3145,6 +3162,11 @@ input[type="range"]::-ms-fill-lower {
     margin-right: auto;
   }
 
+  .md\:mx-\[2rem\] {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
   .md\:ms-2 {
     margin-inline-start: 0.5rem;
   }
@@ -3239,6 +3261,10 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-7 {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
   .md\:flex-row {

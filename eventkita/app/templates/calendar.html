@@ -122,7 +122,7 @@
     {% endif %}
 </section>
 
-<div class="max-w-xl mx-[2rem] md:max-w-xl lg:max-w-7xl  lg:mx-auto">
+<div class="max-w-xl mx-[1rem]  md:mx-[2rem] md:max-w-xl lg:max-w-7xl  lg:mx-auto">
     <h1 class="ms-[2rem] mt-20 text-3xl font-bold text-orange-500 text-start">
         BSD <span class="text-primaryBlue">Kalender Event</span>
     </h1>
@@ -153,9 +153,9 @@
     <h2 class="text-3xl font-bold mt-14 text-start text-primaryBlue mb-[2rem] px-[2rem]">Upcoming Events</h2>
 
     {% for event in upcoming_events %}
-    <div class="card bg-white rounded-lg shadow-lg grid grid-cols-7 mb-3 max-h-[8rem] mx-[2rem]" style="cursor: pointer;">
+    <div class="card bg-white rounded-lg shadow-lg grid grid-cols-3 md:grid-cols-7 mb-3 max-h-[14rem] mx-[2rem]" style="cursor: pointer;">
         <img src="{{ event.foto_event.url }}" class="rounded-md w-[100rem] max-h-[8rem] col-span-1 bg-cover object-cover" alt="Event">
-        <div class="ml-4 p-4 col-span-3 md:col-span-4">
+        <div class="ml-4 p-4 col-span-2 md:col-span-4">
             <p class="text-sm text-orange-500 font-bold">{{ event.tanggal_kegiatan|date:"d F Y" }}</p>
             <h3 class="font-bold text-primaryBlue">{{ event.judul }}</h3>
             <p class="line-clamp-2 text-gray-700 text-sm">
